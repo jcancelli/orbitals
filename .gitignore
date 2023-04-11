@@ -8,3 +8,7 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+/src/frontend/lib/wasm.mjs
+/static/shaders
+/static/wasm.wasm
+/obj
