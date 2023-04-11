@@ -1,0 +1,31 @@
+{
+	"name": "Orbitals",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"NODE_VERSION": "18",
+			"EMSDK_VERSION": "latest"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.makefile-tools",
+				"CodeReviewer14.cyber77-vscode",
+				"ecmel.vscode-html-css",
+				"svelte.svelte-vscode",
+				"bradlc.vscode-tailwindcss",
+				"ritwickdey.LiveServer",
+				"slevesque.shader"
+			],
+			"settings": {
+				"C_Cpp.default.includePath": [
+					"${default}",
+					"/emscripten/emsdk/upstream/emscripten/system/include/**"
+				],
+				"svelte.language-server.runtime": "/usr/bin/node"
+			}
+		}
+	}
+}
