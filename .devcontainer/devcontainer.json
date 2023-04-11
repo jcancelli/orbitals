@@ -23,8 +23,7 @@
 				"C_Cpp.default.includePath": [
 					"${default}",
 					"/emscripten/emsdk/upstream/emscripten/system/include/**"
-				],
-				"svelte.language-server.runtime": "/usr/bin/node"
+				]
 			}
 		}
 	}
