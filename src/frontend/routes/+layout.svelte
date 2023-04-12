@@ -11,7 +11,7 @@
 		window.addEventListener("resize", resizeViewport);
 		resizeViewport();
 
-		const wasmModule = await loadWasmModule({
+		const wasmModule: EmscriptenModule = await loadWasmModule({
 			locateFile: (path: string, prefix: string) => {
 				return path;
 			}
