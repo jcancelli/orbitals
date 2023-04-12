@@ -1,7 +1,7 @@
-import adapter from "@sveltejs/adapter-static"
-import { vitePreprocess } from "@sveltejs/kit/vite"
+import adapter from "@sveltejs/adapter-static";
+import { vitePreprocess } from "@sveltejs/kit/vite";
 
-const dev = process.argv.includes('dev');
+const dev = process.argv.includes("dev");
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -24,8 +24,7 @@ const config = {
 		paths: {
 			base: dev ? "" : "/orbitals" // for github pages
 		}
-	},
+	}
+};
 
-}
-
-export default config
+export default config;
