@@ -5,6 +5,8 @@
 	"scripts": {
 		"dev": "make && vite dev",
 		"build": "make && vite build",
+		"build-js": "vite build",
+		"build-cpp": "make",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
