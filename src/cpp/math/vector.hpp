@@ -11,7 +11,8 @@ namespace math {
 
 template <std::size_t vecSize, class T>
 class vec {
-  static_assert(std::is_arithmetic<T>::value, "Invalid parameter type");
+  static_assert(std::is_arithmetic<T>::value,
+                "Template parameter is not an arithmetic type");
   static_assert(vecSize > 0, "Invalid vector size");
 
  protected:
