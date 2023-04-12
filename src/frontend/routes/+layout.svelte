@@ -1,15 +1,15 @@
 <script lang="ts">
+	import "../app.css";
 	import Viewport from "$lib/components/Viewport.svelte";
 	import loadWasmModule from "$lib/wasm.mjs";
 	import { onMount, onDestroy } from "svelte";
-	import "../app.css";
 
 	let viewportWidth: number;
 	let viewportHeight: number;
 
 	onMount(async () => {
-		window.addEventListener("resize", onWindowResize);
-		onWindowResize(); // init viewport size
+		window.addEventListener("resize", resizeViewport);
+		resizeViewport();
 
 		const wasmModule = await loadWasmModule({
 			locateFile: (path: string, prefix: string) => {
@@ -19,10 +19,10 @@
 	});
 
 	onDestroy(() => {
-		window.removeEventListener("resize", onWindowResize);
+		window.removeEventListener("resize", resizeViewport);
 	});
 
-	function onWindowResize(): void {
+	function resizeViewport(): void {
 		viewportWidth = window.innerWidth;
 		viewportHeight = window.innerHeight;
 	}
