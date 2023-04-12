@@ -11,11 +11,13 @@
 		window.addEventListener("resize", resizeViewport);
 		resizeViewport();
 
-		const wasmModule: EmscriptenModule = await loadWasmModule({
+		const moduleOverrides: Partial<EmscriptenModule> = {
 			locateFile: (path: string, prefix: string) => {
 				return path;
 			}
-		});
+		};
+
+		const wasmModule: EmscriptenModule = await loadWasmModule(moduleOverrides);
 	});
 
 	onDestroy(() => {
