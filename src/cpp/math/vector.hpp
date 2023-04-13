@@ -33,24 +33,24 @@ class vec {
     }
   }
 
-  vec<vSize, T> operator+(vec<vecSize, T> const& other) const {
-    vec<vSize, T> result;
+  vec<vecSize, T> operator+(vec<vecSize, T> const& other) const {
+    vec<vecSize, T> result;
     for (int i = 0; i < vecSize; i++) {
       result[i] = m_Value[i] + other[i];
     }
     return result;
   }
 
-  vec<vSize, T> operator-(vec<vecSize, T> const& other) const {
-    vec<vSize, T> result;
+  vec<vecSize, T> operator-(vec<vecSize, T> const& other) const {
+    vec<vecSize, T> result;
     for (int i = 0; i < vecSize; i++) {
       result[i] = m_Value[i] - other[i];
     }
     return result;
   }
 
-  vec<vSize, T> operator*(T scalar) const {
-    vec<vSize, T> result;
+  vec<vecSize, T> operator*(T scalar) const {
+    vec<vecSize, T> result;
     for (int i = 0; i < vecSize; i++) {
       result[i] = m_Value[i] * scalar;
     }
@@ -61,8 +61,8 @@ class vec {
     return vector * scalar;
   }
 
-  vec<vSize, T> operator/(T scalar) const {
-    vec<vSize, T> result;
+  vec<vecSize, T> operator/(T scalar) const {
+    vec<vecSize, T> result;
     for (int i = 0; i < vecSize; i++) {
       result[i] = m_Value[i] / scalar;
     }
@@ -73,7 +73,7 @@ class vec {
     return vector / scalar;
   }
 
-  vec<vSize, T>& operator=(vec<vecSize, T> const& other) {
+  vec<vecSize, T>& operator=(vec<vecSize, T> const& other) {
     if (this != &other) {
       for (int i = 0; i < vecSize; i++) {
         m_Value[i] = other[i];
@@ -82,28 +82,28 @@ class vec {
     return *this;
   }
 
-  vec<vSize, T>& operator+=(vec<vecSize, T> const& other) const {
+  vec<vecSize, T>& operator+=(vec<vecSize, T> const& other) const {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] += other[i];
     }
     return *this;
   }
 
-  vec<vSize, T> operator-=(vec<vecSize, T> const& other) const {
+  vec<vecSize, T> operator-=(vec<vecSize, T> const& other) const {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] -= other[i];
     }
     return *this;
   }
 
-  vec<vSize, T> operator*=(T scalar) const {
+  vec<vecSize, T> operator*=(T scalar) const {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] *= scalar;
     }
     return *this;
   }
 
-  vec<vSize, T> operator/=(T scalar) const {
+  vec<vecSize, T> operator/=(T scalar) const {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] /= scalar;
     }
@@ -158,12 +158,14 @@ class vec {
     return result;
   }
 
-  vec<vSize, T>& normalize() {
-    *this *= inversesqrt(result.dot(result));
+  vec<vecSize, T>& normalize() {
+    *this *= inversesqrt(this->dot(*this));
     return *this;
   }
 
-  vec<vSize, T> normalized() const { return vec<vSize, T>(*this).normalize(); }
+  vec<vecSize, T> normalized() const {
+    return vec<vecSize, T>(*this).normalize();
+  }
 
   float length() const { return std::sqrt(this->dot(*this)); }
 
@@ -171,12 +173,12 @@ class vec {
     return (*this - other).length();
   }
 
-  vec<vSize, T> reflected(vec<vecSize, T> const& surfOrient) const {
+  vec<vecSize, T> reflected(vec<vecSize, T> const& surfOrient) const {
     return *this - surfOrient * surfOrient.dot(*this) * static_cast<T>(2);
   }
 
-  vec<vSize, T> refracted(vec<vecSize, T> const& surfNormal,
-                          T refrIndicesRatio) const {
+  vec<vecSize, T> refracted(vec<vecSize, T> const& surfNormal,
+                            T refrIndicesRatio) const {
     T const dotValue(surfNormal.dot(*this));
     T const k(static_cast<T>(1) -
               refrIndicesRatio * refrIndicesRatio *

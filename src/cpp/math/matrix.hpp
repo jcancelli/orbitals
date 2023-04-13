@@ -81,7 +81,7 @@ class mat {
   template <std::size_t vecSize, std::size_t matCols>
   friend vec<matCols, T> operator*(vec<vecSize, T> const& vector,
                                    mat<vecSize, matCols, T> const& matrix) {
-    vec<nCols, T> result;
+    vec<matCols, T> result;
     for (int i = 0; i < matCols; i++) {
       for (int j = 0; j < vecSize; j++) {
         result[i] += vector[j] * matrix[i][j];
