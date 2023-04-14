@@ -3,6 +3,7 @@
 	import Viewport from "$lib/components/Viewport.svelte";
 	import loadWasmModule from "$lib/wasm.mjs";
 	import { onMount, onDestroy } from "svelte";
+	import { base } from "$app/paths";
 
 	let viewportWidth: number;
 	let viewportHeight: number;
@@ -13,7 +14,7 @@
 
 		const moduleOverrides: Partial<EmscriptenModule> = {
 			locateFile: (path: string, prefix: string) => {
-				return path;
+				return base + "/" + path;
 			}
 		};
 
