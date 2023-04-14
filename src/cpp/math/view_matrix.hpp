@@ -37,8 +37,7 @@ mat<4, 4, T> perspective(T fov, T width, T height, T zNear, T zFar) {
   assert(fov > static_cast<T>(0));
 
   T const rad = fov;
-  T const h =
-      std::cos(static_cast<T>(0.5) * rad) / std::sin(static_cast<T>(0.5) * rad);
+  T const h = std::cos(static_cast<T>(0.5) * rad) / std::sin(static_cast<T>(0.5) * rad);
   T const w = h * height / width;
   mat<4, 4, T> result;
   result[0][0] = w;
