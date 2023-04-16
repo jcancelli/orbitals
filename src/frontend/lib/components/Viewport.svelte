@@ -1,9 +1,11 @@
 <script lang="ts">
 	export let height: number;
 	export let width: number;
+	export let id: string;
 </script>
 
 <canvas
+	{id}
 	{width}
 	{height}
 	style:width={width + "px"}
