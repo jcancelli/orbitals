@@ -98,7 +98,7 @@ class vec {
     return *this;
   }
 
-  vec<vecSize, T> operator*=(T scalar) const {
+  vec<vecSize, T> operator*=(T scalar) {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] *= scalar;
     }
