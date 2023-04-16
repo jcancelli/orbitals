@@ -12,7 +12,7 @@ target_link_libraries(wasm.mjs engine)
 
 install(
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/wasm.mjs
-	DESTINATION src/frontend/lib/
+	DESTINATION src/frontend/lib/wasm/
 	PERMISSIONS OWNER_READ OWNER_WRITE
 )
 install(

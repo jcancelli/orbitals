@@ -12,6 +12,6 @@ vite.config.ts.timestamp-*
 
 # C++ compilation
 /cmake-build
-/src/frontend/lib/wasm.mjs
+/src/frontend/lib/wasm/wasm.mjs
 /static/wasm.wasm
 /static/shaders
