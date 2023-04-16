@@ -4,6 +4,7 @@ add_library(engine
 	glDebug.cpp
 	IndexBuffer.cpp
 	Shader.cpp
+	VertexArray.cpp
 	VertexBuffer.cpp
 	VertexBufferLayout.cpp
 	Viewport.cpp
