@@ -4,7 +4,7 @@ add_subdirectory(math)
 add_subdirectory(util)
 add_subdirectory(engine)
 
-add_executable(wasm.mjs main.cpp)
+add_executable(wasm.mjs Orbitals.cpp)
 
 target_link_libraries(wasm.mjs math)
 target_link_libraries(wasm.mjs util)
