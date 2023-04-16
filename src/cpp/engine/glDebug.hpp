@@ -3,10 +3,10 @@
 #include <string>
 
 #ifdef DEBUG_MODE
-#define glCall(glFunc) \
-  clearGlErrors();     \
-  glFunc;              \
-  logGlErrors(__FILE__, #glFunc, __LINE__)
+#define glCall(glFunc)               \
+  orbitals::engine::clearGlErrors(); \
+  glFunc;                            \
+  orbitals::engine::logGlErrors(__FILE__, #glFunc, __LINE__)
 #else
 #define glCall(glFunc) glFunc
 #endif
