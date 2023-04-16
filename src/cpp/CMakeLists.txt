@@ -20,3 +20,7 @@ install(
 	DESTINATION static/
 	PERMISSIONS OWNER_READ OWNER_WRITE
 )
+install(
+	DIRECTORY shaders/
+	DESTINATION static/shaders/
+)
