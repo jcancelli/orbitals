@@ -31,3 +31,5 @@ USER vscode
 
 # adds emscripten to PATH
 RUN echo "export EMSDK_QUIET=1 && source /emscripten/emsdk/emsdk_env.sh && export EMSDK_QUIET=0" >> /home/vscode/.bashrc
+
+ENV CXX=/emscripten/emsdk/upstream/emscripten/em++
