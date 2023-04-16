@@ -4,7 +4,7 @@
 
 namespace engine {
 
-VertexBuffer::VertexBuffer(void const* data, GLint size, GLenum usage = GL_STATIC_DRAW) {
+VertexBuffer::VertexBuffer(void const* data, GLsizeiptr size, GLenum usage = GL_STATIC_DRAW) {
   glCall(glGenBuffers(1, &m_Id));
   glCall(glBufferData(GL_ARRAY_BUFFER, size, data, usage));
 }
