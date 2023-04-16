@@ -2,6 +2,8 @@
 
 #include <GLES3/gl3.h>
 
+namespace orbitals {
+
 namespace engine {
 
 class VertexBuffer {
@@ -17,3 +19,5 @@ class VertexBuffer {
 };
 
 }  // namespace engine
+
+}  // namespace orbitals

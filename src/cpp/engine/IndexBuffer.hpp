@@ -2,6 +2,8 @@
 
 #include <GLES3/gl3.h>
 
+namespace orbitals {
+
 namespace engine {
 
 class IndexBuffer {
@@ -17,3 +19,5 @@ class IndexBuffer {
 };
 
 }  // namespace engine
+
+}  // namespace orbitals

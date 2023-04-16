@@ -7,6 +7,8 @@
 
 #include "math.hpp"
 
+namespace orbitals {
+
 namespace math {
 
 template <std::size_t vecSize, class T>
@@ -281,4 +283,6 @@ using uivec2 = generic_vec2<unsigned int>;
 using uivec3 = generic_vec3<unsigned int>;
 using uivec4 = generic_vec4<unsigned int>;
 
-};  // namespace math
+}  // namespace math
+
+}  // namespace orbitals

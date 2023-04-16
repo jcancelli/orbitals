@@ -2,6 +2,8 @@
 
 #include "glDebug.hpp"
 
+namespace orbitals {
+
 namespace engine {
 
 VertexBuffer::VertexBuffer(void const* data, GLsizeiptr size, GLenum usage = GL_STATIC_DRAW) {
@@ -26,3 +28,5 @@ GLuint VertexBuffer::id() const {
 }
 
 }  // namespace engine
+
+}  // namespace orbitals

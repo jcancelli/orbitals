@@ -4,6 +4,8 @@
 
 #include "vector.hpp"
 
+namespace orbitals {
+
 namespace math {
 
 template <typename T>
@@ -18,4 +20,6 @@ inline T degrees(T rad) {
   return rad * static_cast<T>(57.295779513082320876798154814105);
 }
 
-};  // namespace math
+}  // namespace math
+
+}  // namespace orbitals

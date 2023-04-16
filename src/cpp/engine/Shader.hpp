@@ -7,6 +7,8 @@
 
 #include "../math/matrix.hpp"
 
+namespace orbitals {
+
 namespace engine {
 
 class Shader {
@@ -36,3 +38,5 @@ class Shader {
 };
 
 }  // namespace engine
+
+}  // namespace orbitals

@@ -11,9 +11,13 @@
 #define glCall(glFunc) glFunc
 #endif
 
+namespace orbitals {
+
 namespace engine {
 
 void clearGlErrors();
 void logGlErrors(const std::string& file, const std::string& functionCall, int lineNumber);
 
 }  // namespace engine
+
+}  // namespace orbitals

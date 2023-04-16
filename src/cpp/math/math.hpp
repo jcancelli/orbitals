@@ -3,6 +3,8 @@
 #include <cmath>
 #include <type_traits>
 
+namespace orbitals {
+
 namespace math {
 
 template <typename T>
@@ -11,4 +13,6 @@ inline T inversesqrt(T value) {
   return static_cast<T>(1) / std::sqrt(value);
 }
 
-};  // namespace math
+}  // namespace math
+
+}  // namespace orbitals

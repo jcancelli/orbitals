@@ -4,6 +4,8 @@
 
 #include "matrix.hpp"
 
+namespace orbitals {
+
 namespace math {
 
 template <typename T>
@@ -64,4 +66,6 @@ mat<4, 4, T> infinitePerspective(T fovy, T aspect, T zNear) {
   return result;
 }
 
-};  // namespace math
+}  // namespace math
+
+}  // namespace orbitals

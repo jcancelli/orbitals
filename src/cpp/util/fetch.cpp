@@ -6,6 +6,8 @@
 
 #include <iostream>
 
+namespace orbitals {
+
 namespace util {
 
 EM_ASYNC_JS(const char*, _fetch_string, (const char* url), {
@@ -45,3 +47,5 @@ FetchedBuffer* fetch_bytes(const std::string& url) {
 }
 
 }  // namespace util
+
+}  // namespace orbitals

@@ -2,6 +2,8 @@
 
 #include "glDebug.hpp"
 
+namespace orbitals {
+
 namespace engine {
 
 IndexBuffer::IndexBuffer(GLuint const* data, unsigned int count, GLenum usage = GL_STATIC_DRAW) {
@@ -26,3 +28,5 @@ GLuint IndexBuffer::id() const {
 }
 
 }  // namespace engine
+
+}  // namespace orbitals

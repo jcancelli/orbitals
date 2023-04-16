@@ -5,6 +5,10 @@
 
 #include "glDebug.hpp"
 
+namespace orbitals {
+
+namespace engine {
+
 static GLuint compileShader(char const* src, GLenum shaderType) {
   const GLuint id = glCall(glCreateShader(shaderType));
   glCall(glShaderSource(id, 1, &src, NULL));
@@ -24,7 +28,6 @@ static GLuint compileShader(char const* src, GLenum shaderType) {
   return id;
 }
 
-namespace engine {
 Shader::Shader(std::string const& vertSrc, std::string const& fragSrc) {
   m_Id = glCall(glCreateProgram());
 
@@ -143,3 +146,5 @@ GLuint Shader::getUniformLocation(std::string const& key) {
 }
 
 }  // namespace engine
+
+}  // namespace orbitals

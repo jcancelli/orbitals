@@ -5,6 +5,8 @@
 #include <cassert>
 #include <iostream>
 
+namespace orbitals {
+
 namespace engine {
 
 void clearGlErrors() {
@@ -24,3 +26,5 @@ void logGlErrors(const std::string& file, const std::string& functionCall, int l
 }
 
 }  // namespace engine
+
+}  // namespace orbitals

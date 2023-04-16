@@ -5,6 +5,8 @@
 
 #include "vector.hpp"
 
+namespace orbitals {
+
 namespace math {
 
 template <std::size_t tRows, std::size_t tCols, class T>
@@ -290,4 +292,6 @@ using uimat2 = mat<2, 2, unsigned int>;
 using uimat3 = mat<3, 3, unsigned int>;
 using uimat4 = generic_mat4<unsigned int>;
 
-};  // namespace math
+}  // namespace math
+
+}  // namespace orbitals
