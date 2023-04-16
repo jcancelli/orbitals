@@ -1,3 +1,4 @@
+# Sveltekit
 .DS_Store
 node_modules
 /build
@@ -8,7 +9,9 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# C++ compilation
+/cmake-build
 /src/frontend/lib/wasm.mjs
-/static/shaders
 /static/wasm.wasm
-/obj
+/static/shaders
