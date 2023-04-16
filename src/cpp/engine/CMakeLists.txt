@@ -5,5 +5,6 @@ add_library(engine
 	IndexBuffer.cpp
 	Shader.cpp
 	VertexBuffer.cpp
+	VertexBufferLayout.cpp
 	Viewport.cpp
 )
