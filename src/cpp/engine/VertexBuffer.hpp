@@ -9,7 +9,7 @@ class VertexBuffer {
   GLuint m_Id;
 
  public:
-  VertexBuffer(GLenum usage, void* data, GLint size);
+  VertexBuffer(void const* data, GLint size, GLenum usage);
   ~VertexBuffer();
   void bind() const;
   void unbind() const;
