@@ -1,6 +1,6 @@
 # Orbitals
 
-A simple 3D visualization of the wave function of an electron orbiting an hydrogen atom.
+A simple 3D visualizer for the wave function of an electron orbiting an hydrogen atom.
 
 Implemented with WebGL and WebAssembly (compiled from C++) and served by a Sveltekit frontend.
 
