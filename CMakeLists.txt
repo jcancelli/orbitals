@@ -10,6 +10,7 @@ add_link_options(
 	-sUSE_WEBGL2=1
 	-sMIN_WEBGL_VERSION=2
 	-sALLOW_MEMORY_GROWTH=1
+	-sENVIRONMENT=web
 	-lembind
 )
 
