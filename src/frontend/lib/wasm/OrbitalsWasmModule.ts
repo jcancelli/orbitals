@@ -2,7 +2,7 @@
 // Must be updated manually
 
 export type OrbitalsWasmModule = {
-	Orbitals: new () => Orbitals
+	Orbitals: new (viewportId: string) => Orbitals
 } & EmscriptenModule
 
 export abstract class Orbitals {
