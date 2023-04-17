@@ -10,14 +10,15 @@ class Camera {
  private:
   math::vec3 m_Position;
   math::vec3 m_Center;
+  math::vec3 m_UpVector;
   math::mat4 m_ViewMatrix;
 
  public:
   Camera();
   Camera(float x, float y, float z);
   Camera(math::vec3 const& position);
-  Camera& lookAt(float x, float y, float z, math::vec3 const& up);
-  Camera& lookAt(math::vec3 const& center, math::vec3 const& up);
+  Camera& lookAt(float x, float y, float z);
+  Camera& lookAt(math::vec3 const& center);
   Camera& translate(float x, float y, float z);
   Camera& translate(math::vec3 const& amount);
   Camera& translateX(float x);
@@ -32,7 +33,11 @@ class Camera {
   float getX() const;
   float getY() const;
   float getZ() const;
+  Camera& setUpVector(math::vec3 const& upVector);
   const math::mat4& viewMatrix() const;
+
+ private:
+  void updateViewMatrix();
 };
 
 }  // namespace engine
