@@ -21,7 +21,7 @@ static void initWebGLContext(std::string const& viewportHTMLId) {
   EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ctx =
       emscripten_webgl_create_context(htmlCanvasSelector.c_str(), &ctxAttributes);
   emscripten_webgl_make_context_current(ctx);
-  std::cout << glGetString(GL_VERSION) << std::endl;
+  std::cout << glGetString(GL_VERSION) << "\n";
   glCall(glEnable(GL_DEPTH_TEST));
 }
 

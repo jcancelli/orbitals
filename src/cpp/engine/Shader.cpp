@@ -22,7 +22,7 @@ static GLuint compileShader(char const* src, GLenum shaderType) {
     glCall(glGetShaderInfoLog(id, errorLength, NULL, errorMessage));
     std::cout << "[WebGL error] Error while compiling "
               << ((shaderType == GL_VERTEX_SHADER) ? "vertex" : "fragment")
-              << " shader: " << errorMessage << std::endl;
+              << " shader: " << errorMessage << "\n";
     assert(false);
   }
   return id;
@@ -45,7 +45,7 @@ Shader::Shader(std::string const& vertSrc, std::string const& fragSrc) {
     glCall(glGetProgramiv(m_Id, GL_INFO_LOG_LENGTH, &errorLength));
     GLchar errorMessage[errorLength];
     glCall(glGetProgramInfoLog(m_Id, errorLength, NULL, errorMessage));
-    std::cout << "[WebGL error] Error while linking shader: " << errorMessage << std::endl;
+    std::cout << "[WebGL error] Error while linking shader: " << errorMessage << "\n";
     assert(false);
   }
 }
@@ -139,7 +139,7 @@ GLuint Shader::getUniformLocation(std::string const& key) {
   if (uniformLocation == -1) {
     // If an uniform is unused (inside a shader code), it is removed.
     // Therefore glGetUniformLocation could return -1 even if the uniform is actually present.
-    std::cout << "[WebGL error] Could not find uniform \"" << key << "\" location." << std::endl;
+    std::cout << "[WebGL error] Could not find uniform \"" << key << "\" location.\n";
   }
   m_UniformLocationCache[key] = uniformLocation;
   return uniformLocation;

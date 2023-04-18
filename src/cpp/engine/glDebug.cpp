@@ -19,7 +19,7 @@ void logGlErrors(const std::string& file, const std::string& functionCall, int l
   bool noErrors = true;
   while ((errorCode = glGetError()) != GL_NO_ERROR) {
     std::cout << "[WebGL error] (" << errorCode << ") @ " << file << ":" << lineNumber << " => "
-              << functionCall << std::endl;
+              << functionCall << "\n";
     noErrors = false;
   }
   assert(noErrors);
