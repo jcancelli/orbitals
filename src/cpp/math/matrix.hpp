@@ -22,12 +22,6 @@ class mat {
   mat() {
   }
 
-  mat(T identityValue) {
-    for (int i = 0; i < tCols; i++) {
-      m_Value[i][i] = identityValue;
-    }
-  }
-
   mat(mat<tRows, tCols, T> const& other) {
     for (int i = 0; i < tCols; i++) {
       for (int j = 0; j < tRows; j++) {
@@ -196,16 +190,28 @@ class mat {
   }
 };
 
+template <class T, std::size_t tSize>
+class generic_square_mat : public mat<size, size, T> {
+  static_assert(tSize > 0, "Invalid matrix size");
+
+ public:
+  generic_square_mat(T identityValue) {
+    for (int i = 0; i < tSize; i++) {
+      m_Value[i][i] = identityValue;
+    }
+  }
+};
+
 template <class T>
-class generic_mat4 : public mat<4, 4, T> {
+class generic_mat4 : public generic_square_mat<4, T> {
  public:
   generic_mat4() {
   }
 
-  generic_mat4(T identityValue) : mat<4, 4, T>::mat(identityValue) {
+  generic_mat4(T identityValue) : generic_square_mat<4, T>::generic_square_mat(identityValue) {
   }
 
-  generic_mat4(mat<4, 4, T> const& other) : mat<4, 4, T>::mat(other) {
+  generic_mat4(mat<4, 4, T> const& other) : generic_square_mat<4, T>::generic_square_mat(other) {
   }
 
   generic_mat4<T>& translate(float x, float y, float z) {
