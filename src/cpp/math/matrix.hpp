@@ -190,14 +190,15 @@ class mat {
   }
 };
 
-template <class T, std::size_t tSize>
-class generic_square_mat : public mat<size, size, T> {
+template <std::size_t tSize, class T>
+class generic_square_mat : public mat<tSize, tSize, T> {
   static_assert(tSize > 0, "Invalid matrix size");
+  static_assert(std::is_arithmetic<T>::value, "Template parameter is not an arithmetic type");
 
  public:
   generic_square_mat(T identityValue) {
     for (int i = 0; i < tSize; i++) {
-      m_Value[i][i] = identityValue;
+      mat<tSize, tSize, T>::m_Value[i][i] = identityValue;
     }
   }
 };
