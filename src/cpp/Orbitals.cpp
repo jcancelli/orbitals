@@ -29,7 +29,8 @@ static EM_BOOL loopCycle(double time, void* userData) {
   return ((Orbitals*)userData)->cycle(time);
 }
 
-Orbitals::Orbitals(std::string const& viewportHTMLId) {
+Orbitals::Orbitals(std::string const& viewportHTMLId)
+    : m_InputEvents(EMSCRIPTEN_EVENT_TARGET_DOCUMENT) {
   initWebGLContext(viewportHTMLId);
   emscripten_request_animation_frame_loop(loopCycle, this);
 }
