@@ -26,6 +26,19 @@ struct Event {
 
   enum MouseButton : unsigned short { Left = 0, Middle = 1, Right = 2 };
 
+  enum KeyCode : unsigned long {
+    Tab = 9,
+    Enter = 13,
+    Shift = 16,
+    Control = 17,
+    Alt = 18,
+    Space = 32,
+    ArrowLeft = 37,
+    ArrowUp = 38,
+    ArrowRight = 39,
+    ArrowDown = 40
+  };
+
   Type type;
 
   union {
