@@ -30,11 +30,7 @@ vec3 cartesian(float r, float theta, float phi) {
 }
 
 vec3 cartesian(vec3 const& sphe) {
-  return vec3(                                //
-      sphe[0] * sin(sphe[2]) * cos(sphe[1]),  //
-      sphe[0] * sin(sphe[2]) * sin(sphe[1]),  //
-      sphe[0] * cos(sphe[2])                  //
-  );                                          //
+  return cartesian(sphe[0], sphe[1], sphe[2]);
 }
 
 }  // namespace math
