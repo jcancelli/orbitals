@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cassert>
 #include <cmath>
 #include <ostream>
@@ -13,11 +14,11 @@ namespace math {
 
 template <std::size_t vecSize, class T>
 class vec {
-  static_assert(std::is_arithmetic<T>::value, "Template parameter is not an arithmetic type");
-  static_assert(vecSize > 0, "Invalid vector size");
+  static_assert(vecSize > 0);
+  static_assert(std::is_arithmetic<T>::value);
 
- protected:
-  T m_Value[vecSize];
+ private:
+  std::array<T, vecSize> m_Value;
 
  public:
   vec() : m_Value{0} {
@@ -91,21 +92,21 @@ class vec {
     return *this;
   }
 
-  vec<vecSize, T> operator-=(vec<vecSize, T> const& other) const {
+  vec<vecSize, T>& operator-=(vec<vecSize, T> const& other) const {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] -= other[i];
     }
     return *this;
   }
 
-  vec<vecSize, T> operator*=(T scalar) {
+  vec<vecSize, T>& operator*=(T scalar) {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] *= scalar;
     }
     return *this;
   }
 
-  vec<vecSize, T> operator/=(T scalar) const {
+  vec<vecSize, T>& operator/=(T scalar) const {
     for (int i = 0; i < vecSize; i++) {
       m_Value[i] /= scalar;
     }
@@ -140,7 +141,11 @@ class vec {
     return m_Value[i];
   }
 
-  operator T*() const {
+  T const* data() const {
+    return &m_Value[0];
+  }
+
+  T* data() {
     return &m_Value[0];
   }
 
@@ -214,19 +219,19 @@ class generic_vec2 : public vec<2, T> {
   }
 
   T& x() {
-    return vec<2, T>::m_Value[0];
+    return (*this)[0];
   }
 
   T const& x() const {
-    return vec<2, T>::m_Value[0];
+    return (*this)[0];
   }
 
   T& y() {
-    return vec<2, T>::m_Value[1];
+    return (*this)[1];
   }
 
   T const& y() const {
-    return vec<2, T>::m_Value[1];
+    return (*this)[1];
   }
 
   void operator()(T x, T y) {
@@ -236,22 +241,6 @@ class generic_vec2 : public vec<2, T> {
 
   generic_vec2<T>& operator=(vec<2, T> const& other) {
     return vec<2, T>::operator=(other);
-  }
-
-  generic_vec2<T>& operator+=(vec<2, T> const& other) {
-    return vec<2, T>::operator+=(other);
-  }
-
-  generic_vec2<T>& operator-=(vec<2, T> const& other) {
-    return vec<2, T>::operator-=(other);
-  }
-
-  generic_vec2<T>& operator*=(vec<2, T> const& other) {
-    return vec<2, T>::operator*=(other);
-  }
-
-  generic_vec2<T>& operator/=(vec<2, T> const& other) {
-    return vec<2, T>::operator/=(other);
   }
 };
 
@@ -274,27 +263,27 @@ class generic_vec3 : public vec<3, T> {
   }
 
   T& x() {
-    return vec<3, T>::m_Value[0];
+    return (*this)[0];
   }
 
   T const& x() const {
-    return vec<3, T>::m_Value[0];
+    return (*this)[0];
   }
 
   T& y() {
-    return vec<3, T>::m_Value[1];
+    return (*this)[1];
   }
 
   T const& y() const {
-    return vec<3, T>::m_Value[1];
+    return (*this)[1];
   }
 
   T& z() {
-    return vec<3, T>::m_Value[2];
+    return (*this)[2];
   }
 
   T const& z() const {
-    return vec<3, T>::m_Value[2];
+    return (*this)[2];
   }
 
   generic_vec3<T> cross(generic_vec3<T> const& other) const {
@@ -313,22 +302,6 @@ class generic_vec3 : public vec<3, T> {
 
   generic_vec3<T>& operator=(vec<3, T> const& other) {
     return vec<3, T>::operator=(other);
-  }
-
-  generic_vec3<T>& operator+=(vec<3, T> const& other) {
-    return vec<3, T>::operator+=(other);
-  }
-
-  generic_vec3<T>& operator-=(vec<3, T> const& other) {
-    return vec<3, T>::operator-=(other);
-  }
-
-  generic_vec3<T>& operator*=(vec<3, T> const& other) {
-    return vec<3, T>::operator*=(other);
-  }
-
-  generic_vec3<T>& operator/=(vec<3, T> const& other) {
-    return vec<3, T>::operator/=(other);
   }
 };
 
@@ -352,35 +325,35 @@ class generic_vec4 : public vec<4, T> {
   }
 
   T& x() {
-    return vec<4, T>::m_Value[0];
+    return (*this)[0];
   }
 
   T const& x() const {
-    return vec<4, T>::m_Value[0];
+    return (*this)[0];
   }
 
   T& y() {
-    return vec<4, T>::m_Value[1];
+    return (*this)[1];
   }
 
   T const& y() const {
-    return vec<4, T>::m_Value[1];
+    return (*this)[1];
   }
 
   T& z() {
-    return vec<4, T>::m_Value[2];
+    return (*this)[2];
   }
 
   T const& z() const {
-    return vec<4, T>::m_Value[2];
+    return (*this)[2];
   }
 
   T& w() {
-    return vec<4, T>::m_Value[3];
+    return (*this)[3];
   }
 
   T const& w() const {
-    return vec<4, T>::m_Value[3];
+    return (*this)[3];
   }
 
   void operator()(T x, T y, T z, T w) {
@@ -392,22 +365,6 @@ class generic_vec4 : public vec<4, T> {
 
   generic_vec4<T>& operator=(vec<4, T> const& other) {
     return vec<4, T>::operator=(other);
-  }
-
-  generic_vec4<T>& operator+=(vec<4, T> const& other) {
-    return vec<4, T>::operator+=(other);
-  }
-
-  generic_vec4<T>& operator-=(vec<4, T> const& other) {
-    return vec<4, T>::operator-=(other);
-  }
-
-  generic_vec4<T>& operator*=(vec<4, T> const& other) {
-    return vec<4, T>::operator*=(other);
-  }
-
-  generic_vec4<T>& operator/=(vec<4, T> const& other) {
-    return vec<4, T>::operator/=(other);
   }
 };
 
