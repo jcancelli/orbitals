@@ -1,5 +1,17 @@
 cmake_minimum_required(VERSION 3.21)
 
+set(CMAKE_CXX_COMPILER em++)
+
+add_link_options(
+	-sFETCH
+	-sASYNCIFY
+	-sUSE_WEBGL2=1
+	-sMIN_WEBGL_VERSION=2
+	-sALLOW_MEMORY_GROWTH=1
+	-sENVIRONMENT=web
+	-lembind
+)
+
 add_subdirectory(math)
 add_subdirectory(util)
 add_subdirectory(engine)
