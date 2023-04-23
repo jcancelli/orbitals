@@ -175,11 +175,11 @@ class mat {
   }
 
   T const* data() const {
-    return &m_Value[0][0];
+    return m_Value[0].data();
   }
 
   T* data() {
-    return &m_Value[0][0];
+    return m_Value[0].data();
   }
 
   constexpr std::size_t rows() const {
