@@ -189,7 +189,7 @@ class generic_square_mat : public mat<tSize, tSize, T> {
  public:
   generic_square_mat(T identityValue) {
     for (int i = 0; i < tSize; i++) {
-      mat<tSize, tSize, T>::m_Value[i][i] = identityValue;
+      (*this)[i][i] = identityValue;
     }
   }
 };
