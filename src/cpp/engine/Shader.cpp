@@ -115,7 +115,7 @@ void Shader::setUniformMat4(std::string const& key, math::mat4 const& m) {
   if (uniformLocation == -1) {
     return;
   }
-  glCall(glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, &m[0][0]));
+  glCall(glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, m.data()));
 }
 
 void Shader::bind() const {

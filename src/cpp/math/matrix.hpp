@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cassert>
 #include <type_traits>
 
@@ -11,12 +12,12 @@ namespace math {
 
 template <std::size_t tRows, std::size_t tCols, class T>
 class mat {
-  static_assert(std::is_arithmetic<T>::value, "Template parameter is not an arithmetic type");
-  static_assert(tRows > 0, "Invalid matrix row count");
-  static_assert(tCols > 0, "Invalid matrix columns count");
+  static_assert(tRows > 0);
+  static_assert(tCols > 0);
+  static_assert(std::is_arithmetic<T>::value);
 
- protected:
-  vec<tRows, T> m_Value[tCols];  // column major
+ private:
+  std::array<vec<tRows, T>, tCols> m_Value;  // column major
 
  public:
   mat() {
@@ -78,9 +79,7 @@ class mat {
                                    mat<vecSize, matCols, T> const& matrix) {
     vec<matCols, T> result;
     for (int i = 0; i < matCols; i++) {
-      for (int j = 0; j < vecSize; j++) {
-        result[i] += vector[j] * matrix[i][j];
-      }
+      result[i] += vector * matrix[i];
     }
     return result;
   }
@@ -165,21 +164,13 @@ class mat {
     return m_Value[i];
   }
 
-  operator T*() const {
+  T const* data() const {
     return &m_Value[0][0];
   }
 
-  //   mat<tRows, tCols, T> inverted() const {
-  //     mat<tRows, tCols, T> result;
-  //     // todo
-  //     return result;
-  //   }
-
-  //   mat<tCols, tRows, T> transposed() const {
-  //     mat<tCols, tRows, T> result;
-  //     // todo
-  //     return result;
-  //   }
+  T* data() {
+    return &m_Value[0][0];
+  }
 
   constexpr std::size_t rows() const {
     return tRows;
@@ -192,8 +183,8 @@ class mat {
 
 template <std::size_t tSize, class T>
 class generic_square_mat : public mat<tSize, tSize, T> {
-  static_assert(tSize > 0, "Invalid matrix size");
-  static_assert(std::is_arithmetic<T>::value, "Template parameter is not an arithmetic type");
+  static_assert(tSize > 0);
+  static_assert(std::is_arithmetic<T>::value);
 
  public:
   generic_square_mat(T identityValue) {
