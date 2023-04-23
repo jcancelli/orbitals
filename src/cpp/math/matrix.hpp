@@ -192,6 +192,10 @@ class generic_square_mat : public mat<tSize, tSize, T> {
       (*this)[i][i] = identityValue;
     }
   }
+
+  generic_square_mat<tSize, T>& operator=(generic_square_mat<tSize, T> const& other) {
+    return mat<tSize, tSize, T>::operator=(other);
+  }
 };
 
 template <class T>
@@ -277,6 +281,10 @@ class generic_mat4 : public generic_square_mat<4, T> {
 
   generic_mat4<T> scaled(vec<3, T> const& amount) const {
     return generic_mat4<T>(*this).scale(amount);
+  }
+
+  generic_mat4<T>& operator=(generic_mat4<T> const& other) {
+    return generic_square_mat<tSize, T>::operator=(other);
   }
 };
 
