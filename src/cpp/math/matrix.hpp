@@ -154,14 +154,24 @@ class mat {
     return true;
   }
 
-  vec<tRows, T>& operator[](int i) {
-    assert(i >= 0 && i < tCols);
-    return m_Value[i];
+  vec<tRows, T>& operator[](std::size_t col) {
+    assert(col >= 0 && col < tCols);
+    return m_Value[col];
   }
 
-  vec<tRows, T> const& operator[](int i) const {
-    assert(i >= 0 && i < tCols);
-    return m_Value[i];
+  vec<tRows, T> const& operator[](std::size_t col) const {
+    assert(col >= 0 && col < tCols);
+    return m_Value[col];
+  }
+
+  vec<tRows, T>& operator()(std::size_t col, std::size_t row) {
+    assert(col >= 0 && col < tCols && row >= 0 && row < tRows);
+    return m_Value[col][row];
+  }
+
+  vec<tRows, T> const& operator()(std::size_t col, std::size_t row) const {
+    assert(col >= 0 && col < tCols && row >= 0 && row < tRows);
+    return m_Value[col][row];
   }
 
   T const* data() const {
