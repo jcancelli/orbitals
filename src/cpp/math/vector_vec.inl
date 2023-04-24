@@ -8,6 +8,7 @@ namespace math {
 
 template <std::size_t vecSize, class T>
 vec<vecSize, T>::vec() {
+  m_Value.fill(0);
 }
 
 template <std::size_t vecSize, class T>
