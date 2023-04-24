@@ -21,351 +21,108 @@ class vec {
   std::array<T, vecSize> m_Value;
 
  public:
-  vec() : m_Value{0} {
-  }
+  vec();
+  explicit vec(T initialValue);
+  vec(vec<vecSize, T> const& other);
 
-  vec(T initialValue) {
-    for (int i = 0; i < vecSize; i++) {
-      m_Value[i] = initialValue;
-    }
-  }
+  vec<vecSize, T> operator+(vec<vecSize, T> const& other) const;
+  vec<vecSize, T> operator-(vec<vecSize, T> const& other) const;
 
-  vec(vec<vecSize, T> const& other) {
-    for (int i = 0; i < vecSize; i++) {
-      m_Value[i] = other[i];
-    }
-  }
+  vec<vecSize, T>& operator=(vec<vecSize, T> const& other);
 
-  vec<vecSize, T> operator+(vec<vecSize, T> const& other) const {
-    vec<vecSize, T> result;
-    for (int i = 0; i < vecSize; i++) {
-      result[i] = m_Value[i] + other[i];
-    }
-    return result;
-  }
+  vec<vecSize, T>& operator+=(vec<vecSize, T> const& other);
+  vec<vecSize, T>& operator-=(vec<vecSize, T> const& other);
+  vec<vecSize, T>& operator*=(T scalar);
+  vec<vecSize, T>& operator/=(T scalar);
 
-  vec<vecSize, T> operator-(vec<vecSize, T> const& other) const {
-    vec<vecSize, T> result;
-    for (int i = 0; i < vecSize; i++) {
-      result[i] = m_Value[i] - other[i];
-    }
-    return result;
-  }
+  bool operator==(vec<vecSize, T> const& other) const;
+  bool operator!=(vec<vecSize, T> const& other) const;
 
-  vec<vecSize, T> operator*(T scalar) const {
-    vec<vecSize, T> result;
-    for (int i = 0; i < vecSize; i++) {
-      result[i] = m_Value[i] * scalar;
-    }
-    return result;
-  }
+  T& operator[](std::size_t i);
+  T const& operator[](std::size_t i) const;
 
-  friend vec<vecSize, T> operator*(T scalar, vec<vecSize, T> const& vector) {
-    return vector * scalar;
-  }
+  T const* data() const;
+  T* data();
 
-  vec<vecSize, T> operator/(T scalar) const {
-    vec<vecSize, T> result;
-    for (int i = 0; i < vecSize; i++) {
-      result[i] = m_Value[i] / scalar;
-    }
-    return result;
-  }
+  T dot(vec<vecSize, T> const& other) const;
 
-  friend vec<vecSize, T> operator/(T scalar, vec<vecSize, T> const& vector) {
-    return vector / scalar;
-  }
+  vec<vecSize, T>& normalize();
+  vec<vecSize, T> normalized() const;
 
-  vec<vecSize, T>& operator=(vec<vecSize, T> const& other) {
-    if (this != &other) {
-      for (int i = 0; i < vecSize; i++) {
-        m_Value[i] = other[i];
-      }
-    }
-    return *this;
-  }
+  vec<vecSize, T> reflected(vec<vecSize, T> const& surfOrient) const;
+  vec<vecSize, T> refracted(vec<vecSize, T> const& surfNormal, T refrIndicesRatio) const;
 
-  vec<vecSize, T>& operator+=(vec<vecSize, T> const& other) const {
-    for (int i = 0; i < vecSize; i++) {
-      m_Value[i] += other[i];
-    }
-    return *this;
-  }
+  float length() const;
+  float distance(vec<vecSize, T> const& other) const;
 
-  vec<vecSize, T>& operator-=(vec<vecSize, T> const& other) const {
-    for (int i = 0; i < vecSize; i++) {
-      m_Value[i] -= other[i];
-    }
-    return *this;
-  }
-
-  vec<vecSize, T>& operator*=(T scalar) {
-    for (int i = 0; i < vecSize; i++) {
-      m_Value[i] *= scalar;
-    }
-    return *this;
-  }
-
-  vec<vecSize, T>& operator/=(T scalar) const {
-    for (int i = 0; i < vecSize; i++) {
-      m_Value[i] /= scalar;
-    }
-    return *this;
-  }
-
-  bool operator==(vec<vecSize, T> const& other) const {
-    for (int i = 0; i < vecSize; i++) {
-      if (m_Value[i] != other[i]) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  bool operator!=(vec<vecSize, T> const& other) const {
-    for (int i = 0; i < vecSize; i++) {
-      if (m_Value[i] == other[i]) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  T& operator[](std::size_t i) {
-    assert(i >= 0 && i < vecSize);
-    return m_Value[i];
-  }
-
-  T const& operator[](std::size_t i) const {
-    assert(i >= 0 && i < vecSize);
-    return m_Value[i];
-  }
-
-  T const* data() const {
-    return &m_Value[0];
-  }
-
-  T* data() {
-    return &m_Value[0];
-  }
-
-  friend std::ostream& operator<<(std::ostream& os, vec<vecSize, T> const& vector) {
-    os << "{ " << vector[0];
-    for (int i = 1; i < vecSize; i++) {
-      os << ", " << vector[i];
-    }
-    os << " }";
-    return os;
-  }
-
-  T dot(vec<vecSize, T> const& other) const {
-    T result = 0;
-    for (int i = 0; i < vecSize; i++) {
-      result += m_Value[i] * other[i];
-    }
-    return result;
-  }
-
-  vec<vecSize, T>& normalize() {
-    *this *= inversesqrt(this->dot(*this));
-    return *this;
-  }
-
-  vec<vecSize, T> normalized() const {
-    return vec<vecSize, T>(*this).normalize();
-  }
-
-  float length() const {
-    return std::sqrt(this->dot(*this));
-  }
-
-  float distance(vec<vecSize, T> const& other) const {
-    return (*this - other).length();
-  }
-
-  vec<vecSize, T> reflected(vec<vecSize, T> const& surfOrient) const {
-    return *this - surfOrient * surfOrient.dot(*this) * static_cast<T>(2);
-  }
-
-  vec<vecSize, T> refracted(vec<vecSize, T> const& surfNormal, T refrIndicesRatio) const {
-    T const dotValue(surfNormal.dot(*this));
-    T const k(static_cast<T>(1) -
-              refrIndicesRatio * refrIndicesRatio * (static_cast<T>(1) - dotValue * dotValue));
-    return (k >= static_cast<T>(0)) ? (refrIndicesRatio * (*this) -
-                                       (refrIndicesRatio * dotValue + std::sqrt(k)) * surfNormal)
-                                    : vec<vecSize, T>(0);
-  }
-
-  constexpr std::size_t size() const {
-    return vecSize;
-  }
+  constexpr std::size_t size() const;
 };
+
+template <std::size_t vecSize, class T, class Scalar, class>
+inline vec<vecSize, T> operator*(vec<vecSize, T> const& vector, Scalar scalar);
+template <std::size_t vecSize, class T, class Scalar, class>
+inline vec<vecSize, T> operator*(Scalar scalar, vec<vecSize, T> const& vector);
+template <std::size_t vecSize, class T, class Scalar, class>
+inline vec<vecSize, T> operator/(vec<vecSize, T> const& vector, Scalar scalar);
+template <std::size_t vecSize, class T>
+inline std::ostream& operator<<(std::ostream& os, vec<vecSize, T> const& vector);
 
 template <class T>
 class generic_vec2 : public vec<2, T> {
  public:
-  generic_vec2() {
-  }
+  generic_vec2();
+  generic_vec2(T x, T y);
+  generic_vec2(T initialValue);
+  generic_vec2(vec<2, T> const& other);
 
-  generic_vec2(T x, T y) {
-    this->x() = x;
-    this->y() = y;
-  }
+  generic_vec2<T>& operator=(vec<2, T> const& other);
+  generic_vec2<T>& operator()(T x, T y);
 
-  generic_vec2(T initialValue) : vec<2, T>(initialValue) {
-  }
-
-  generic_vec2(vec<2, T> const& other) : vec<2, T>(other) {
-  }
-
-  T& x() {
-    return (*this)[0];
-  }
-
-  T const& x() const {
-    return (*this)[0];
-  }
-
-  T& y() {
-    return (*this)[1];
-  }
-
-  T const& y() const {
-    return (*this)[1];
-  }
-
-  void operator()(T x, T y) {
-    this->x() = x;
-    this->y() = y;
-  }
-
-  generic_vec2<T>& operator=(vec<2, T> const& other) {
-    return vec<2, T>::operator=(other);
-  }
+  T& x();
+  T const& x() const;
+  T& y();
+  T const& y() const;
 };
 
 template <class T>
 class generic_vec3 : public vec<3, T> {
  public:
-  generic_vec3() {
-  }
+  generic_vec3();
+  generic_vec3(T x, T y, T z);
+  generic_vec3(T initialValue);
+  generic_vec3(vec<3, T> const& other);
 
-  generic_vec3(T x, T y, T z) {
-    this->x() = x;
-    this->y() = y;
-    this->z() = z;
-  }
+  generic_vec3<T> cross(generic_vec3<T> const& other) const;
+  generic_vec3<T>& operator=(vec<3, T> const& other);
+  generic_vec3<T>& operator()(T x, T y, T z);
 
-  generic_vec3(T initialValue) : vec<3, T>(initialValue) {
-  }
-
-  generic_vec3(vec<3, T> const& other) : vec<3, T>(other) {
-  }
-
-  T& x() {
-    return (*this)[0];
-  }
-
-  T const& x() const {
-    return (*this)[0];
-  }
-
-  T& y() {
-    return (*this)[1];
-  }
-
-  T const& y() const {
-    return (*this)[1];
-  }
-
-  T& z() {
-    return (*this)[2];
-  }
-
-  T const& z() const {
-    return (*this)[2];
-  }
-
-  generic_vec3<T> cross(generic_vec3<T> const& other) const {
-    return generic_vec3<T>(                 //
-        y() * other.z() - other.y() * z(),  //
-        z() * other.x() - other.z() * x(),  //
-        x() * other.y() - other.x() * y()   //
-    );                                      //
-  }
-
-  void operator()(T x, T y, T z) {
-    this->x() = x;
-    this->y() = y;
-    this->z() = z;
-  }
-
-  generic_vec3<T>& operator=(vec<3, T> const& other) {
-    return vec<3, T>::operator=(other);
-  }
+  T& x();
+  T const& x() const;
+  T& y();
+  T const& y() const;
+  T& z();
+  T const& z() const;
 };
 
 template <class T>
 class generic_vec4 : public vec<4, T> {
  public:
-  generic_vec4() {
-  }
+  generic_vec4();
+  generic_vec4(T x, T y, T z, T w);
+  generic_vec4(T initialValue);
+  generic_vec4(vec<4, T> const& other);
 
-  generic_vec4(T x, T y, T z, T w) {
-    this->x() = x;
-    this->y() = y;
-    this->z() = z;
-    this->w() = w;
-  }
+  generic_vec4<T>& operator=(vec<4, T> const& other);
+  generic_vec4<T>& operator()(T x, T y, T z, T w);
 
-  generic_vec4(T initialValue) : vec<4, T>(initialValue) {
-  }
-
-  generic_vec4(vec<4, T> const& other) : vec<4, T>(other) {
-  }
-
-  T& x() {
-    return (*this)[0];
-  }
-
-  T const& x() const {
-    return (*this)[0];
-  }
-
-  T& y() {
-    return (*this)[1];
-  }
-
-  T const& y() const {
-    return (*this)[1];
-  }
-
-  T& z() {
-    return (*this)[2];
-  }
-
-  T const& z() const {
-    return (*this)[2];
-  }
-
-  T& w() {
-    return (*this)[3];
-  }
-
-  T const& w() const {
-    return (*this)[3];
-  }
-
-  void operator()(T x, T y, T z, T w) {
-    this->x() = x;
-    this->y() = y;
-    this->z() = z;
-    this->w() = w;
-  }
-
-  generic_vec4<T>& operator=(vec<4, T> const& other) {
-    return vec<4, T>::operator=(other);
-  }
+  T& x();
+  T const& x() const;
+  T& y();
+  T const& y() const;
+  T& z();
+  T const& z() const;
+  T& w();
+  T const& w() const;
 };
 
 using vec2 = generic_vec2<float>;
@@ -381,3 +138,8 @@ using uivec4 = generic_vec4<unsigned int>;
 }  // namespace math
 
 }  // namespace orbitals
+
+#include "vector_generic_vec2.inl"
+#include "vector_generic_vec3.inl"
+#include "vector_generic_vec4.inl"
+#include "vector_vec.inl"
