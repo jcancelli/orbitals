@@ -12,9 +12,7 @@ namespace math {
 
 template <std::size_t tRows, std::size_t tCols, class T>
 class mat {
-  static_assert(tRows > 0);
-  static_assert(tCols > 0);
-  static_assert(std::is_arithmetic<T>::value);
+  static_assert(std::is_arithmetic_v<T>);
 
  private:
   std::array<vec<tRows, T>, tCols> m_Value;  // column major
@@ -25,9 +23,9 @@ class mat {
 
   mat<tRows, tCols, T> operator+(mat<tRows, tCols, T> const& other) const;
   mat<tRows, tCols, T> operator-(mat<tRows, tCols, T> const& other) const;
+
   template <std::size_t otherCols>
   mat<tRows, otherCols, T> operator*(mat<tCols, otherCols, T> const& other) const;
-  mat<tRows, tCols, T> operator*(T scalar) const;
 
   mat<tRows, tCols, T>& operator=(mat<tRows, tCols, T> const& other);
   mat<tRows, tCols, T>& operator+=(mat<tRows, tCols, T> const& other);
@@ -40,8 +38,8 @@ class mat {
   vec<tRows, T>& operator[](std::size_t col);
   vec<tRows, T> const& operator[](std::size_t col) const;
 
-  vec<tRows, T>& operator()(std::size_t col, std::size_t row);
-  vec<tRows, T> const& operator()(std::size_t col, std::size_t row) const;
+  T& operator()(std::size_t col, std::size_t row);
+  T const& operator()(std::size_t col, std::size_t row) const;
 
   T const* data() const;
   T* data();
@@ -56,15 +54,24 @@ template <std::size_t vecSize, std::size_t matCols, class T>
 inline vec<matCols, T> operator*(vec<vecSize, T> const& vector,
                                  mat<vecSize, matCols, T> const& matrix);
 
+template <std::size_t tRows, std::size_t tCols, class T, class Scalar, class>
+inline mat<tRows, tCols, T> operator*(mat<tRows, tCols, T> const& matrix, Scalar scalar);
+template <std::size_t tRows, std::size_t tCols, class T, class Scalar, class>
+inline mat<tRows, tCols, T> operator*(Scalar scalar, mat<tRows, tCols, T> const& matrix);
+
+template <std::size_t tRows, std::size_t tCols, class T>
+inline std::ostream& operator<<(std::ostream& os, mat<tRows, tCols, T> const& matrix);
+
 template <std::size_t tSize, class T>
 class generic_square_mat : public mat<tSize, tSize, T> {
-  static_assert(tSize > 0);
-  static_assert(std::is_arithmetic<T>::value);
+  static_assert(std::is_arithmetic_v<T>);
 
  public:
+  generic_square_mat();
   generic_square_mat(T identityValue);
+  generic_square_mat(mat<tSize, tSize, T> const& other);
 
-  generic_square_mat<tSize, T>& operator=(generic_square_mat<tSize, T> const& other);
+  mat<tSize, tSize, T>& operator=(mat<tSize, tSize, T> const& other);
 };
 
 template <class T>
@@ -76,14 +83,15 @@ class generic_mat4 : public generic_square_mat<4, T> {
 
   generic_mat4<T>& translate(float x, float y, float z);
   generic_mat4<T>& translate(vec<3, T> const& amount);
+  generic_mat4<T> translated(float x, float y, float z) const;
   generic_mat4<T> translated(vec<3, T> const& amount) const;
-  generic_mat4<T> rotate(T angle, generic_vec3<T> const& rotationAxis);
+  generic_mat4<T>& rotate(T angle, generic_vec3<T> const& rotationAxis);
   generic_mat4<T> rotated(T angle, vec<3, T> const& rotationAxis) const;
   generic_mat4<T>& scale(float x, float y, float z);
   generic_mat4<T>& scale(vec<3, T> const& amount);
   generic_mat4<T> scaled(float x, float y, float z) const;
   generic_mat4<T> scaled(vec<3, T> const& amount) const;
-  generic_mat4<T>& operator=(generic_mat4<T> const& other);
+  mat<4, 4, T>& operator=(mat<4, 4, T> const& other);
 };
 
 using mat2 = mat<2, 2, float>;
@@ -100,4 +108,6 @@ using uimat4 = generic_mat4<unsigned int>;
 
 }  // namespace orbitals
 
-#include "matrix.inl"
+#include "matrix_generic_mat4.inl"
+#include "matrix_generic_square_mat.inl"
+#include "matrix_mat.inl"
