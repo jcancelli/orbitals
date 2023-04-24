@@ -100,7 +100,8 @@ vec<vecSize, T>& vec<vecSize, T>::operator-=(vec<vecSize, T> const& other) {
 }
 
 template <std::size_t vecSize, class T>
-vec<vecSize, T>& vec<vecSize, T>::operator*=(T scalar) {
+template <class Scalar, class>
+vec<vecSize, T>& vec<vecSize, T>::operator*=(Scalar scalar) {
   for (int i = 0; i < vecSize; i++) {
     m_Value[i] *= scalar;
   }
@@ -108,7 +109,8 @@ vec<vecSize, T>& vec<vecSize, T>::operator*=(T scalar) {
 }
 
 template <std::size_t vecSize, class T>
-vec<vecSize, T>& vec<vecSize, T>::operator/=(T scalar) {
+template <class Scalar, class>
+vec<vecSize, T>& vec<vecSize, T>::operator/=(Scalar scalar) {
   assert(scalar != 0);
   for (int i = 0; i < vecSize; i++) {
     m_Value[i] /= scalar;

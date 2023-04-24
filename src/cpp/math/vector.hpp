@@ -32,8 +32,10 @@ class vec {
 
   vec<vecSize, T>& operator+=(vec<vecSize, T> const& other);
   vec<vecSize, T>& operator-=(vec<vecSize, T> const& other);
-  vec<vecSize, T>& operator*=(T scalar);
-  vec<vecSize, T>& operator/=(T scalar);
+  template <class Scalar, class = std::enable_if_t<std::is_arithmetic_v<Scalar>>>
+  vec<vecSize, T>& operator*=(Scalar scalar);
+  template <class Scalar, class = std::enable_if_t<std::is_arithmetic_v<Scalar>>>
+  vec<vecSize, T>& operator/=(Scalar scalar);
 
   bool operator==(vec<vecSize, T> const& other) const;
   bool operator!=(vec<vecSize, T> const& other) const;
