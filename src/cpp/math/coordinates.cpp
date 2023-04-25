@@ -56,9 +56,9 @@ vec3 spherical(vec3 const& cart) {
 
 vec3 cartesian(float r, float inclination, float azimuth) {
   return vec3(                              //
-      r * cos(azimuth),                     // x
-      r * sin(azimuth) * cos(inclination),  // y
-      r * sin(azimuth) * sin(inclination)   // z
+      r * sin(inclination) * sin(azimuth),  // x
+      r * cos(inclination),                 // y
+      r * sin(inclination) * cos(azimuth)   // z
   );                                        //
 }
 
