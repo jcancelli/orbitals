@@ -9,5 +9,5 @@ target_precompile_headers(math INTERFACE
 	math.hpp
 	matrix.hpp
 	vector.hpp
-	view_matrix.hpp
+	projection_matrix.hpp
 )
