@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../doctest.h"
+#include "../test_util.hpp"
 #include "math/matrix.hpp"
 
 using namespace orbitals::math;
@@ -135,7 +136,7 @@ TEST_CASE("Testing mat4") {
       m1.translate(1, 2, 3);
       m2.translate(vec3(1, 2, 3));
       CHECK(m1 == m2);
-      CHECK(m1 * vec4(1, 2, 3, 1) == vec4(2, 4, 6, 1));
+      CHECK_VEC_EQUALS(m1 * vec4(1, 2, 3, 1), vec4(2, 4, 6, 1));
     }
     SUBCASE("translated") {
       mat4 m1(1);
@@ -148,18 +149,12 @@ TEST_CASE("Testing mat4") {
       mat4 m(1);
       m.rotate(M_PI / 2, vec3(0, 1, 0));
       vec4 rotatedVector = m * vec4(1, 0, 0, 1);
-      vec4 expectedVector(0, 0, -1, 1);
-      for (int i = 0; i < 4; i++) {
-        CHECK(rotatedVector[i] == doctest::Approx(expectedVector[i]));
-      }
+      CHECK_VEC_EQUALS(rotatedVector, vec4(0, 0, -1, 1));
     }
     SUBCASE("rotated") {
       mat4 m(1);
       vec4 rotatedVector = m.rotated(M_PI / 2, vec3(0, 1, 0)) * vec4(1, 0, 0, 1);
-      vec4 expectedVector(0, 0, -1, 1);
-      for (int i = 0; i < 4; i++) {
-        CHECK(rotatedVector[i] == doctest::Approx(expectedVector[i]));
-      }
+      CHECK_VEC_EQUALS(rotatedVector, vec4(0, 0, -1, 1));
     }
 
     SUBCASE("scale") {
@@ -168,7 +163,7 @@ TEST_CASE("Testing mat4") {
       m1.scale(1, 2, 3);
       m2.scale(vec3(1, 2, 3));
       CHECK(m1 == m2);
-      CHECK(m1 * vec4(1, 2, 3, 1) == vec4(1, 4, 9, 1));
+      CHECK_VEC_EQUALS(m1 * vec4(1, 2, 3, 1), vec4(1, 4, 9, 1));
     }
     SUBCASE("scaled") {
       mat4 m1(1);
