@@ -7,7 +7,7 @@
 		"build": "npm run build-cpp && npm run build-js",
 		"build-js": "vite build",
 		"build-cpp": "cmake --build ./cmake-build && cmake --install ./cmake-build/ --prefix .",
-		"test-cpp": "./cmake-build/test/cpp/unit_tests",
+		"test-cpp": "cd ./cmake-build && ctest",
 		"cmake-setup": "cmake -S . -B ./cmake-build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
