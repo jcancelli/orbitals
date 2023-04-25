@@ -6,6 +6,7 @@
 #include "math/matrix.hpp"
 #include "math/vector.hpp"
 
+using orbitals::math::mat;
 using orbitals::math::vec;
 
 template <std::size_t vecSize, class T>
