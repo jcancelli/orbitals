@@ -10,8 +10,9 @@ namespace math {
 /*
     zenith direction: positive y axis
     inclination: angle [0°-180°] between the positive y axis and the position vector
-    azimuth: angle [0°-180°] of rotation around the y axis. 0° is on the positive z axis, 180° is
-                on the negative z axis
+    azimuth: angle [0°-+/-180°] of rotation around the y axis. 0° is on the positive z axis, 180° is
+                on the negative z axis. +<angle> == anti-clockwise rotation. -<angle> == clockwise
+                rotation.
 */
 
 static float inclination(float x, float y, float z) {
