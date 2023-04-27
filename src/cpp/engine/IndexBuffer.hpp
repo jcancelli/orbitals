@@ -2,6 +2,8 @@
 
 #include <GLES3/gl3.h>
 
+#include <vector>
+
 namespace orbitals {
 
 namespace engine {
@@ -11,7 +13,7 @@ class IndexBuffer {
   GLuint m_Id;
 
  public:
-  IndexBuffer(GLuint const* data, unsigned int count, GLenum usage);
+  IndexBuffer(std::vector<GLuint> const& indices, GLenum usage);
   ~IndexBuffer();
   void bind() const;
   void unbind() const;
