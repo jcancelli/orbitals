@@ -3,7 +3,6 @@
 #include <GLES3/gl3.h>
 
 #include "VertexBuffer.hpp"
-#include "VertexBufferLayout.hpp"
 
 namespace orbitals {
 
@@ -14,7 +13,7 @@ class VertexArray {
   GLuint m_Id;
 
  public:
-  VertexArray(VertexBuffer const& vbo, VertexBufferLayout const& layout);
+  VertexArray(VertexBuffer const& vbo);
   ~VertexArray();
   void bind() const;
   void unbind() const;

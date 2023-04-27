@@ -6,16 +6,16 @@ namespace orbitals {
 
 namespace engine {
 
-VertexArray::VertexArray(VertexBuffer const& vbo, VertexBufferLayout const& layout) {
+VertexArray::VertexArray(VertexBuffer const& vbo) {
   glCall(glGenVertexArrays(1, &m_Id));
   bind();
-  auto const& attributes = layout.getAttributes();
+  auto const& attributes = vbo.getVertexLayout().getAttributes();
   int offset = 0;
   for (int i = 0; i < attributes.size(); i++) {
     auto const& attribute = attributes[i];
     glCall(glEnableVertexAttribArray(i));
     glCall(glVertexAttribPointer(i, attribute.count, attribute.type, attribute.normalized,
-                                 layout.stride(), (void*)offset));
+                                 vbo.getVertexLayout().stride(), (void*)offset));
     offset += attribute.size();
   }
 }

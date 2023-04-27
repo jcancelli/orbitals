@@ -8,23 +8,24 @@ namespace orbitals {
 
 namespace engine {
 
-struct VertexBufferLayoutElement {
+struct VertexAttribute {
   GLint count;
   GLenum type;
-  GLboolean normalized;
+  GLboolean normalized = GL_FALSE;
 
   GLsizei size() const;
 };
 
-class VertexBufferLayout {
+class VertexLayout {
  private:
-  std::vector<VertexBufferLayoutElement> m_Elements;
+  std::vector<VertexAttribute> m_Elements;
   GLuint m_Stride;
 
  public:
-  VertexBufferLayout();
+  VertexLayout();
+  VertexLayout(std::initializer_list<VertexAttribute> attributes);
   void addAttribute(GLint count, GLenum type, GLboolean normalized);
-  std::vector<VertexBufferLayoutElement> const& getAttributes() const;
+  std::vector<VertexAttribute> const& getAttributes() const;
   GLsizei stride() const;
 };
 

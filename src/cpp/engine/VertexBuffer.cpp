@@ -6,9 +6,11 @@ namespace orbitals {
 
 namespace engine {
 
-VertexBuffer::VertexBuffer(std::vector<Vertex> const& vertices, GLenum usage = GL_STATIC_DRAW) {
+template <class VertexT>
+VertexBuffer::VertexBuffer(std::vector<VertexT> const& vertices, GLenum usage)
+    : m_VertexLayout{VertexT::layout} {
   glCall(glGenBuffers(1, &m_Id));
-  glCall(glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), usage));
+  glCall(glBufferData(GL_ARRAY_BUFFER, sizeof(VertexT) * vertices.size(), vertices.data(), usage));
 }
 
 VertexBuffer::~VertexBuffer() {
@@ -25,6 +27,10 @@ void VertexBuffer::unbind() const {
 
 GLuint VertexBuffer::id() const {
   return m_Id;
+}
+
+VertexLayout const& VertexBuffer::getVertexLayout() const {
+  return m_VertexLayout;
 }
 
 }  // namespace engine

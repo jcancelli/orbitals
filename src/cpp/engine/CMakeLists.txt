@@ -8,6 +8,6 @@ add_library(engine
 	Shader.cpp
 	VertexArray.cpp
 	VertexBuffer.cpp
-	VertexBufferLayout.cpp
+	VertexLayout.cpp
 	Viewport.cpp
 )
