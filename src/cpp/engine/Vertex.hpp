@@ -20,7 +20,7 @@ class Vertex {
  public:
   Vertex(math::vec3 const& position, math::vec3 const& normal);
   Vertex(float x, float y, float z, float normX, float normY, float normZ);
-  VertexBufferLayout const& getVertexLayout() const;
+  static VertexBufferLayout const& getLayout();
 };
 
 inline std::ostream& operator<<(std::ostream& os, Vertex const& vertex);

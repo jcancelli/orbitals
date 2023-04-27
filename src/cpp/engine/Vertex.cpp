@@ -21,7 +21,7 @@ Vertex::Vertex(math::vec3 const& position, math::vec3 const& normal)
   s_VertexLayout.addAttribute(3, GL_FLOAT, GL_FALSE);
 }
 
-VertexBufferLayout const& Vertex::getVertexLayout() const {
+VertexBufferLayout const& Vertex::getLayout() {
   return s_VertexLayout;
 }
 
