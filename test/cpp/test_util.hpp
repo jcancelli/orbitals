@@ -28,3 +28,10 @@ inline void CHECK_MAT_EQUALS(mat<tRows, tCols, T> const& m1, mat<tRows, tCols, T
     }
   }
 }
+
+template <class T>
+inline void CHECK_COMPLEX_EQUALS(std::complex<T> const& a, std::complex<T> const& b) {
+  INFO("Comparing ", a, " == ", b);
+  CHECK(a.real() == doctest::Approx(b.real()));
+  CHECK(a.imag() == doctest::Approx(b.imag()));
+}
