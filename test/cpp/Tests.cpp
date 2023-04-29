@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include "math/SphericalHarmonics.test.hpp"
 #include "math/coordinates.test.hpp"
 #include "math/math.test.hpp"
 #include "math/matrix.test.hpp"
