@@ -1,9 +1,10 @@
 #include "SphericalHarmonics.hpp"
 
+#include <boost/math/special_functions/factorials.hpp>
 #include <boost/math/special_functions/legendre.hpp>
 #include <cmath>
 
-#include "math.hpp"
+using boost::math::factorial;
 
 namespace orbitals {
 
@@ -37,8 +38,8 @@ int SphericalHarmonics::getDegree() const {
 }
 
 void SphericalHarmonics::updateNormFactor() {
-  m_normFactor = sqrt(((2 * m_Degree + 1) / (4 * M_PI)) *
-                      (factorial(m_Degree - m_Order) / factorial(m_Degree + m_Order)));
+  m_normFactor = sqrt(((2 * m_Degree + 1) / (4 * M_PI)) * (factorial<float>(m_Degree - m_Order) /
+                                                           factorial<float>(m_Degree + m_Order)));
 }
 
 }  // namespace math

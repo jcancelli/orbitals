@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.21)
 
 add_library(math
 	coordinates.cpp
-	math.cpp
 	SphericalHarmonics.cpp
 	trigonometry.cpp
 )
