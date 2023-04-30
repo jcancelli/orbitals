@@ -6,8 +6,6 @@
 #include <ostream>
 #include <type_traits>
 
-#include "math.hpp"
-
 namespace orbitals {
 
 namespace math {

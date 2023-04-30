@@ -7,7 +7,6 @@ namespace orbitals {
 
 namespace math {
 
-float inversesqrt(float value);
 int factorial(int n);
 
 }  // namespace math

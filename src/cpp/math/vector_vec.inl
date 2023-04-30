@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/math/special_functions/rsqrt.hpp>
+
 #include "vector.hpp"
 
 namespace orbitals {
@@ -182,7 +184,7 @@ T vec<vecSize, T>::dot(vec<vecSize, T> const& other) const {
 
 template <std::size_t vecSize, class T>
 vec<vecSize, T>& vec<vecSize, T>::normalize() {
-  *this *= inversesqrt(this->dot(*this));
+  *this *= boost::math::rsqrt(this->dot(*this));
   return *this;
 }
 

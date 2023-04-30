@@ -6,11 +6,6 @@ namespace orbitals {
 
 namespace math {
 
-float inversesqrt(float value) {
-  assert(value > 0);
-  return 1.0f / std::sqrt(value);
-}
-
 int factorial(int n) {
   assert(n >= 0);
   if (n == 0) {
