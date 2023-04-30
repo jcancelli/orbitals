@@ -7,6 +7,8 @@ set(CMAKE_CXX_COMPILER em++)
 
 enable_testing()
 
+include_directories(/boost_1_82_0)
+
 add_subdirectory(./src/cpp/)
 
 if (BUILD_TESTING)

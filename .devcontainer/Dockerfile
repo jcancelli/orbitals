@@ -15,7 +15,7 @@ RUN apt-get update -y \
 	&& apt-get install -y nodejs \
 	# install emscripten dependencies
 	&& apt-get install -y git python3 cmake make \
-	# install emscripten
+	# clone emscripten repo
 	&& git clone https://github.com/emscripten-core/emsdk.git
 
 WORKDIR /emscripten/emsdk
@@ -27,9 +27,15 @@ RUN git pull \
 # edit emscripten config so that it uses the nodejs version already installed on the system
 RUN sed -i "s/^NODE_JS.*\$/NODE_JS = 'node'/" .emscripten
 
-USER vscode
+# install boost library
+WORKDIR /
+RUN wget https://boostorg.jfrog.io/artifactory/main/release/1.82.0/source/boost_1_82_0.tar.gz
+RUN tar -xvf boost_1_82_0.tar.gz \
+	&& rm boost_1_82_0.tar.gz
 
 # adds emscripten to PATH
-RUN echo "export EMSDK_QUIET=1 && source /emscripten/emsdk/emsdk_env.sh && export EMSDK_QUIET=0" >> /home/vscode/.bashrc
+USER vscode
+WORKDIR /home/vscode
+RUN echo "export EMSDK_QUIET=1 && source /emscripten/emsdk/emsdk_env.sh && export EMSDK_QUIET=0" >> .bashrc
 
 ENV CXX=/emscripten/emsdk/upstream/emscripten/em++

@@ -1,5 +1,6 @@
 #include "SphericalHarmonics.hpp"
 
+#include <boost/math/special_functions/legendre.hpp>
 #include <cmath>
 
 #include "math.hpp"
@@ -14,7 +15,7 @@ SphericalHarmonics::SphericalHarmonics(int order, int degree) : m_Order{order}, 
 
 std::complex<float> SphericalHarmonics::operator()(float theta, float phi) const {
   return m_normFactor * exp(m_Order * phi * std::complex<float>(0, 1)) *
-         assocLegendre(m_Degree, m_Order, cosf(theta));
+         boost::math::legendre_p(m_Degree, m_Order, cosf(theta));
 }
 
 void SphericalHarmonics::setOrder(int order) {
