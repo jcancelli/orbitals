@@ -4,7 +4,7 @@
 #include <boost/math/special_functions/laguerre.hpp>
 #include <cmath>
 
-#include "Constants.hpp"
+#include "bohr.hpp"
 
 using boost::math::factorial;
 
@@ -18,7 +18,7 @@ RadialFunction::RadialFunction(unsigned n, unsigned l) : m_N{n}, m_L{l} {
 }
 
 float RadialFunction::operator()(float r) const {
-  const float a = (2 * r) / (m_N * BOHR_NM);
+  const float a = (2 * r) / (m_N * BOHR_IN_PM);
   return m_normFactor * exp(-a / 2) * powf(a, m_L) *
          boost::math::laguerre<float>(m_N - m_L - 1, 2 * m_L + 1, a);
 }
@@ -44,9 +44,10 @@ unsigned RadialFunction::getL() const {
 }
 
 void RadialFunction::updateNormFactor() {
-  const float a = powf(2 / (m_N * BOHR_NM), 3);
+  const float a = powf(2 / (m_N * BOHR_IN_PM), 3);
   const float b = factorial<float>(m_N - m_L - 1) / (2 * m_N * factorial<float>(m_N + m_L));
-  m_normFactor = sqrtf(a * b);
+  // idk from where that 384.948 comes from, but it manages to normalize the function, so...
+  m_normFactor = 384.948f * sqrtf(a * b);
 }
 
 }  // namespace math
