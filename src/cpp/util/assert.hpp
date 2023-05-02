@@ -6,5 +6,5 @@
   if (!(condition)) {                                                                        \
     std::cerr << "----------\n[Failed assert]\nFile: " << __FILE__ << "\nLine: " << __LINE__ \
               << "\nMessage: " << message << "\n----------\n";                               \
-    assert(false);                                                                           \
+    assert(condition);                                                                       \
   }
