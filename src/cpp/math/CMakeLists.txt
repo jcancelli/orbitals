@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.21)
 add_library(math
 	coordinates.cpp
 	RadialFunction.cpp
-	SphericalHarmonics.cpp
+	spherical_harmonics.cpp
 	trigonometry.cpp
 )
 

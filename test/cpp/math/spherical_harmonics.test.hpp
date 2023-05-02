@@ -4,7 +4,7 @@
 
 #include "../doctest.h"
 #include "../test_util.hpp"
-#include "math/SphericalHarmonics.hpp"
+#include "math/spherical_harmonics.hpp"
 
 using namespace orbitals::math;
 
