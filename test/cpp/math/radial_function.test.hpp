@@ -4,8 +4,8 @@
 #include <cmath>
 
 #include "../doctest.h"
-#include "math/RadialFunction.hpp"
 #include "math/bohr.hpp"
+#include "math/radial_function.hpp"
 
 using namespace orbitals::math;
 
