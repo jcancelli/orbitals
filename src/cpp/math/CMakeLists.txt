@@ -7,6 +7,7 @@ add_library(math
 )
 
 target_precompile_headers(math INTERFACE
+	bohr.hpp
 	matrix.hpp
 	vector.hpp
 	projection_matrix.hpp
