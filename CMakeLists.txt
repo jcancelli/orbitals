@@ -10,7 +10,7 @@ set(BOOST_ROOT /boost_1_82_0)
 find_package(Boost 1.82.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-enable_testing()
+include(CTest)
 
 add_subdirectory(./src/cpp/)
 
