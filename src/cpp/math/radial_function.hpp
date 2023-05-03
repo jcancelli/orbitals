@@ -13,6 +13,7 @@ class RadialFunction {
   float m_Value;
 
  public:
+  RadialFunction();
   RadialFunction(unsigned n, unsigned l);
   float operator()() const;
   float operator()(float r);

@@ -12,6 +12,11 @@ namespace orbitals {
 
 namespace math {
 
+RadialFunction::RadialFunction() : m_N{1}, m_L{0}, m_R{0} {
+  updateNormFactor();
+  updateValue();
+}
+
 RadialFunction::RadialFunction(unsigned n, unsigned l) : m_N{n}, m_L{l}, m_R{0} {
   assert(l < n && n > 0);
   updateNormFactor();
