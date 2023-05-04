@@ -8,21 +8,21 @@ class RadialFunction {
  private:
   unsigned m_N;
   unsigned m_L;
-  float m_R;
-  float m_normFactor;
-  float m_Value;
+  double m_R;
+  double m_normFactor;
+  double m_Value;
 
  public:
   RadialFunction();
   RadialFunction(unsigned n, unsigned l);
-  float operator()() const;
-  float operator()(float r);
+  double operator()() const;
+  double operator()(double r);
   void setN(unsigned n);
   void setL(unsigned l);
-  void setR(float r);
+  void setR(double r);
   unsigned getN() const;
   unsigned getL() const;
-  float getR() const;
+  double getR() const;
 
  private:
   void updateValue();
