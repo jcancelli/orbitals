@@ -8,8 +8,8 @@ namespace orbitals {
 
 namespace math {
 
-float radians(float deg);
-float degrees(float rad);
+double radians(double deg);
+double degrees(double rad);
 
 }  // namespace math
 

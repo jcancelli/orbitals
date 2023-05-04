@@ -4,11 +4,11 @@ namespace orbitals {
 
 namespace math {
 
-float radians(float deg) {
+double radians(double deg) {
   return deg * 0.01745329251994329576923690768489;
 }
 
-float degrees(float rad) {
+double degrees(double rad) {
   return rad * 57.295779513082320876798154814105;
 }
 
