@@ -6,6 +6,7 @@
 #include "../doctest.h"
 #include "../test_util.hpp"
 #include "math/spherical_harmonics.hpp"
+#include "math/trigonometry.hpp"
 
 using namespace orbitals::math;
 using namespace std::string_literals;
