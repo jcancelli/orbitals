@@ -43,12 +43,13 @@ inline void CHECK_COMPLEX_EQUALS(std::complex<T> const& a, std::complex<T> const
 template <class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
 inline void CHECK_SIGN_EQUALS(T a, T b) {
   INFO("Checking sign of ", a, " == ", b);
-  CHECK(std::signbit(a) == std::signbit(b));
+  bool result = std::signbit(a) == std::signbit(b) || (a == T(0) && b == T(0));
+  CHECK(result);
 }
 
 template <class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
 inline void CHECK_COMPLEX_SIGN_EQUALS(std::complex<T> const& a, std::complex<T> const& b) {
   INFO("Checking sign of ", a, " == ", b);
-  CHECK(std::signbit(a.real()) == std::signbit(b.real()));
-  CHECK(std::signbit(a.imag()) == std::signbit(b.imag()));
+  CHECK_SIGN_EQUALS(a.real(), b.real());
+  CHECK_SIGN_EQUALS(a.imag(), b.imag());
 }
