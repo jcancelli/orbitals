@@ -39,3 +39,16 @@ inline void CHECK_COMPLEX_EQUALS(std::complex<T> const& a, std::complex<T> const
   CHECK(a.real() == doctest::Approx(b.real()).epsilon(epsilon));
   CHECK(a.imag() == doctest::Approx(b.imag()).epsilon(epsilon));
 }
+
+template <class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
+inline void CHECK_SIGN_EQUALS(T a, T b) {
+  INFO("Checking sign of ", a, " == ", b);
+  CHECK(std::signbit(a) == std::signbit(b));
+}
+
+template <class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
+inline void CHECK_COMPLEX_SIGN_EQUALS(std::complex<T> const& a, std::complex<T> const& b) {
+  INFO("Checking sign of ", a, " == ", b);
+  CHECK(std::signbit(a.real()) == std::signbit(b.real()));
+  CHECK(std::signbit(a.imag()) == std::signbit(b.imag()));
+}

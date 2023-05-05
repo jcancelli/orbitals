@@ -17,11 +17,11 @@ SphericalHarmonics::SphericalHarmonics(int order, int degree)
   updatePhiFuncValue();
 }
 
-std::complex<float> SphericalHarmonics::operator()() const {
+std::complex<double> SphericalHarmonics::operator()() const {
   return m_Value;
 }
 
-std::complex<float> SphericalHarmonics::operator()(float theta, float phi) {
+std::complex<double> SphericalHarmonics::operator()(double theta, double phi) {
   if (theta != m_Theta) {
     setTheta(theta);
   }
@@ -45,12 +45,12 @@ void SphericalHarmonics::setDegree(int degree) {
   updatePhiFuncValue();
 }
 
-void SphericalHarmonics::setTheta(float theta) {
+void SphericalHarmonics::setTheta(double theta) {
   m_Theta = theta;
   updateThetaFuncValue();
 }
 
-void SphericalHarmonics::setPhi(float phi) {
+void SphericalHarmonics::setPhi(double phi) {
   m_Phi = phi;
   updatePhiFuncValue();
 }
@@ -63,11 +63,11 @@ int SphericalHarmonics::getDegree() const {
   return m_Degree;
 }
 
-float SphericalHarmonics::getTheta() const {
+double SphericalHarmonics::getTheta() const {
   return m_Theta;
 }
 
-float SphericalHarmonics::getPhi() const {
+double SphericalHarmonics::getPhi() const {
   return m_Phi;
 }
 
@@ -76,18 +76,19 @@ void SphericalHarmonics::updateValue() {
 }
 
 void SphericalHarmonics::updateNormFactor() {
-  m_normFactor = sqrt(((2 * m_Degree + 1) / (4 * M_PI)) * (factorial<float>(m_Degree - m_Order) /
-                                                           factorial<float>(m_Degree + m_Order)));
+  m_normFactor =
+      sqrt(((2. * m_Degree + 1.) / (4. * M_PI)) *
+           (factorial<double>(m_Degree - m_Order) / factorial<double>(m_Degree + m_Order)));
   updateValue();
 }
 
 void SphericalHarmonics::updateThetaFuncValue() {
-  m_ThetaFuncValue = boost::math::legendre_p<float>(m_Degree, m_Order, cosf(m_Theta));
+  m_ThetaFuncValue = boost::math::legendre_p<double>(m_Degree, m_Order, cos(m_Theta));
   updateValue();
 }
 
 void SphericalHarmonics::updatePhiFuncValue() {
-  m_PhiFuncValue = exp(m_Order * m_Phi * std::complex<float>(0, 1));
+  m_PhiFuncValue = exp(m_Order * m_Phi * std::complex<double>(0, 1));
   updateValue();
 }
 

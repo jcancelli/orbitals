@@ -8,27 +8,27 @@ namespace math {
 
 class SphericalHarmonics {
  private:
-  std::complex<float> m_Value;
+  std::complex<double> m_Value;
   int m_Order;
   int m_Degree;
-  float m_Theta;
-  float m_Phi;
-  float m_normFactor;
-  float m_ThetaFuncValue;
-  std::complex<float> m_PhiFuncValue;
+  double m_Theta;
+  double m_Phi;
+  double m_normFactor;
+  double m_ThetaFuncValue;
+  std::complex<double> m_PhiFuncValue;
 
  public:
   SphericalHarmonics(int order = 0, int degree = 0);
-  std::complex<float> operator()() const;
-  std::complex<float> operator()(float theta, float phi);
+  std::complex<double> operator()() const;
+  std::complex<double> operator()(double theta, double phi);
   void setOrder(int order);
   void setDegree(int degree);
-  void setTheta(float theta);
-  void setPhi(float phi);
+  void setTheta(double theta);
+  void setPhi(double phi);
   int getOrder() const;
   int getDegree() const;
-  float getTheta() const;
-  float getPhi() const;
+  double getTheta() const;
+  double getPhi() const;
 
  private:
   void updateValue();
