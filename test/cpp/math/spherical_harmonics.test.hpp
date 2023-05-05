@@ -16,15 +16,14 @@ using std::complex;
 TEST_CASE("Testing spherical harmonics") {
   SphericalHarmonics Y;
 
-  const complex<float> i(0, 1);
+  const complex<double> i(0, 1);
 
-  // l: degree
-  // m: order
-
-  for (float theta = 0; theta <= M_PI + .00001f; theta += radians(45)) {
+  for (int degTheta = 0; degTheta < 180; degTheta += 44) {
+    const double theta = radians(degTheta);
     Y.setTheta(theta);
     SUBCASE(("theta: "s + std::to_string(degrees(theta)) + "°").c_str()) {
-      for (float phi = 0; phi <= M_PI * 2 + .00001f; phi += radians(45)) {
+      for (int degPhi = 0; degPhi <= 360; degPhi += 45) {
+        const double phi = radians(degPhi);
         Y.setPhi(phi);
         SUBCASE(("phi: "s + std::to_string(degrees(phi)) + "°").c_str()) {
           SUBCASE("l (degree): 0") {
@@ -32,8 +31,9 @@ TEST_CASE("Testing spherical harmonics") {
 
             SUBCASE("m (order): 0") {
               Y.setOrder(0);
-              const complex<float> expected = 0.5f * sqrtf(1 / M_PI);
+              const complex<double> expected = 0.5 * sqrt(1 / M_PI);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
           }
 
@@ -42,22 +42,25 @@ TEST_CASE("Testing spherical harmonics") {
 
             SUBCASE("m (order): -1") {
               Y.setOrder(-1);
-              const complex<float> expected =
-                  0.5f * sqrtf(3 / (2 * M_PI)) * exp(-i * phi) * sinf(theta);
+              const complex<double> expected =
+                  0.5 * sqrt(3 / (2 * M_PI)) * exp(-i * phi) * sin(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 0") {
               Y.setOrder(0);
-              const complex<float> expected = 0.5f * sqrtf(3 / M_PI) * cosf(theta);
+              const complex<double> expected = 0.5 * sqrt(3 / M_PI) * cos(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 1") {
               Y.setOrder(1);
-              const complex<float> expected =
-                  -0.5f * sqrtf(3 / (2 * M_PI)) * exp(i * phi) * sinf(theta);
+              const complex<double> expected =
+                  -0.5 * sqrt(3 / (2 * M_PI)) * exp(i * phi) * sin(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
           }
 
@@ -66,37 +69,43 @@ TEST_CASE("Testing spherical harmonics") {
 
             SUBCASE("m (order): -2") {
               Y.setOrder(-2);
-              const complex<float> expected =
-                  0.25f * sqrtf(15 / (2 * M_PI)) * exp(-i * 2.f * phi) * powf(sinf(theta), 2);
+              const complex<double> expected =
+                  0.25 * sqrt(15 / (2 * M_PI)) * exp(-i * 2. * phi) * pow(sin(theta), 2);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): -1") {
               Y.setOrder(-1);
-              const complex<float> expected =
-                  0.5f * sqrtf(15 / (2 * M_PI)) * exp(-i * phi) * sinf(theta) * cosf(theta);
+              const complex<double> expected =
+                  0.5f * sqrt(15 / (2 * M_PI)) * exp(-i * phi) * sin(theta) * cos(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 0") {
               Y.setOrder(0);
-              const complex<float> expected =
-                  0.25f * sqrtf(5 / M_PI) * (3 * powf(cosf(theta), 2) - 1);
+              const complex<double> expected =
+                  0.25f * sqrt(5 / M_PI) * (3 * pow(cos(theta), 2) - 1);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 1") {
               Y.setOrder(1);
-              const complex<float> expected =
-                  -0.5f * sqrtf(15 / (2 * M_PI)) * exp(i * phi) * sinf(theta) * cosf(theta);
+              const complex<double> expected =
+                  -0.5 * sqrt(15 / (2 * M_PI)) * exp(i * phi) * sin(theta) * cos(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 2") {
               Y.setOrder(2);
-              const complex<float> expected =
-                  0.25f * sqrtf(15 / (2 * M_PI)) * exp(i * 2.f * phi) * powf(sinf(theta), 2);
+              const complex<double> expected =
+                  0.25 * sqrt(15 / (2 * M_PI)) * exp(i * 2. * phi) * pow(sin(theta), 2);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
           }
 
@@ -105,52 +114,58 @@ TEST_CASE("Testing spherical harmonics") {
 
             SUBCASE("m (order): -3") {
               Y.setOrder(-3);
-              const complex<float> expected =
-                  0.125f * sqrtf(35 / M_PI) * exp(-i * 3.f * phi) * powf(sinf(theta), 3);
+              const complex<double> expected =
+                  0.125 * sqrt(35 / M_PI) * exp(-i * 3. * phi) * pow(sin(theta), 3);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): -2") {
               Y.setOrder(-2);
-              const complex<float> expected = 0.25f * sqrtf(105 / (2 * M_PI)) *
-                                              exp(-i * 2.f * phi) * powf(sinf(theta), 2) *
-                                              cosf(theta);
+              const complex<double> expected = 0.25 * sqrt(105 / (2 * M_PI)) * exp(-i * 2. * phi) *
+                                               pow(sin(theta), 2) * cos(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): -1") {
               Y.setOrder(-1);
-              const complex<float> expected = 0.125f * sqrtf(21 / M_PI) * exp(-i * phi) *
-                                              sinf(theta) * (5 * powf(cosf(theta), 2) - 1);
+              const complex<double> expected = 0.125 * sqrt(21 / M_PI) * exp(-i * phi) *
+                                               sin(theta) * (5 * pow(cos(theta), 2) - 1);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 0") {
               Y.setOrder(0);
-              const complex<float> expected =
-                  0.25f * sqrtf(7 / M_PI) * ((5 * powf(cosf(theta), 3)) - (3 * cosf(theta)));
+              const complex<double> expected =
+                  0.25 * sqrt(7 / M_PI) * ((5 * pow(cos(theta), 3)) - (3 * cos(theta)));
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 1") {
               Y.setOrder(1);
-              const complex<float> expected = -0.125f * sqrtf(21 / M_PI) * exp(i * phi) *
-                                              sinf(theta) * (5 * powf(cosf(theta), 2) - 1);
+              const complex<double> expected = -0.125 * sqrt(21 / M_PI) * exp(i * phi) *
+                                               sin(theta) * (5 * pow(cos(theta), 2) - 1);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 2") {
               Y.setOrder(2);
-              const complex<float> expected = 0.25f * sqrtf(105 / (2 * M_PI)) * exp(i * 2.f * phi) *
-                                              powf(sinf(theta), 2) * cosf(theta);
+              const complex<double> expected = 0.25 * sqrt(105 / (2 * M_PI)) * exp(i * 2. * phi) *
+                                               pow(sin(theta), 2) * cos(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 3") {
               Y.setOrder(3);
-              const complex<float> expected =
-                  -0.125f * sqrtf(35 / M_PI) * exp(i * 3.f * phi) * powf(sinf(theta), 3);
+              const complex<double> expected =
+                  -0.125 * sqrt(35 / M_PI) * exp(i * 3. * phi) * pow(sin(theta), 3);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
           }
 
@@ -159,70 +174,79 @@ TEST_CASE("Testing spherical harmonics") {
 
             SUBCASE("m (order): -4") {
               Y.setOrder(-4);
-              const complex<float> expected = (3.f / 16.f) * sqrtf(35 / (2 * M_PI)) *
-                                              exp(-i * 4.f * phi) * powf(sinf(theta), 4);
+              const complex<double> expected =
+                  (3. / 16.) * sqrt(35 / (2 * M_PI)) * exp(-i * 4. * phi) * pow(sin(theta), 4);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): -3") {
               Y.setOrder(-3);
-              const complex<float> expected = (3.f / 8.f) * sqrtf(35 / M_PI) * exp(-i * 3.f * phi) *
-                                              powf(sinf(theta), 3) * cosf(theta);
+              const complex<double> expected = (3. / 8.) * sqrt(35 / M_PI) * exp(-i * 3. * phi) *
+                                               pow(sin(theta), 3) * cos(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): -2") {
               Y.setOrder(-2);
-              const complex<float> expected = (3.f / 8.f) * sqrtf(5 / (2 * M_PI)) *
-                                              exp(-i * 2.f * phi) * powf(sinf(theta), 2) *
-                                              (7 * powf(cosf(theta), 2) - 1);
+              const complex<double> expected = (3. / 8.) * sqrt(5 / (2 * M_PI)) *
+                                               exp(-i * 2. * phi) * pow(sin(theta), 2) *
+                                               (7 * pow(cos(theta), 2) - 1);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): -1") {
               Y.setOrder(-1);
-              const complex<float> expected = (3.f / 8.f) * sqrtf(5 / M_PI) * exp(-i * phi) *
-                                              sinf(theta) *
-                                              ((7 * powf(cosf(theta), 3)) - (3 * cosf(theta)));
+              const complex<double> expected = (3. / 8.) * sqrt(5 / M_PI) * exp(-i * phi) *
+                                               sin(theta) *
+                                               ((7 * pow(cos(theta), 3)) - (3 * cos(theta)));
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 0") {
               Y.setOrder(0);
-              const complex<float> expected =
-                  (3.f / 16.f) * sqrtf(1 / M_PI) *
-                  ((35 * powf(cosf(theta), 4)) - (30 * powf(cosf(theta), 2)) + 3);
+              const complex<double> expected =
+                  (3. / 16.) * sqrt(1 / M_PI) *
+                  ((35 * pow(cos(theta), 4)) - (30 * pow(cos(theta), 2)) + 3);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 1") {
               Y.setOrder(1);
-              const complex<float> expected = (-3.f / 8.f) * sqrtf(5 / M_PI) * exp(i * phi) *
-                                              sinf(theta) *
-                                              ((7 * powf(cosf(theta), 3)) - (3 * cosf(theta)));
+              const complex<double> expected = (-3. / 8.) * sqrt(5 / M_PI) * exp(i * phi) *
+                                               sin(theta) *
+                                               ((7 * pow(cos(theta), 3)) - (3 * cos(theta)));
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 2") {
               Y.setOrder(2);
-              const complex<float> expected = (3.f / 8.f) * sqrtf(5 / (2 * M_PI)) *
-                                              exp(i * 2.f * phi) * powf(sinf(theta), 2) *
-                                              (7 * powf(cosf(theta), 2) - 1);
+              const complex<double> expected = (3. / 8.) * sqrt(5 / (2 * M_PI)) *
+                                               exp(i * 2. * phi) * pow(sin(theta), 2) *
+                                               (7 * pow(cos(theta), 2) - 1);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 3") {
               Y.setOrder(3);
-              const complex<float> expected = (-3.f / 8.f) * sqrtf(35 / M_PI) * exp(i * 3.f * phi) *
-                                              powf(sinf(theta), 3) * cosf(theta);
+              const complex<double> expected = (-3. / 8.) * sqrt(35 / M_PI) * exp(i * 3. * phi) *
+                                               pow(sin(theta), 3) * cos(theta);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
 
             SUBCASE("m (order): 4") {
               Y.setOrder(4);
-              const complex<float> expected =
-                  (3.f / 16.f) * sqrtf(35 / (2 * M_PI)) * exp(i * 4.f * phi) * powf(sinf(theta), 4);
+              const complex<double> expected =
+                  (3. / 16.) * sqrt(35 / (2 * M_PI)) * exp(i * 4. * phi) * pow(sin(theta), 4);
               CHECK_COMPLEX_EQUALS(Y(), expected);
+              CHECK_COMPLEX_SIGN_EQUALS(Y(), expected);
             }
           }
         }
