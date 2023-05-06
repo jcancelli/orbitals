@@ -6,7 +6,7 @@ namespace engine {
 
 class Drawable {
  public:
-  virtual void draw(){};
+  virtual void draw() const {};
 };
 
 }  // namespace engine
