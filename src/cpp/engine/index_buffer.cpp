@@ -1,4 +1,4 @@
-#include "IndexBuffer.hpp"
+#include "index_buffer.hpp"
 
 #include <cassert>
 
