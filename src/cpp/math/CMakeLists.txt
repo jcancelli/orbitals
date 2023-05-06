@@ -5,6 +5,7 @@ add_library(math
 	radial_function.cpp
 	spherical_harmonics.cpp
 	trigonometry.cpp
+	wave_function.cpp
 )
 
 target_precompile_headers(math INTERFACE
