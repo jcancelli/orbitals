@@ -15,10 +15,9 @@ UniformBuffer<T>::UniformBuffer(std::vector<T> const& data, GLenum usage)
 
 template <class T>
 void UniformBuffer<T>::write(std::vector<T> const& data, unsigned to) {
-  const GLsizeiptr dataSize = data.size() * sizeof(T);
-  assert(to + dataSize <= size());
+  assert(to + data.size() <= m_Count);
   bind();
-  glCall(glBufferSubData(GL_UNIFORM_BUFFER, to, dataSize, data.data()));
+  glCall(glBufferSubData(GL_UNIFORM_BUFFER, to * sizeof(T), data.size() * sizeof(T), data.data()));
   unbind();
 }
 template <class T>
