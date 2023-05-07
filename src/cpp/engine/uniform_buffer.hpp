@@ -18,6 +18,7 @@ class UniformBuffer : public Buffer {
  public:
   UniformBuffer(std::vector<T> const& data, GLenum usage = GL_DYNAMIC_DRAW);
   void write(std::vector<T> const& data, unsigned to = 0);
+  void write(T const& data, unsigned to = 0);
   unsigned count() const;
   std::size_t size() const;
 };
