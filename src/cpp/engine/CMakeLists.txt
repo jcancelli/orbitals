@@ -7,8 +7,8 @@ add_library(engine
 	index_buffer.cpp
 	InputEvents.cpp
 	Shader.cpp
+	vertex_buffer.cpp
 	VertexArray.cpp
-	VertexBuffer.cpp
 	VertexLayout.cpp
 	Viewport.cpp
 )
