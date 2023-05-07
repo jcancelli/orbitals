@@ -9,14 +9,7 @@ namespace orbitals {
 namespace engine {
 
 IndexBuffer::IndexBuffer(std::vector<GLuint> const& indices, GLenum usage = GL_STATIC_DRAW)
-    : m_Count{indices.size()} {
-  glCall(glGenBuffers(1, &m_Id));
-  glCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indices.size(), indices.data(),
-                      usage));
-}
-
-IndexBuffer::~IndexBuffer() {
-  glCall(glDeleteBuffers(1, &m_Id));
+    : Buffer::Buffer(GL_ELEMENT_ARRAY_BUFFER, indices, usage), m_Count{indices.size()} {
 }
 
 GLsizei IndexBuffer::getPrimitivesCount(GLenum type) const {
@@ -34,18 +27,6 @@ GLsizei IndexBuffer::getPrimitivesCount(GLenum type) const {
 
 std::size_t IndexBuffer::getCount() const {
   return m_Count;
-}
-
-void IndexBuffer::bind() const {
-  glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id));
-}
-
-void IndexBuffer::unbind() const {
-  glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
-}
-
-GLuint IndexBuffer::id() const {
-  return m_Id;
 }
 
 }  // namespace engine
