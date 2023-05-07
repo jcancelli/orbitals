@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "VertexLayout.hpp"
 #include "buffer.hpp"
+#include "vertex_layout.hpp"
 
 namespace orbitals {
 

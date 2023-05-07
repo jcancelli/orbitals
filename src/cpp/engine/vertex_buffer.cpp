@@ -1,6 +1,6 @@
 #include "vertex_buffer.hpp"
 
-#include "glDebug.hpp"
+#include "debug.hpp"
 
 namespace orbitals {
 

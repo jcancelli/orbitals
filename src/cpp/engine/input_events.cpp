@@ -1,4 +1,4 @@
-#include "InputEvents.hpp"
+#include "input_events.hpp"
 
 #include <emscripten/html5.h>
 

@@ -1,9 +1,10 @@
-#include "Shader.hpp"
+
+#include "shader.hpp"
 
 #include <cassert>
 #include <iostream>
 
-#include "glDebug.hpp"
+#include "debug.hpp"
 
 namespace orbitals {
 

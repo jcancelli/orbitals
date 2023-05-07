@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-#include "glDebug.hpp"
+#include "debug.hpp"
 
 namespace orbitals {
 

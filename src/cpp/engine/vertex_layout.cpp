@@ -1,8 +1,8 @@
-#include "VertexLayout.hpp"
+#include "vertex_layout.hpp"
 
 #include <cassert>
 
-#include "glDebug.hpp"
+#include "debug.hpp"
 
 namespace orbitals {
 
