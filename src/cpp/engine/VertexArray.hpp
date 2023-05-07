@@ -2,7 +2,7 @@
 
 #include <GLES3/gl3.h>
 
-#include "VertexBuffer.hpp"
+#include "vertex_buffer.hpp"
 
 namespace orbitals {
 
