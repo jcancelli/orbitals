@@ -8,7 +8,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "engine/glDebug.hpp"
+#include "engine/debug.hpp"
 
 namespace orbitals {
 

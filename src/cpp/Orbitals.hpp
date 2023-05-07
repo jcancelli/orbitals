@@ -4,9 +4,9 @@
 
 #include <string>
 
-#include "engine/Camera.hpp"
-#include "engine/InputEvents.hpp"
-#include "engine/Viewport.hpp"
+#include "engine/camera.hpp"
+#include "engine/input_events.hpp"
+#include "engine/viewport.hpp"
 
 namespace orbitals {
 
