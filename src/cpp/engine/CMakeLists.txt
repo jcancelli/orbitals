@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.21)
 
 add_library(engine
 	buffer.cpp
-	Camera.cpp
-	glDebug.cpp
+	camera.cpp
+	debug.cpp
 	index_buffer.cpp
-	InputEvents.cpp
-	Shader.cpp
+	input_events.cpp
+	shader.cpp
 	uniform_buffer.cpp
+	vertex_array.cpp
 	vertex_buffer.cpp
-	VertexArray.cpp
-	VertexLayout.cpp
-	Viewport.cpp
+	vertex_layout.cpp
+	viewport.cpp
 )
