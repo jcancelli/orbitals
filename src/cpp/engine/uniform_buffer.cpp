@@ -1,0 +1,36 @@
+#include "uniform_buffer.hpp"
+
+#include <cassert>
+
+#include "glDebug.hpp"
+
+namespace orbitals {
+
+namespace engine {
+
+template <class T>
+UniformBuffer<T>::UniformBuffer(std::vector<T> const& data, GLenum usage)
+    : Buffer::Buffer(GL_UNIFORM_BUFFER, data, usage), m_Count{data.size()} {
+}
+
+template <class T>
+void UniformBuffer<T>::write(std::vector<T> const& data, unsigned to) {
+  const GLsizeiptr dataSize = data.size() * sizeof(T);
+  assert(to + dataSize <= size());
+  bind();
+  glCall(glBufferSubData(GL_UNIFORM_BUFFER, to, dataSize, data.data()));
+  unbind();
+}
+template <class T>
+unsigned UniformBuffer<T>::count() const {
+  return m_Count;
+}
+
+template <class T>
+std::size_t UniformBuffer<T>::size() const {
+  return m_Count * sizeof(T);
+}
+
+}  // namespace engine
+
+}  // namespace orbitals

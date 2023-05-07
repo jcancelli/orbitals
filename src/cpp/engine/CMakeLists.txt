@@ -7,6 +7,7 @@ add_library(engine
 	index_buffer.cpp
 	InputEvents.cpp
 	Shader.cpp
+	uniform_buffer.cpp
 	vertex_buffer.cpp
 	VertexArray.cpp
 	VertexLayout.cpp
