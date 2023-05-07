@@ -22,6 +22,8 @@ GLsizei IndexBuffer::getPrimitivesCount(GLenum type) const {
       return m_Count / 2;
     case GL_POINTS:
       return m_Count;
+    default:
+      assert(false);
   }
 }
 
