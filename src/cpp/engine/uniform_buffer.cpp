@@ -22,7 +22,7 @@ void UniformBuffer<T>::write(std::vector<T> const& data, unsigned to) {
 }
 
 template <class T>
-void UniformBuffer<T>::write(T const& data, unsigned to = 0) {
+void UniformBuffer<T>::write(T const& data, unsigned to) {
   assert(to < m_Count);
   bind();
   glCall(glBufferSubData(GL_UNIFORM_BUFFER, to * sizeof(T), sizeof(T), &data));
