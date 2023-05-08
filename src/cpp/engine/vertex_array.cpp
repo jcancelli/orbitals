@@ -9,6 +9,7 @@ namespace engine {
 VertexArray::VertexArray(VertexBuffer const& vbo) {
   glCall(glGenVertexArrays(1, &m_Id));
   bind();
+  vbo.bind();
   auto const& attributes = vbo.getVertexLayout().getAttributes();
   int offset = 0;
   for (int i = 0; i < attributes.size(); i++) {
@@ -18,6 +19,8 @@ VertexArray::VertexArray(VertexBuffer const& vbo) {
                                  vbo.getVertexLayout().stride(), (void*)offset));
     offset += attribute.size();
   }
+  unbind();
+  vbo.unbind();
 }
 
 VertexArray::~VertexArray() {
