@@ -6,6 +6,7 @@ add_library(engine
 	debug.cpp
 	index_buffer.cpp
 	input_events.cpp
+	material.cpp
 	shader.cpp
 	uniform_buffer.cpp
 	vertex_array.cpp
