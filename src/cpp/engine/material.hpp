@@ -9,13 +9,13 @@ namespace orbitals {
 namespace engine {
 
 class Material {
- private:
+ protected:
   Shader m_Shader;
 
  public:
   Material(std::string const& vertShaderSrc, std::string const& fragShaderSrc);
-  virtual void bind() const = 0;
-  virtual void unbind() const = 0;
+  virtual void bind() = 0;
+  virtual void unbind() = 0;
   Shader& getShader();
 };
 
