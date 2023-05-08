@@ -39,6 +39,11 @@ std::size_t UniformBuffer<T>::size() const {
   return m_Count * sizeof(T);
 }
 
+template <class T>
+GLuint UniformBuffer<T>::bindBase(GLuint index) {
+  glCall(return glBindBufferBase(GL_UNIFORM_BUFFER, index, id()));
+}
+
 }  // namespace engine
 
 }  // namespace orbitals
