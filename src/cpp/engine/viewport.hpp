@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace orbitals {
 
 namespace engine {
@@ -15,6 +17,16 @@ class Viewport {
   void setWidth(float width);
   void setHeight(float height);
   float aspectRatio() const;
+};
+
+class HTMLCanvasViewport : public Viewport {
+ private:
+  std::string m_CanvasHTMLId;
+
+ public:
+  HTMLCanvasViewport(std::string const& canvasHTMLId);
+  ~HTMLCanvasViewport();
+  std::string getCanvasHTMLId() const;
 };
 
 }  // namespace engine
