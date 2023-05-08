@@ -11,7 +11,7 @@ namespace orbitals {
 namespace engine {
 
 static GLuint compileShader(char const* src, GLenum shaderType) {
-  const GLuint id = glCall(glCreateShader(shaderType));
+  glCall(const GLuint id = glCreateShader(shaderType));
   glCall(glShaderSource(id, 1, &src, NULL));
   glCall(glCompileShader(id));
   GLint compileStatus;
@@ -30,7 +30,7 @@ static GLuint compileShader(char const* src, GLenum shaderType) {
 }
 
 Shader::Shader(std::string const& vertSrc, std::string const& fragSrc) {
-  m_Id = glCall(glCreateProgram());
+  glCall(m_Id = glCreateProgram());
 
   m_VertId = compileShader(vertSrc.c_str(), GL_VERTEX_SHADER);
   m_FragId = compileShader(fragSrc.c_str(), GL_FRAGMENT_SHADER);
