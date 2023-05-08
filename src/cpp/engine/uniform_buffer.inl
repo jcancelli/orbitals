@@ -1,8 +1,9 @@
-#include "uniform_buffer.hpp"
+#pragma once
 
 #include <cassert>
 
 #include "debug.hpp"
+#include "uniform_buffer.hpp"
 
 namespace orbitals {
 
@@ -40,8 +41,8 @@ std::size_t UniformBuffer<T>::size() const {
 }
 
 template <class T>
-GLuint UniformBuffer<T>::bindBase(GLuint index) const {
-  glCall(return glBindBufferBase(GL_UNIFORM_BUFFER, index, id()));
+void UniformBuffer<T>::bindBase(GLuint index) const {
+  glCall(glBindBufferBase(GL_UNIFORM_BUFFER, index, id()));
 }
 
 }  // namespace engine
