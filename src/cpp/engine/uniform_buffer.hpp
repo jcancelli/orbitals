@@ -21,9 +21,11 @@ class UniformBuffer : public Buffer {
   void write(T const& data, unsigned to = 0);
   unsigned count() const;
   std::size_t size() const;
-  GLuint bindBase(GLuint index) const;
+  void bindBase(GLuint index) const;
 };
 
 }  // namespace engine
 
 }  // namespace orbitals
+
+#include "uniform_buffer.inl"
