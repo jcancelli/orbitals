@@ -17,6 +17,7 @@
 
 	onMount(async () => {
 		window.addEventListener("resize", resizeViewport);
+		resizeViewport();
 
 		const moduleOverrides: Partial<EmscriptenModule> = {
 			locateFile: (path: string, prefix: string) => {
@@ -25,8 +26,7 @@
 		};
 		wasmModule = await loadWasmModule(moduleOverrides);
 		orbitals = new wasmModule.Orbitals(viewportId);
-
-		resizeViewport();
+		orbitals.start();
 	});
 
 	onDestroy(() => {
@@ -36,8 +36,6 @@
 	function resizeViewport(): void {
 		viewportWidth = window.innerWidth;
 		viewportHeight = window.innerHeight;
-		orbitals.setViewportWidth(viewportWidth);
-		orbitals.setViewportHeight(viewportHeight);
 	}
 </script>
 

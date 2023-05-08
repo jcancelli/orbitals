@@ -6,8 +6,8 @@ export type OrbitalsWasmModule = {
 } & EmscriptenModule
 
 export abstract class Orbitals {
-	abstract setViewportWidth(width: number): void;
-	abstract setViewportHeight(height: number): void;
+	abstract start(): void;
+	abstract stop(): void;
 }
 
 export default OrbitalsWasmModule
