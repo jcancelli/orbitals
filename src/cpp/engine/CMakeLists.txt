@@ -8,7 +8,6 @@ add_library(engine
 	input_events.cpp
 	material.cpp
 	shader.cpp
-	uniform_buffer.cpp
 	vertex_array.cpp
 	vertex_buffer.cpp
 	vertex_layout.cpp
