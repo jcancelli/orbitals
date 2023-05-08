@@ -15,7 +15,10 @@ class VertexBuffer : public Buffer {
 
  public:
   template <class TVertex>  // TVertex must have a ::layout static property of type VertexLayout
-  VertexBuffer(std::vector<TVertex> const& vertices, GLenum usage = GL_STATIC_DRAW);
+  VertexBuffer(std::vector<TVertex> const& vertices, GLenum usage = GL_STATIC_DRAW)
+      : Buffer::Buffer(GL_ARRAY_BUFFER, vertices, usage), m_VertexLayout{TVertex::layout} {
+  }
+
   VertexLayout const& getVertexLayout() const;
 };
 

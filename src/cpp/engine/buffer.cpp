@@ -6,12 +6,6 @@ namespace orbitals {
 
 namespace engine {
 
-template <class TData>
-Buffer::Buffer(GLenum target, std::vector<TData> const& data, GLenum usage) : m_Target(target) {
-  glCall(glGenBuffers(1, &m_Id));
-  glCall(glBufferData(target, sizeof(TData) * data.size(), data.data(), usage));
-}
-
 Buffer::~Buffer() {
   glCall(glDeleteBuffers(1, &m_Id));
 }

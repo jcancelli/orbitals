@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include "debug.hpp"
+
 namespace orbitals {
 
 namespace engine {
@@ -15,7 +17,10 @@ class Buffer {
 
  public:
   template <class TData>
-  Buffer(GLenum target, std::vector<TData> const& data, GLenum usage);
+  Buffer(GLenum target, std::vector<TData> const& data, GLenum usage) : m_Target(target) {
+    glCall(glGenBuffers(1, &m_Id));
+    glCall(glBufferData(target, sizeof(TData) * data.size(), data.data(), usage));
+  }
   ~Buffer();
   void bind() const;
   void unbind() const;
