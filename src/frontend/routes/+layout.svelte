@@ -25,7 +25,7 @@
 			}
 		};
 		wasmModule = await loadWasmModule(moduleOverrides);
-		orbitals = new wasmModule.Orbitals(viewportId);
+		orbitals = await new wasmModule.Orbitals(viewportId);
 		orbitals.start();
 	});
 
