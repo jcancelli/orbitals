@@ -6,6 +6,7 @@
 #include <unordered_map>
 
 #include "../math/matrix.hpp"
+#include "uniform_buffer.hpp"
 
 namespace orbitals {
 
@@ -29,12 +30,14 @@ class Shader {
   void setUniform4f(std::string const& key, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
   void setUniform4f(std::string const& key, math::vec4 const& v);
   void setUniformMat4(std::string const& key, math::mat4 const& m);
+  void bindUniformBlock(std::string const& blockKey, GLuint bindingPoint);
   void bind() const;
   void unbind() const;
   GLuint id() const;
 
  private:
   GLuint getUniformLocation(std::string const& key);
+  GLuint getUniformBlockIndex(std::string const& key);
 };
 
 }  // namespace engine

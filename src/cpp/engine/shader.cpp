@@ -119,6 +119,14 @@ void Shader::setUniformMat4(std::string const& key, math::mat4 const& m) {
   glCall(glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, m.data()));
 }
 
+void Shader::bindUniformBlock(std::string const& blockKey, GLuint bindingPoint) {
+  GLuint blockIndex = getUniformBlockIndex(blockKey);
+  if (blockIndex == -1) {
+    return;
+  }
+  glCall(glUniformBlockBinding(id(), blockIndex, bindingPoint));
+}
+
 void Shader::bind() const {
   glCall(glUseProgram(m_Id));
 }
@@ -144,6 +152,21 @@ GLuint Shader::getUniformLocation(std::string const& key) {
   }
   m_UniformLocationCache[key] = uniformLocation;
   return uniformLocation;
+}
+
+GLuint Shader::getUniformBlockIndex(std::string const& key) {
+  auto search = m_UniformLocationCache.find(key);
+  if (search != m_UniformLocationCache.end()) {
+    return search->second;
+  }
+  glCall(GLuint uniformBlockIndex = glGetUniformBlockIndex(m_Id, key.c_str()));
+  if (uniformBlockIndex == -1) {
+    // If an uniform is unused (inside a shader code), it is removed.
+    // Therefore glGetUniformLocation could return -1 even if the uniform is actually present.
+    std::cout << "[WebGL error] Could not find uniform \"" << key << "\" location.\n";
+  }
+  m_UniformLocationCache[key] = uniformBlockIndex;
+  return uniformBlockIndex;
 }
 
 }  // namespace engine
