@@ -19,7 +19,9 @@ class Buffer {
   template <class TData>
   Buffer(GLenum target, std::vector<TData> const& data, GLenum usage) : m_Target(target) {
     glCall(glGenBuffers(1, &m_Id));
+    glCall(glBindBuffer(target, m_Id));
     glCall(glBufferData(target, sizeof(TData) * data.size(), data.data(), usage));
+    glCall(glBindBuffer(target, 0));
   }
   ~Buffer();
   void bind() const;
