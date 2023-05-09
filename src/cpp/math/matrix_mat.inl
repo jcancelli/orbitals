@@ -214,12 +214,8 @@ constexpr std::size_t mat<tRows, tCols, T>::columns() const {
 template <std::size_t tRows, std::size_t tCols, class T>
 inline std::ostream& operator<<(std::ostream& os, mat<tRows, tCols, T> const& matrix) {
   os << "{";
-  for (int row = 0; row < tRows; row++) {
-    os << "{" << matrix[0][row];
-    for (int col = 1; col < tCols; col++) {
-      os << ", " << matrix[col][row];
-    }
-    os << "}";
+  for (int col = 0; col < tRows; col++) {
+    os << matrix[col];
   }
   os << "}";
   return os;
