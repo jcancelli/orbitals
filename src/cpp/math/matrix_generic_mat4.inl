@@ -109,8 +109,7 @@ generic_mat4<T> generic_mat4<T>::scaled(vec<3, T> const& amount) const {
 
 template <class T>
 mat<4, 4, T>& generic_mat4<T>::operator=(mat<4, 4, T> const& other) {
-  auto& a = generic_square_mat<4, T>::operator=(other);
-  return a;
+  return generic_square_mat<4, T>::operator=(other);
 }
 
 }  // namespace math

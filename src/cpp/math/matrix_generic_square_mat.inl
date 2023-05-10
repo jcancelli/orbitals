@@ -19,7 +19,7 @@ generic_square_mat<tSize, T>::generic_square_mat(T identityValue) {
 
 template <std::size_t tSize, class T>
 generic_square_mat<tSize, T>::generic_square_mat(mat<tSize, tSize, T> const& other)
-    : mat<tSize, tSize, T>::mat() {
+    : mat<tSize, tSize, T>::mat(other) {
 }
 
 template <std::size_t tSize, class T>
