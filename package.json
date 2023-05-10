@@ -9,6 +9,7 @@
 		"build-cpp": "cmake --build ./cmake-build && cmake --install ./cmake-build/ --prefix .",
 		"test-cpp": "cd ./cmake-build && ctest --output-on-failure",
 		"cmake-setup": "cmake -S . -B ./cmake-build",
+		"cmake-setup-dev": "cmake -S . -B ./cmake-build -DDEBUG_MODE=True",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
