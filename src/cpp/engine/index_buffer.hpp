@@ -15,7 +15,7 @@ class IndexBuffer : public Buffer {
   std::size_t m_Count;
 
  public:
-  IndexBuffer(std::vector<GLuint> const& indices, GLenum usage);
+  IndexBuffer(std::vector<GLuint> const& indices, GLenum usage = GL_STATIC_DRAW);
   GLsizei getPrimitivesCount(GLenum type) const;
   std::size_t getCount() const;
 };

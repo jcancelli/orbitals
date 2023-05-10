@@ -8,7 +8,7 @@ namespace orbitals {
 
 namespace engine {
 
-IndexBuffer::IndexBuffer(std::vector<GLuint> const& indices, GLenum usage = GL_STATIC_DRAW)
+IndexBuffer::IndexBuffer(std::vector<GLuint> const& indices, GLenum usage)
     : Buffer::Buffer(GL_ELEMENT_ARRAY_BUFFER, indices, usage), m_Count{indices.size()} {
 }
 
