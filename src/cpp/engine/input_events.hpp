@@ -9,7 +9,7 @@ namespace orbitals {
 
 namespace engine {
 
-struct Event {
+struct InputEvent {
   enum Type {
     KeyPressed = EMSCRIPTEN_EVENT_KEYPRESS,
     KeyDown = EMSCRIPTEN_EVENT_KEYDOWN,
@@ -50,15 +50,15 @@ struct Event {
 
 class InputEvents {
  private:
-  std::queue<Event> m_Events;
+  std::queue<InputEvent> m_Events;
   char const* m_Target;
 
  public:
   InputEvents(char const* target);
   ~InputEvents();
-  void push(Event& event);
-  Event next();
-  Event const& peek() const;
+  void push(InputEvent& event);
+  InputEvent next();
+  InputEvent const& peek() const;
   bool isEmpty() const;
 
  private:

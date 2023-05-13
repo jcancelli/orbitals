@@ -9,19 +9,19 @@ namespace orbitals {
 namespace engine {
 
 EM_BOOL keyboard_event_callback(int type, const EmscriptenKeyboardEvent* emEvent, void* userData) {
-  Event event = {.type = (Event::Type)type, .keyboard = *emEvent};
+  InputEvent event = {.type = (InputEvent::Type)type, .keyboard = *emEvent};
   ((InputEvents*)userData)->push(event);
   return EM_FALSE;
 }
 
 EM_BOOL mouse_event_callback(int type, const EmscriptenMouseEvent* emEvent, void* userData) {
-  Event event = {.type = (Event::Type)type, .mouse = *emEvent};
+  InputEvent event = {.type = (InputEvent::Type)type, .mouse = *emEvent};
   ((InputEvents*)userData)->push(event);
   return EM_FALSE;
 }
 
 EM_BOOL wheel_event_callback(int type, const EmscriptenWheelEvent* emEvent, void* userData) {
-  Event event = {.type = (Event::Type)type, .wheel = *emEvent};
+  InputEvent event = {.type = (InputEvent::Type)type, .wheel = *emEvent};
   ((InputEvents*)userData)->push(event);
   return EM_FALSE;
 }
@@ -60,13 +60,13 @@ InputEvents::~InputEvents() {
   emscripten_set_wheel_callback(m_Target, nullptr, EM_FALSE, nullptr);
 }
 
-Event InputEvents::next() {
-  Event event = m_Events.front();
+InputEvent InputEvents::next() {
+  InputEvent event = m_Events.front();
   m_Events.pop();
   return event;
 }
 
-Event const& InputEvents::peek() const {
+InputEvent const& InputEvents::peek() const {
   return m_Events.front();
 }
 
@@ -74,7 +74,7 @@ bool InputEvents::isEmpty() const {
   return m_Events.empty();
 }
 
-void InputEvents::push(Event& event) {
+void InputEvents::push(InputEvent& event) {
   m_Events.push(event);
 }
 
