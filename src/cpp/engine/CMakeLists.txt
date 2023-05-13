@@ -7,6 +7,7 @@ add_library(engine
 	index_buffer.cpp
 	input_events.cpp
 	material.cpp
+	mesh.cpp
 	shader.cpp
 	vertex_array.cpp
 	vertex_buffer.cpp
