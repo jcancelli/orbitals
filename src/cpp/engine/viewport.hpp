@@ -8,8 +8,8 @@ namespace engine {
 
 class Viewport {
  private:
-  float m_Width;
-  float m_Height;
+  float m_Width{0};
+  float m_Height{0};
 
  public:
   float getWidth() const;

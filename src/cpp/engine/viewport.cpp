@@ -1,7 +1,10 @@
 #include "viewport.hpp"
 
+#include <GLES3/gl3.h>
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
+
+#include "debug.hpp"
 
 namespace orbitals {
 
@@ -17,10 +20,12 @@ float Viewport::getHeight() const {
 
 void Viewport::setWidth(float width) {
   m_Width = width;
+  glCall(glViewport(0, 0, m_Width, m_Height));
 }
 
 void Viewport::setHeight(float height) {
   m_Height = height;
+  glCall(glViewport(0, 0, m_Width, m_Height));
 }
 
 float Viewport::aspectRatio() const {
