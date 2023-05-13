@@ -13,6 +13,9 @@ void Scene::draw(std::shared_ptr<Viewport> const& viewport) const {
 void Scene::update(double deltaTime) {
 }
 
+void Scene::handleInputEvent(InputEvent const& event) {
+}
+
 Camera const& Scene::getCamera() const {
   return m_Camera;
 }

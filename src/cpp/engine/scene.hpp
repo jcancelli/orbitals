@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "camera.hpp"
+#include "input_events.hpp"
 #include "mesh.hpp"
 #include "uniform_buffer.hpp"
 #include "viewport.hpp"
@@ -21,6 +22,7 @@ class Scene {
  public:
   void draw(std::shared_ptr<Viewport> const& viewport) const;
   virtual void update(double deltaTime);
+  virtual void handleInputEvent(InputEvent const& event);
   Camera const& getCamera() const;
 };
 
