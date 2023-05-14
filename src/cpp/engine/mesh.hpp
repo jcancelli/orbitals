@@ -44,9 +44,9 @@ class Mesh {
         m_ModelMatricesUBO(std::vector<math::mat4>(instancesCount, math::mat4(1))) {
     assert(instancesCount > 0);
   }
-  void draw(Camera const& camera, std::shared_ptr<Viewport> const viewport) const;
+  void draw(std::shared_ptr<const Camera> camera, std::shared_ptr<const Viewport> viewport) const;
   void setMaterial(std::shared_ptr<Material> material);
-  std::shared_ptr<Material> const getMaterial() const;
+  std::shared_ptr<const Material> getMaterial() const;
   void setModelMatrix(math::mat4 const& matrix, std::size_t index = 0);
   void setModelMatrices(std::vector<math::mat4> matrices, std::size_t index = 0);
   math::mat4 getModelMatrix(std::size_t index = 0) const;
