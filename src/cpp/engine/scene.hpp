@@ -16,14 +16,15 @@ namespace engine {
 
 class Scene {
  protected:
-  Camera m_Camera;
+  std::shared_ptr<Camera> m_Camera;
   std::vector<std::shared_ptr<Mesh>> m_Meshes;
 
  public:
-  void draw(std::shared_ptr<Viewport> const& viewport) const;
+  Scene(std::shared_ptr<Camera> camera);
+  void draw(std::shared_ptr<const Viewport> viewport) const;
   virtual void update(double deltaTime);
   virtual void handleInputEvent(InputEvent const& event);
-  Camera const& getCamera() const;
+  std::shared_ptr<const Camera> getCamera() const;
 };
 
 }  // namespace engine
