@@ -52,27 +52,27 @@ void OrbitingCameraMovement::update(double deltaTime) {
 }
 
 void OrbitingCameraMovement::moveUp() {
-  m_SpeedTheta = -m_MaxSpeedTheta;
+  m_SpeedTheta = std::max(-m_MaxSpeedTheta, m_SpeedTheta - m_MaxSpeedTheta);
 }
 
 void OrbitingCameraMovement::moveDown() {
-  m_SpeedTheta = m_MaxSpeedTheta;
+  m_SpeedTheta = std::min(m_MaxSpeedTheta, m_SpeedTheta + m_MaxSpeedTheta);
 }
 
 void OrbitingCameraMovement::moveForward() {
-  m_SpeedR = -m_MaxSpeedR;
+  m_SpeedR = std::max(-m_MaxSpeedR, m_SpeedR - m_MaxSpeedR);
 }
 
 void OrbitingCameraMovement::moveBack() {
-  m_SpeedR = m_MaxSpeedR;
+  m_SpeedR = std::min(m_MaxSpeedR, m_SpeedR + m_MaxSpeedR);
 }
 
 void OrbitingCameraMovement::moveLeft() {
-  m_SpeedPhi = -m_MaxSpeedPhi;
+  m_SpeedPhi = std::max(-m_MaxSpeedPhi, m_SpeedPhi - m_MaxSpeedPhi);
 }
 
 void OrbitingCameraMovement::moveRight() {
-  m_SpeedPhi = m_MaxSpeedPhi;
+  m_SpeedPhi = std::min(m_MaxSpeedPhi, m_SpeedPhi + m_MaxSpeedPhi);
 }
 
 void OrbitingCameraMovement::rotateX() {
