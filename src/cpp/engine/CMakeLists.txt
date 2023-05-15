@@ -7,7 +7,7 @@ add_library(engine
 	clock.cpp
 	debug.cpp
 	index_buffer.cpp
-	input_events.cpp
+	keyboard.cpp
 	material.cpp
 	mesh.cpp
 	scene.cpp
