@@ -26,6 +26,10 @@ GLenum Buffer::target() const {
   return m_Target;
 }
 
+GLsizei Buffer::size() const {
+  return m_Size;
+}
+
 }  // namespace engine
 
 }  // namespace orbitals
