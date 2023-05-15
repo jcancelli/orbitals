@@ -21,8 +21,11 @@ void Mesh::draw(std::shared_ptr<const Camera> camera,
   m_IBO.bind();
   m_ModelMatricesUBO.bindBase(0);
   m_Material->getShader().bindUniformBlock("ModelMatrices", 0);
-  math::mat4 projMatrix(math::perspective(FOV, viewport->aspectRatio(), Z_NEAR, Z_FAR));
-  m_Material->getShader().setUniformMat4("uViewProjMatrix", projMatrix * camera->viewMatrix());
+  m_Material->getShader().setUniformMat4(                             //
+      "uProjectionMatrix",                                            //
+      math::perspective(FOV, viewport->aspectRatio(), Z_NEAR, Z_FAR)  //
+  );                                                                  //
+  m_Material->getShader().setUniformMat4("uViewMatrix", camera->viewMatrix());
   m_Material->getShader().setUniform3f("uViewPosition", camera->getPosition());
   if (m_InstancesCount > 1) {
     glCall(glDrawElementsInstanced(GL_TRIANGLES, m_IBO.getCount(), GL_UNSIGNED_INT, 0,
