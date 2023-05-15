@@ -95,6 +95,10 @@ void OrbitingCameraMovement::setPosition(math::vec3 const& position) {
   synchCamera();
 }
 
+void OrbitingCameraMovement::setPosition(float r, float theta, float phi) {
+  setPosition(math::vec3(r, theta, phi));
+}
+
 math::vec3 const& OrbitingCameraMovement::getPosition() const {
   return m_SpehericalPos;
 }

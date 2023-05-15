@@ -47,8 +47,9 @@ class OrbitingCameraMovement : public CameraMovement {
   void rotateX();
   void rotateY();
   void rotateZ();
-  void setPosition(math::vec3 const& position);  // Position in spherical coordinates
-  math::vec3 const& getPosition() const;         // Position in spherical coordinates
+  void setPosition(math::vec3 const& position);       // Position in spherical coordinates
+  void setPosition(float r, float theta, float phi);  // Position in spherical coordinates
+  math::vec3 const& getPosition() const;              // Position in spherical coordinates
   void setCenter(math::vec3 const& center);
   math::vec3 const& getCenter() const;
   void setMinR(float value);
