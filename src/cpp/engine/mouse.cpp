@@ -38,6 +38,38 @@ math::vec2 Mouse::getPosition() const {
   return math::vec2(m_X, m_Y);
 }
 
+void Mouse::press(Button button) {
+  switch (button) {
+    case Button::Left:
+      m_IsLeftDown = true;
+      break;
+    case Button::Middle:
+      m_IsMiddleDown = true;
+      break;
+    case Button::Right:
+      m_IsRightDown = true;
+      break;
+    default:
+      assert(false);
+  }
+}
+
+void Mouse::release(Button button) {
+  switch (button) {
+    case Button::Left:
+      m_IsLeftDown = false;
+      break;
+    case Button::Middle:
+      m_IsMiddleDown = false;
+      break;
+    case Button::Right:
+      m_IsRightDown = false;
+      break;
+    default:
+      assert(false);
+  }
+}
+
 void Mouse::setLeftDown(bool isDown) {
   m_IsLeftDown = isDown;
 }

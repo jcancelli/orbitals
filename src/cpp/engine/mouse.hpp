@@ -22,6 +22,8 @@ class Mouse {
   void setPosition(math::vec2 const& pos);
   void setPosition(double x, double y);
   math::vec2 getPosition() const;
+  void press(Button button);
+  void release(Button button);
   void setLeftDown(bool isDown);
   bool isLeftDown() const;
   void setMiddleDown(bool isDown);
