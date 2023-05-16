@@ -5,9 +5,11 @@
 
 #include "doctest.h"
 #include "math/matrix.hpp"
+#include "math/quaternion.hpp"
 #include "math/vector.hpp"
 
 using orbitals::math::mat;
+using orbitals::math::quat;
 using orbitals::math::vec;
 
 template <std::size_t vecSize, class T>
@@ -18,6 +20,15 @@ inline void CHECK_VEC_EQUALS(vec<vecSize, T> const& v1, vec<vecSize, T> const& v
     INFO("i: ", i);
     CHECK(v1[i] == doctest::Approx(v2[i]).epsilon(epsilon));
   }
+}
+
+template <class T>
+inline void CHECK_QUAT_EQUALS(quat<T> const& q1, quat<T> const& q2, float epsilon = .00001) {
+  INFO("Comparing ", q1, " == ", q2);
+  CHECK(q1.x == doctest::Approx(q2.x).epsilon(epsilon));
+  CHECK(q1.y == doctest::Approx(q2.y).epsilon(epsilon));
+  CHECK(q1.z == doctest::Approx(q2.z).epsilon(epsilon));
+  CHECK(q1.w == doctest::Approx(q2.w).epsilon(epsilon));
 }
 
 template <std::size_t tRows, std::size_t tCols, class T>
