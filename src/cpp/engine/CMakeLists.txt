@@ -10,6 +10,7 @@ add_library(engine
 	keyboard.cpp
 	material.cpp
 	mesh.cpp
+	mouse.cpp
 	scene.cpp
 	shader.cpp
 	vertex_array.cpp
