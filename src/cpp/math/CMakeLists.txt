@@ -13,4 +13,5 @@ target_precompile_headers(math INTERFACE
 	matrix.hpp
 	vector.hpp
 	projection_matrix.hpp
+	quaternion.hpp
 )
