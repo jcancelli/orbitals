@@ -18,7 +18,7 @@ class quat {
 
  public:
   quat();
-  explicit quat(quat<T> const& other);
+  quat(quat<T> const& other);
   explicit quat(generic_vec3<T> const& eulerAngle);
   explicit quat(T angle, generic_vec3<T> const& axis);
   explicit quat(T x, T y, T z, T w);
