@@ -110,8 +110,19 @@ generic_mat4<T>& generic_mat4<T>::rotate(T angle, generic_vec3<T> const& rotatio
 }
 
 template <class T>
+generic_mat4<T>& generic_mat4<T>::rotate(quat<T> const& quaternion) {
+  *this = *this * generic_mat4<T>(quaternion);
+  return *this;
+}
+
+template <class T>
 generic_mat4<T> generic_mat4<T>::rotated(T angle, generic_vec3<T> const& rotationAxis) const {
   return generic_mat4<T>(*this).rotate(angle, rotationAxis);
+}
+
+template <class T>
+generic_mat4<T> generic_mat4<T>::rotated(quat<T> const& quaternion) const {
+  return generic_mat4<T>(*this).rotate(quaternion);
 }
 
 template <class T>
