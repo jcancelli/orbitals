@@ -33,9 +33,9 @@ TEST_CASE("Testing quaternion") {
     SUBCASE("quat<T>(T, generic_vec3<T>)") {
       quatf a(M_PI, vec3(0, 1, 0));
       CHECK(a.x == 0);
-      CHECK(a.y == 1);
+      CHECK(a.y == std::sin(M_PI / 2));
       CHECK(a.z == 0);
-      CHECK(a.w == doctest::Approx(M_PI).epsilon(.00001));
+      CHECK(a.w == doctest::Approx(std::cos(M_PI / 2)).epsilon(.00001));
     }
     // SUBCASE("quat<T>(generic_vec3<T>)") {
     //   quatf a(M_PI, vec3(0, 1, 0));
@@ -123,6 +123,10 @@ TEST_CASE("Testing quaternion") {
       CHECK(a[1] == 2);
       CHECK(a[2] == 3);
       CHECK(a[3] == 4);
+    }
+    SUBCASE("Rotating a vector") {
+      quatf rotation(M_PI_2, vec3(0, 1, 0));
+      CHECK_VEC_EQUALS(rotation * vec3(1, 0, 0), vec3(0, 0, -1));
     }
   }
 }
