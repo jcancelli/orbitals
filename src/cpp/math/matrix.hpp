@@ -4,6 +4,7 @@
 #include <cassert>
 #include <type_traits>
 
+#include "quaternion.hpp"
 #include "vector.hpp"
 
 namespace orbitals {
@@ -80,6 +81,7 @@ class generic_mat4 : public generic_square_mat<4, T> {
   generic_mat4();
   generic_mat4(T identityValue);
   generic_mat4(mat<4, 4, T> const& other);
+  generic_mat4(quat<T> const& quaternion);
 
   generic_mat4<T>& translate(float x, float y, float z);
   generic_mat4<T>& translate(vec<3, T> const& amount);
