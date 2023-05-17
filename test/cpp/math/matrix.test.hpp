@@ -3,6 +3,7 @@
 #include "../doctest.h"
 #include "../test_util.hpp"
 #include "math/matrix.hpp"
+#include "math/quaternion.hpp"
 
 using namespace orbitals::math;
 
@@ -18,7 +19,12 @@ static inline mat4 make_matrix(float data[4][4]) {
 
 TEST_CASE("Testing mat4") {
   SUBCASE("Testing constructors") {
-    CHECK(mat4(mat4(5)) == mat4(5));
+    SUBCASE("Copy constructor") {
+      CHECK(mat4(mat4(5)) == mat4(5));
+    }
+    SUBCASE("From quaternion") {
+      CHECK_VEC_EQUALS(mat4(quatf(M_PI_2, vec3(0, 1, 0))) * vec4(1, 0, 0, 1), vec4(0, 0, -1, 1));
+    }
   }
 
   SUBCASE("Testing operators") {
