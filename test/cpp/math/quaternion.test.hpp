@@ -125,8 +125,13 @@ TEST_CASE("Testing quaternion") {
       CHECK(a[3] == 4);
     }
     SUBCASE("Rotating a vector") {
-      quatf rotation(M_PI_2, vec3(0, 1, 0));
-      CHECK_VEC_EQUALS(rotation * vec3(1, 0, 0), vec3(0, 0, -1));
+      quatf rotation1(M_PI_2, vec3(0, 1, 0));
+      vec3 vector(1, 0, 0);
+      vector = rotation1 * vector;
+      CHECK_VEC_EQUALS(vector, vec3(0, 0, -1));
+      quatf rotation2(vec3(M_PI_2, 0, 0));
+      vector = rotation2 * vector;
+      CHECK_VEC_EQUALS(vector, vec3(0, 1, 0));
     }
   }
 }
