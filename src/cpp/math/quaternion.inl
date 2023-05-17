@@ -30,8 +30,13 @@ quat<T>::quat(generic_vec3<T> const& eulerAngle) {
 }
 
 template <class T>
-quat<T>::quat(T angle, generic_vec3<T> const& axis)
-    : x{axis.x()}, y{axis.y()}, z{axis.z()}, w{angle} {
+quat<T>::quat(T angle, generic_vec3<T> const& axis) {
+  const T halfAngle = angle / static_cast<T>(2);
+  const vec3 normAxis = axis.normalized();
+  x = normAxis.x() * std::sin(halfAngle);
+  y = normAxis.y() * std::sin(halfAngle);
+  z = normAxis.z() * std::sin(halfAngle);
+  w = std::cos(halfAngle);
 }
 
 template <class T>
