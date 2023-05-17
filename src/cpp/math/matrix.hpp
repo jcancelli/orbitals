@@ -84,15 +84,15 @@ class generic_mat4 : public generic_square_mat<4, T> {
   generic_mat4(quat<T> const& quaternion);
 
   generic_mat4<T>& translate(float x, float y, float z);
-  generic_mat4<T>& translate(vec<3, T> const& amount);
+  generic_mat4<T>& translate(generic_vec3<T> const& amount);
   generic_mat4<T> translated(float x, float y, float z) const;
-  generic_mat4<T> translated(vec<3, T> const& amount) const;
+  generic_mat4<T> translated(generic_vec3<T> const& amount) const;
   generic_mat4<T>& rotate(T angle, generic_vec3<T> const& rotationAxis);
-  generic_mat4<T> rotated(T angle, vec<3, T> const& rotationAxis) const;
+  generic_mat4<T> rotated(T angle, generic_vec3<T> const& rotationAxis) const;
   generic_mat4<T>& scale(float x, float y, float z);
-  generic_mat4<T>& scale(vec<3, T> const& amount);
+  generic_mat4<T>& scale(generic_vec3<T> const& amount);
   generic_mat4<T> scaled(float x, float y, float z) const;
-  generic_mat4<T> scaled(vec<3, T> const& amount) const;
+  generic_mat4<T> scaled(generic_vec3<T> const& amount) const;
   mat<4, 4, T>& operator=(mat<4, 4, T> const& other);
 };
 

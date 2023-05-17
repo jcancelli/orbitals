@@ -63,7 +63,7 @@ generic_mat4<T>& generic_mat4<T>::translate(float x, float y, float z) {
 }
 
 template <class T>
-generic_mat4<T>& generic_mat4<T>::translate(vec<3, T> const& amount) {
+generic_mat4<T>& generic_mat4<T>::translate(generic_vec3<T> const& amount) {
   return translate(amount[0], amount[1], amount[2]);
 }
 
@@ -73,7 +73,7 @@ generic_mat4<T> generic_mat4<T>::translated(float x, float y, float z) const {
 }
 
 template <class T>
-generic_mat4<T> generic_mat4<T>::translated(vec<3, T> const& amount) const {
+generic_mat4<T> generic_mat4<T>::translated(generic_vec3<T> const& amount) const {
   return generic_mat4<T>(*this).translate(amount);
 }
 
@@ -110,7 +110,7 @@ generic_mat4<T>& generic_mat4<T>::rotate(T angle, generic_vec3<T> const& rotatio
 }
 
 template <class T>
-generic_mat4<T> generic_mat4<T>::rotated(T angle, vec<3, T> const& rotationAxis) const {
+generic_mat4<T> generic_mat4<T>::rotated(T angle, generic_vec3<T> const& rotationAxis) const {
   return generic_mat4<T>(*this).rotate(angle, rotationAxis);
 }
 
@@ -128,7 +128,7 @@ generic_mat4<T>& generic_mat4<T>::scale(float x, float y, float z) {
 }
 
 template <class T>
-generic_mat4<T>& generic_mat4<T>::scale(vec<3, T> const& amount) {
+generic_mat4<T>& generic_mat4<T>::scale(generic_vec3<T> const& amount) {
   return scale(amount[0], amount[1], amount[2]);
 }
 
@@ -138,7 +138,7 @@ generic_mat4<T> generic_mat4<T>::scaled(float x, float y, float z) const {
 }
 
 template <class T>
-generic_mat4<T> generic_mat4<T>::scaled(vec<3, T> const& amount) const {
+generic_mat4<T> generic_mat4<T>::scaled(generic_vec3<T> const& amount) const {
   return generic_mat4<T>(*this).scale(amount);
 }
 
