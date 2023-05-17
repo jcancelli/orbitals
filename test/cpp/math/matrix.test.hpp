@@ -157,9 +157,20 @@ TEST_CASE("Testing mat4") {
       vec4 rotatedVector = m * vec4(1, 0, 0, 1);
       CHECK_VEC_EQUALS(rotatedVector, vec4(0, 0, -1, 1));
     }
+    SUBCASE("rotate by quaternion") {
+      mat4 m(1);
+      m.rotate(quatf(M_PI_2, vec3(0, 1, 0)));
+      vec4 rotatedVector = m * vec4(1, 0, 0, 1);
+      CHECK_VEC_EQUALS(rotatedVector, vec4(0, 0, -1, 1));
+    }
     SUBCASE("rotated") {
       mat4 m(1);
       vec4 rotatedVector = m.rotated(M_PI / 2, vec3(0, 1, 0)) * vec4(1, 0, 0, 1);
+      CHECK_VEC_EQUALS(rotatedVector, vec4(0, 0, -1, 1));
+    }
+    SUBCASE("rotated by quaternion") {
+      mat4 m = mat4(1).rotated(quatf(M_PI_2, vec3(0, 1, 0)));
+      vec4 rotatedVector = m * vec4(1, 0, 0, 1);
       CHECK_VEC_EQUALS(rotatedVector, vec4(0, 0, -1, 1));
     }
 
