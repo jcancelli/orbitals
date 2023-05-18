@@ -127,14 +127,10 @@ generic_mat4<T> generic_mat4<T>::rotated(quat<T> const& quaternion) const {
 
 template <class T>
 generic_mat4<T>& generic_mat4<T>::scale(float x, float y, float z) {
-  generic_mat4<T> m(*this);
-  generic_mat4<T>& result = *this;
-
-  result[0] = m[0] * x;
-  result[1] = m[1] * y;
-  result[2] = m[2] * z;
-  result[3] = m[3];
-
+  generic_mat4<T>& m = *this;
+  m[0] *= x;
+  m[1] *= y;
+  m[2] *= z;
   return *this;
 }
 
