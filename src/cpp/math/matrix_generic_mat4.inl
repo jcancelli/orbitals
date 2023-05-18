@@ -58,7 +58,7 @@ generic_mat4<T>::generic_mat4(quat<T> const& quaternion) {
 template <class T>
 generic_mat4<T>& generic_mat4<T>::translate(float x, float y, float z) {
   generic_mat4<T>& m = *this;
-  m[3] = m[0] * x + m[1] * y + m[2] * z + m[3];
+  m[3] += m[0] * x + m[1] * y + m[2] * z;
   return *this;
 }
 
