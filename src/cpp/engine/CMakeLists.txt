@@ -13,6 +13,7 @@ add_library(engine
 	mouse.cpp
 	scene.cpp
 	shader.cpp
+	transform.cpp
 	vertex_array.cpp
 	vertex_buffer.cpp
 	vertex_layout.cpp
