@@ -98,20 +98,20 @@ generic_mat4<T>& generic_mat4<T>::rotate(T angle, generic_vec3<T> const& rotatio
   rotation[2][1] = temp[2] * axis[1] - s * axis[0];
   rotation[2][2] = c + temp[2] * axis[2];
 
-  generic_mat4<T>& m(*this);
-  generic_mat4<T>& result = *this;
+  generic_mat4<T> m(*this);
 
-  result[0] = m[0] * rotation[0][0] + m[1] * rotation[0][1] + m[2] * rotation[0][2];
-  result[1] = m[0] * rotation[1][0] + m[1] * rotation[1][1] + m[2] * rotation[1][2];
-  result[2] = m[0] * rotation[2][0] + m[1] * rotation[2][1] + m[2] * rotation[2][2];
-  result[3] = m[3];
+  m[0] = m[0] * rotation[0][0] + m[1] * rotation[0][1] + m[2] * rotation[0][2];
+  m[1] = m[0] * rotation[1][0] + m[1] * rotation[1][1] + m[2] * rotation[1][2];
+  m[2] = m[0] * rotation[2][0] + m[1] * rotation[2][1] + m[2] * rotation[2][2];
+
+  *this = m * *this;
 
   return *this;
 }
 
 template <class T>
 generic_mat4<T>& generic_mat4<T>::rotate(quat<T> const& quaternion) {
-  *this = *this * generic_mat4<T>(quaternion);
+  *this = generic_mat4<T>(quaternion) * *this;
   return *this;
 }
 
