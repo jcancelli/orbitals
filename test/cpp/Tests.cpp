@@ -1,5 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include "engine/transform.test.hpp"
 #include "math/coordinates.test.hpp"
 #include "math/matrix.test.hpp"
 #include "math/quaternion.test.hpp"
