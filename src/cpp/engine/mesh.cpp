@@ -5,13 +5,13 @@
 #include "../math/projection_matrix.hpp"
 #include "../math/trigonometry.hpp"
 
-#define FOV float(math::radians(80))
-#define Z_NEAR 0.1f
-#define Z_FAR 2000.f
-
 namespace orbitals {
 
 namespace engine {
+
+static const float FOV = math::radians(72);
+static const float Z_NEAR = 0.1f;
+static const float Z_FAR = 2000.f;
 
 void Mesh::draw(std::shared_ptr<const Camera> camera,
                 std::shared_ptr<const Viewport> viewport) const {
