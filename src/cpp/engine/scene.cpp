@@ -16,7 +16,8 @@ void Scene::draw(std::shared_ptr<const Viewport> viewport) const {
 void Scene::update(double deltaTime) {
 }
 
-void Scene::handleInput(std::shared_ptr<const Keyboard> keyboard) {
+void Scene::handleInput(std::vector<Inputs::Event> events, Keyboard const& keyboard,
+                        Mouse const& mouse) {
 }
 
 std::shared_ptr<const Camera> Scene::getCamera() const {

@@ -19,12 +19,6 @@ class Keyboard {
   void release(std::string const& key);
 };
 
-class BrowserEventsKeyboard : public Keyboard {
- public:
-  BrowserEventsKeyboard();
-  ~BrowserEventsKeyboard();
-};
-
 }  // namespace engine
 
 }  // namespace orbitals
