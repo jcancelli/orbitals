@@ -24,35 +24,35 @@ template <class T>
 generic_mat4<T>::generic_mat4(quat<T> const& quaternion) {
   generic_mat4<T>& m = *this;
 
-  T qxx(quaternion.x * quaternion.x);
-  T qyy(quaternion.y * quaternion.y);
-  T qzz(quaternion.z * quaternion.z);
-  T qxz(quaternion.x * quaternion.z);
-  T qxy(quaternion.x * quaternion.y);
-  T qyz(quaternion.y * quaternion.z);
-  T qwx(quaternion.w * quaternion.x);
-  T qwy(quaternion.w * quaternion.y);
-  T qwz(quaternion.w * quaternion.z);
+  const T qxx(quaternion.x * quaternion.x);
+  const T qyy(quaternion.y * quaternion.y);
+  const T qzz(quaternion.z * quaternion.z);
+  const T qxz(quaternion.x * quaternion.z);
+  const T qxy(quaternion.x * quaternion.y);
+  const T qyz(quaternion.y * quaternion.z);
+  const T qwx(quaternion.w * quaternion.x);
+  const T qwy(quaternion.w * quaternion.y);
+  const T qwz(quaternion.w * quaternion.z);
 
-  m[0][0] = T(1) - T(2) * (qyy + qzz);
-  m[0][1] = T(2) * (qxy + qwz);
-  m[0][2] = T(2) * (qxz - qwy);
-  m[0][3] = T(0);
+  m[0][0] = static_cast<T>(1) - static_cast<T>(2) * (qyy + qzz);
+  m[0][1] = static_cast<T>(2) * (qxy + qwz);
+  m[0][2] = static_cast<T>(2) * (qxz - qwy);
+  m[0][3] = static_cast<T>(0);
 
-  m[1][0] = T(2) * (qxy - qwz);
-  m[1][1] = T(1) - T(2) * (qxx + qzz);
-  m[1][2] = T(2) * (qyz + qwx);
-  m[1][3] = T(0);
+  m[1][0] = static_cast<T>(2) * (qxy - qwz);
+  m[1][1] = static_cast<T>(1) - static_cast<T>(2) * (qxx + qzz);
+  m[1][2] = static_cast<T>(2) * (qyz + qwx);
+  m[1][3] = static_cast<T>(0);
 
-  m[2][0] = T(2) * (qxz + qwy);
-  m[2][1] = T(2) * (qyz - qwx);
-  m[2][2] = T(1) - T(2) * (qxx + qyy);
-  m[2][3] = T(0);
+  m[2][0] = static_cast<T>(2) * (qxz + qwy);
+  m[2][1] = static_cast<T>(2) * (qyz - qwx);
+  m[2][2] = static_cast<T>(1) - static_cast<T>(2) * (qxx + qyy);
+  m[2][3] = static_cast<T>(0);
 
-  m[3][0] = T(0);
-  m[3][1] = T(0);
-  m[3][2] = T(0);
-  m[3][3] = T(1);
+  m[3][0] = static_cast<T>(0);
+  m[3][1] = static_cast<T>(0);
+  m[3][2] = static_cast<T>(0);
+  m[3][3] = static_cast<T>(1);
 }
 
 template <class T>
@@ -79,11 +79,11 @@ generic_mat4<T> generic_mat4<T>::translated(generic_vec3<T> const& amount) const
 
 template <class T>
 generic_mat4<T>& generic_mat4<T>::rotate(T angle, generic_vec3<T> const& rotationAxis) {
-  T const c = std::cos(angle);
-  T const s = std::sin(angle);
+  const T c = std::cos(angle);
+  const T s = std::sin(angle);
 
-  generic_vec3<T> axis(rotationAxis.normalized());
-  generic_vec3<T> temp((T(1) - c) * axis);
+  const generic_vec3<T> axis(rotationAxis.normalized());
+  const generic_vec3<T> temp((T(1) - c) * axis);
   generic_mat4<T> rotation;
 
   rotation[0][0] = c + temp[0] * axis[0];
