@@ -14,6 +14,7 @@
 #include "debug.hpp"
 #include "index_buffer.hpp"
 #include "material.hpp"
+#include "transform.hpp"
 #include "uniform_buffer.hpp"
 #include "vertex_array.hpp"
 #include "vertex_buffer.hpp"
@@ -30,7 +31,7 @@ class Mesh {
   VertexArray m_VAO;
   unsigned m_InstancesCount;
   std::shared_ptr<Material> m_Material;
-  UniformBuffer<math::mat4> m_ModelMatricesUBO;
+  UniformBuffer<Transform> m_ModelTransformsUBO;
 
  public:
   template <class TVertex>
@@ -41,15 +42,15 @@ class Mesh {
         m_VAO(m_VBO),
         m_InstancesCount{instancesCount},
         m_Material(material),
-        m_ModelMatricesUBO(std::vector<math::mat4>(instancesCount, math::mat4(1))) {
+        m_ModelTransformsUBO(std::vector<Transform>(instancesCount, Transform())) {
     assert(instancesCount > 0);
   }
   void draw(std::shared_ptr<const Camera> camera, std::shared_ptr<const Viewport> viewport) const;
   void setMaterial(std::shared_ptr<Material> material);
   std::shared_ptr<const Material> getMaterial() const;
-  void setModelMatrix(math::mat4 const& matrix, std::size_t index = 0);
-  void setModelMatrices(std::vector<math::mat4> matrices, std::size_t index = 0);
-  math::mat4 getModelMatrix(std::size_t index = 0) const;
+  void setTransform(Transform const& transform, std::size_t index = 0);
+  void setTransforms(std::vector<Transform> const& transforms, std::size_t index = 0);
+  Transform getTransform(std::size_t index = 0) const;
 };
 
 }  // namespace engine
