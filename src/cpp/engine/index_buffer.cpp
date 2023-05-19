@@ -9,7 +9,7 @@ namespace orbitals {
 namespace engine {
 
 IndexBuffer::IndexBuffer(std::vector<GLuint> const& indices, GLenum usage)
-    : Buffer::Buffer(GL_ELEMENT_ARRAY_BUFFER, indices, usage), m_Count{indices.size()} {
+    : Buffer<GLuint>::Buffer(GL_ELEMENT_ARRAY_BUFFER, indices, usage), m_Count{indices.size()} {
 }
 
 GLsizei IndexBuffer::getPrimitivesCount(GLenum type) const {
@@ -25,10 +25,6 @@ GLsizei IndexBuffer::getPrimitivesCount(GLenum type) const {
     default:
       assert(false);
   }
-}
-
-std::size_t IndexBuffer::getCount() const {
-  return m_Count;
 }
 
 }  // namespace engine

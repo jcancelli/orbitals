@@ -28,10 +28,10 @@ void Mesh::draw(std::shared_ptr<const Camera> camera,
   m_Material->getShader().setUniformMat4("uViewMatrix", camera->viewMatrix());
   m_Material->getShader().setUniform3f("uViewPosition", camera->getPosition());
   if (m_InstancesCount > 1) {
-    glCall(glDrawElementsInstanced(GL_TRIANGLES, m_IBO.getCount(), GL_UNSIGNED_INT, 0,
-                                   m_InstancesCount));
+    glCall(
+        glDrawElementsInstanced(GL_TRIANGLES, m_IBO.count(), GL_UNSIGNED_INT, 0, m_InstancesCount));
   } else {
-    glCall(glDrawElements(GL_TRIANGLES, m_IBO.getCount(), GL_UNSIGNED_INT, 0));
+    glCall(glDrawElements(GL_TRIANGLES, m_IBO.count(), GL_UNSIGNED_INT, 0));
   }
   m_Material->unbind();
   m_VAO.unbind();

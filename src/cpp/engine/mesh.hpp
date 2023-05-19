@@ -39,7 +39,7 @@ class Mesh {
        std::shared_ptr<Material> material, unsigned instancesCount = 1)
       : m_VBO(vertices),
         m_IBO(indices),
-        m_VAO(m_VBO),
+        m_VAO{&m_VBO},
         m_InstancesCount{instancesCount},
         m_Material(material),
         m_ModelTransformsUBO(std::vector<Transform>(instancesCount, Transform())) {

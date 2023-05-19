@@ -10,14 +10,14 @@ namespace orbitals {
 
 namespace engine {
 
-class IndexBuffer : public Buffer {
+class IndexBuffer : public Buffer<GLuint> {
  private:
   std::size_t m_Count;
 
  public:
   IndexBuffer(std::vector<GLuint> const& indices, GLenum usage = GL_STATIC_DRAW);
+
   GLsizei getPrimitivesCount(GLenum type) const;
-  std::size_t getCount() const;
 };
 
 }  // namespace engine

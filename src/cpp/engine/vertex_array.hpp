@@ -13,7 +13,25 @@ class VertexArray {
   GLuint m_Id;
 
  public:
-  VertexArray(VertexBuffer const& vbo);
+  template <class T>
+  VertexArray(std::initializer_list<GenericVertexBuffer<T> const*> vbos) {
+    glCall(glGenVertexArrays(1, &m_Id));
+    bind();
+    for (auto const* vbo : vbos) {
+      vbo->bind();
+      auto const& attributes = vbo->getVertexLayout().getAttributes();
+      int offset = 0;
+      for (int i = 0; i < attributes.size(); i++) {
+        auto const& attribute = attributes[i];
+        glCall(glEnableVertexAttribArray(i));
+        glCall(glVertexAttribPointer(i, attribute.count, attribute.type, attribute.normalized,
+                                     vbo->getVertexLayout().stride(), (void*)offset));
+        offset += attribute.size();
+      }
+      vbo->unbind();
+    }
+    unbind();
+  }
   ~VertexArray();
   void bind() const;
   void unbind() const;

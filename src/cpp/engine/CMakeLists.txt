@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 
 add_library(engine
-	buffer.cpp
 	camera.cpp
 	camera_movement.cpp
 	clock.cpp
@@ -16,7 +15,6 @@ add_library(engine
 	shader.cpp
 	transform.cpp
 	vertex_array.cpp
-	vertex_buffer.cpp
 	vertex_layout.cpp
 	vertex.cpp
 	viewport.cpp

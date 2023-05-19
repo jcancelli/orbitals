@@ -3,25 +3,29 @@
 #include <vector>
 
 #include "buffer.hpp"
+#include "transform.hpp"
+#include "vertex.hpp"
 #include "vertex_layout.hpp"
 
 namespace orbitals {
 
 namespace engine {
 
-class VertexBuffer : public Buffer {
+template <class TVertex>  // TVertex must have a ::layout static property of type VertexLayout
+class GenericVertexBuffer : public Buffer<TVertex> {
  private:
   VertexLayout m_VertexLayout;
 
  public:
-  template <class TVertex>  // TVertex must have a ::layout static property of type VertexLayout
-  VertexBuffer(std::vector<TVertex> const& vertices, GLenum usage = GL_STATIC_DRAW)
-      : Buffer::Buffer(GL_ARRAY_BUFFER, vertices, usage), m_VertexLayout{TVertex::layout} {
-  }
-
+  GenericVertexBuffer(std::vector<TVertex> const& vertices, GLenum usage = GL_STATIC_DRAW);
   VertexLayout const& getVertexLayout() const;
 };
+
+using VertexBuffer = GenericVertexBuffer<Vertex>;
+// using TransformsBuffer = GenericVertexBuffer<Transform>;
 
 }  // namespace engine
 
 }  // namespace orbitals
+
+#include "vertex_buffer.inl"

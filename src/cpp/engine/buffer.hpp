@@ -10,29 +10,34 @@ namespace orbitals {
 
 namespace engine {
 
+template <class T>
 class Buffer {
  private:
   GLuint m_Id;
   GLenum m_Target;
-  GLsizei m_Size;
+  std::vector<T> m_Data;  // CPU side copy of data
 
  public:
-  template <class TData>
-  Buffer(GLenum target, std::vector<TData> const& data, GLenum usage)
-      : m_Target(target), m_Size(sizeof(TData) * data.size()) {
+  Buffer(GLenum target, std::vector<T> const& data, GLenum usage) : m_Target(target), m_Data(data) {
     glCall(glGenBuffers(1, &m_Id));
     glCall(glBindBuffer(target, m_Id));
-    glCall(glBufferData(target, m_Size, data.data(), usage));
+    glCall(glBufferData(target, size(), data.data(), usage));
     glCall(glBindBuffer(target, 0));
   }
   ~Buffer();
   void bind() const;
   void unbind() const;
+  void write(std::vector<T> const& data, unsigned to = 0);
+  void write(T const& data, unsigned to = 0);
+  T read(unsigned from) const;
   GLuint id() const;
   GLenum target() const;
   GLsizei size() const;
+  std::size_t count() const;
 };
 
 }  // namespace engine
 
 }  // namespace orbitals
+
+#include "buffer.inl"
