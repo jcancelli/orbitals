@@ -8,6 +8,15 @@ namespace orbitals {
 namespace engine {
 
 template <class T>
+Buffer<T>::Buffer(GLenum target, std::vector<T> const& data, GLenum usage)
+    : m_Target(target), m_Data(data) {
+  glCall(glGenBuffers(1, &m_Id));
+  glCall(glBindBuffer(target, m_Id));
+  glCall(glBufferData(target, size(), data.data(), usage));
+  glCall(glBindBuffer(target, 0));
+}
+
+template <class T>
 Buffer<T>::~Buffer() {
   glCall(glDeleteBuffers(1, &m_Id));
 }
@@ -27,7 +36,7 @@ void Buffer<T>::write(std::vector<T> const& data, unsigned to) {
   assert(to + data.size() <= count());
   std::copy(data.cbegin(), data.cend(), m_Data.begin() + to);
   bind();
-  glCall(glBufferSubData(GL_UNIFORM_BUFFER, to * sizeof(T), data.size() * sizeof(T), data.data()));
+  glCall(glBufferSubData(m_Target, to * sizeof(T), data.size() * sizeof(T), data.data()));
   unbind();
 }
 
@@ -36,7 +45,7 @@ void Buffer<T>::write(T const& data, unsigned to) {
   assert(to < count());
   m_Data[to] = data;
   bind();
-  glCall(glBufferSubData(GL_UNIFORM_BUFFER, to * sizeof(T), sizeof(T), &data));
+  glCall(glBufferSubData(m_Target, to * sizeof(T), sizeof(T), &data));
   unbind();
 }
 

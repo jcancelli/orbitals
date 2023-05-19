@@ -18,12 +18,7 @@ class Buffer {
   std::vector<T> m_Data;  // CPU side copy of data
 
  public:
-  Buffer(GLenum target, std::vector<T> const& data, GLenum usage) : m_Target(target), m_Data(data) {
-    glCall(glGenBuffers(1, &m_Id));
-    glCall(glBindBuffer(target, m_Id));
-    glCall(glBufferData(target, size(), data.data(), usage));
-    glCall(glBindBuffer(target, 0));
-  }
+  Buffer(GLenum target, std::vector<T> const& data, GLenum usage);
   ~Buffer();
   void bind() const;
   void unbind() const;
