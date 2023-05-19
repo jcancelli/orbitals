@@ -18,5 +18,6 @@ add_library(engine
 	vertex_array.cpp
 	vertex_buffer.cpp
 	vertex_layout.cpp
+	vertex.cpp
 	viewport.cpp
 )
