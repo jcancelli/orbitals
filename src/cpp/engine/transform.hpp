@@ -3,18 +3,20 @@
 #include "../math/matrix.hpp"
 #include "../math/quaternion.hpp"
 #include "../math/vector.hpp"
+#include "vertex_layout.hpp"
 
 namespace orbitals {
 
 namespace engine {
 
 class Transform {
+ public:
+  static const VertexLayout layout;
+
  private:
   math::vec3 m_Translation;
-  float padding01;
   math::quatf m_Rotation;
   math::vec3 m_Scale;
-  float padding02;
   math::mat4 m_Matrix;
 
  public:

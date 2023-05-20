@@ -4,6 +4,20 @@ namespace orbitals {
 
 namespace engine {
 
+const VertexLayout Transform::layout{
+    // trasaltion
+    {3, GL_FLOAT, GL_FALSE, 1},
+    // rotation
+    {4, GL_FLOAT, GL_FALSE, 1},
+    // scale
+    {3, GL_FLOAT, GL_FALSE, 1},
+    // model matrix
+    {4, GL_FLOAT, GL_FALSE, 1},
+    {4, GL_FLOAT, GL_FALSE, 1},
+    {4, GL_FLOAT, GL_FALSE, 1},
+    {4, GL_FLOAT, GL_FALSE, 1},
+};
+
 Transform::Transform()
     : m_Translation(0, 0, 0),
       m_Rotation(0, math::vec3(1, 0, 0)),
