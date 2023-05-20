@@ -26,23 +26,23 @@ namespace engine {
 
 class Mesh {
  protected:
-  VertexBuffer m_VBO;
+  VertexDataBuffer m_GeometryVBO;
+  VertexTransformsBuffer m_TransformsVBO;
   IndexBuffer m_IBO;
   VertexArray m_VAO;
   unsigned m_InstancesCount;
   std::shared_ptr<Material> m_Material;
-  UniformBuffer<Transform> m_ModelTransformsUBO;
 
  public:
   template <class TVertex>
   Mesh(std::vector<TVertex> const& vertices, std::vector<GLuint> const& indices,
        std::shared_ptr<Material> material, unsigned instancesCount = 1)
-      : m_VBO(vertices),
+      : m_GeometryVBO(vertices),
+        m_TransformsVBO(std::vector(instancesCount, Transform()), GL_DYNAMIC_DRAW),
         m_IBO(indices),
-        m_VAO{&m_VBO},
+        m_VAO(&m_GeometryVBO, &m_TransformsVBO),
         m_InstancesCount{instancesCount},
-        m_Material(material),
-        m_ModelTransformsUBO(std::vector<Transform>(instancesCount, Transform())) {
+        m_Material(material) {
     assert(instancesCount > 0);
   }
   void draw(std::shared_ptr<const Camera> camera, std::shared_ptr<const Viewport> viewport) const;
