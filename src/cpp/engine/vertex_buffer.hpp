@@ -11,18 +11,18 @@ namespace orbitals {
 
 namespace engine {
 
-template <class TVertex>  // TVertex must have a ::layout static property of type VertexLayout
-class GenericVertexBuffer : public Buffer<TVertex> {
+template <class T>  // T must have a ::layout static property of type VertexLayout
+class VertexBuffer : public Buffer<T> {
  private:
   VertexLayout m_VertexLayout;
 
  public:
-  GenericVertexBuffer(std::vector<TVertex> const& vertices, GLenum usage = GL_STATIC_DRAW);
+  VertexBuffer(std::vector<T> const& data, GLenum usage = GL_STATIC_DRAW);
   VertexLayout const& getVertexLayout() const;
 };
 
-using VertexBuffer = GenericVertexBuffer<Vertex>;
-// using TransformsBuffer = GenericVertexBuffer<Transform>;
+using VertexDataBuffer = VertexBuffer<Vertex>;
+using VertexTransformsBuffer = VertexBuffer<Transform>;
 
 }  // namespace engine
 
