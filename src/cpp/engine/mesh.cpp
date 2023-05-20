@@ -9,19 +9,16 @@ namespace orbitals {
 
 namespace engine {
 
-static const float FOV = math::radians(72);
-static const float Z_NEAR = 0.1f;
-static const float Z_FAR = 2000.f;
-
 void Mesh::draw(std::shared_ptr<const Camera> camera,
                 std::shared_ptr<const Viewport> viewport) const {
   m_Material->bind();
   m_VAO.bind();
   m_IBO.bind();
-  m_Material->getShader().setUniformMat4(                             //
-      "uProjectionMatrix",                                            //
-      math::perspective(FOV, viewport->aspectRatio(), Z_NEAR, Z_FAR)  //
-  );                                                                  //
+  m_Material->getShader().setUniformMat4(                                               //
+      "uProjectionMatrix",                                                              //
+      math::perspective(camera->getFOV(), viewport->aspectRatio(), camera->getZNear(),  //
+                        camera->getZFar())                                              //
+  );                                                                                    //
   m_Material->getShader().setUniformMat4("uViewMatrix", camera->viewMatrix());
   m_Material->getShader().setUniform3f("uViewPosition", camera->getPosition());
   if (m_InstancesCount > 1) {

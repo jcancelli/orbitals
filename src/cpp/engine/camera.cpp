@@ -6,16 +6,39 @@ namespace orbitals {
 
 namespace engine {
 
-Camera::Camera() : m_Position(0), m_Center(0), m_UpVector(0, 1, 0), m_ViewMatrix(1) {
+static const float defaultFOV = math::radians(45);
+static const float defaultZNear = 0.1f;
+static const float defaultZFar = 2000.f;
+
+Camera::Camera()
+    : m_Position(0),
+      m_Center(0),
+      m_UpVector(0, 1, 0),
+      m_ViewMatrix(1),
+      m_FOV{defaultFOV},
+      m_ZNear{defaultZNear},
+      m_ZFar{defaultZFar} {
 }
 
 Camera::Camera(float x, float y, float z)
-    : m_Position(x, y, z), m_Center(0), m_UpVector(0, 1, 0), m_ViewMatrix(1) {
+    : m_Position(x, y, z),
+      m_Center(0),
+      m_UpVector(0, 1, 0),
+      m_ViewMatrix(1),
+      m_FOV{defaultFOV},
+      m_ZNear{defaultZNear},
+      m_ZFar{defaultZFar} {
   updateViewMatrix();
 }
 
 Camera::Camera(math::vec3 const& position)
-    : m_Position(position), m_Center(0), m_UpVector(0, 1, 0), m_ViewMatrix(1) {
+    : m_Position(position),
+      m_Center(0),
+      m_UpVector(0, 1, 0),
+      m_ViewMatrix(1),
+      m_FOV{defaultFOV},
+      m_ZNear{defaultZNear},
+      m_ZFar{defaultZFar} {
   updateViewMatrix();
 }
 
@@ -77,6 +100,30 @@ Camera& Camera::setZ(float z) {
   return setPosition(m_Position.x(), m_Position.y(), z);
 }
 
+Camera& Camera::setUpVector(math::vec3 const& upVector) {
+  m_UpVector = upVector;
+  updateViewMatrix();
+  return *this;
+}
+
+Camera& Camera::setFOV(float fov) {
+  assert(fov > 0);
+  m_FOV = fov;
+  return *this;
+}
+
+Camera& Camera::setZNear(float zNear) {
+  assert(zNear > 0 && zNear < m_ZFar);
+  m_ZNear = zNear;
+  return *this;
+}
+
+Camera& Camera::setZFar(float zFar) {
+  assert(zFar > m_ZNear);
+  m_ZFar = zFar;
+  return *this;
+}
+
 math::vec3 const& Camera::getPosition() const {
   return m_Position;
 }
@@ -93,10 +140,16 @@ float Camera::getZ() const {
   return m_Position.z();
 }
 
-Camera& Camera::setUpVector(math::vec3 const& upVector) {
-  m_UpVector = upVector;
-  updateViewMatrix();
-  return *this;
+float Camera::getFOV() const {
+  return m_FOV;
+}
+
+float Camera::getZNear() const {
+  return m_ZNear;
+}
+
+float Camera::getZFar() const {
+  return m_ZFar;
 }
 
 math::mat4 const& Camera::viewMatrix() const {

@@ -12,6 +12,9 @@ class Camera {
   math::vec3 m_Center;
   math::vec3 m_UpVector;
   math::mat4 m_ViewMatrix;
+  float m_FOV;
+  float m_ZNear;
+  float m_ZFar;
 
  public:
   Camera();
@@ -29,12 +32,18 @@ class Camera {
   Camera& setX(float x);
   Camera& setY(float y);
   Camera& setZ(float z);
+  Camera& setUpVector(math::vec3 const& upVector);
+  Camera& setFOV(float fov);
+  Camera& setZNear(float zNear);
+  Camera& setZFar(float zFar);
   math::vec3 const& getPosition() const;
   float getX() const;
   float getY() const;
   float getZ() const;
-  Camera& setUpVector(math::vec3 const& upVector);
-  const math::mat4& viewMatrix() const;
+  float getFOV() const;
+  float getZNear() const;
+  float getZFar() const;
+  math::mat4 const& viewMatrix() const;
 
  private:
   void updateViewMatrix();
