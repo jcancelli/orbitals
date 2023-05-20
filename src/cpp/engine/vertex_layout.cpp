@@ -26,14 +26,13 @@ VertexLayout::VertexLayout() {
 
 VertexLayout::VertexLayout(std::initializer_list<VertexAttribute> attributes) {
   for (auto const& attribute : attributes) {
-    addAttribute(attribute.count, attribute.type, attribute.normalized);
+    addAttribute(attribute);
   }
 }
 
-void VertexLayout::addAttribute(GLint count, GLenum type, GLboolean normalized) {
-  VertexAttribute element = {count, type, normalized};
-  m_Elements.push_back(element);
-  m_Stride += element.size();
+void VertexLayout::addAttribute(VertexAttribute const& attribute) {
+  m_Elements.push_back(attribute);
+  m_Stride += attribute.size();
 }
 
 std::vector<VertexAttribute> const& VertexLayout::getAttributes() const {

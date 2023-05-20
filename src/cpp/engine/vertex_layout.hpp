@@ -12,6 +12,7 @@ struct VertexAttribute {
   GLint count;
   GLenum type;
   GLboolean normalized = GL_FALSE;
+  GLuint divisor = 0;
 
   GLsizei size() const;
 };
@@ -24,7 +25,7 @@ class VertexLayout {
  public:
   VertexLayout();
   VertexLayout(std::initializer_list<VertexAttribute> attributes);
-  void addAttribute(GLint count, GLenum type, GLboolean normalized);
+  void addAttribute(VertexAttribute const& attribute);
   std::vector<VertexAttribute> const& getAttributes() const;
   GLsizei stride() const;
 };
