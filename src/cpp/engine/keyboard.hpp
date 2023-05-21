@@ -13,7 +13,7 @@ class Keyboard {
   std::unordered_map<std::string, bool> m_State;
 
  public:
-  bool isDown(std::string const& key) const;
+  bool keyIsDown(std::string const& key) const;
   std::vector<std::string> getDownKeys() const;
   void press(std::string const& key);
   void release(std::string const& key);

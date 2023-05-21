@@ -9,7 +9,7 @@ namespace orbitals {
 
 namespace engine {
 
-bool Keyboard::isDown(std::string const& key) const {
+bool Keyboard::keyIsDown(std::string const& key) const {
   return m_State.find(key) != m_State.end() && m_State.at(key);
 }
 
