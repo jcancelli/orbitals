@@ -13,12 +13,14 @@ add_link_options(
 add_subdirectory(math)
 add_subdirectory(util)
 add_subdirectory(engine)
+add_subdirectory(imgui)
 
 add_executable(wasm.mjs orbitals.cpp)
 
 target_link_libraries(wasm.mjs math)
 target_link_libraries(wasm.mjs util)
 target_link_libraries(wasm.mjs engine)
+target_link_libraries(wasm.mjs imgui)
 
 install(
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/wasm.mjs
