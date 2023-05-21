@@ -178,11 +178,11 @@ void Inputs::removeMouseUpListener(unsigned listenerID) {
 }
 
 unsigned Inputs::addMouseDownListener(util::Listeners<Mouse::Button>::Listener const& listener) {
-  return m_KeyDownListeners.add(listener);
+  return m_MouseDownListeners.add(listener);
 }
 
 void Inputs::removeMouseDownListener(unsigned listenerID) {
-  m_KeyDownListeners.remove(listenerID);
+  m_MouseDownListeners.remove(listenerID);
 }
 
 unsigned Inputs::addMouseMoveListener(util::Listeners<float, float>::Listener const& listener) {
