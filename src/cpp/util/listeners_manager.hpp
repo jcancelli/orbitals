@@ -7,10 +7,10 @@ namespace orbitals {
 
 namespace util {
 
-template <class T>
-class ListenersManager {
+template <class... T>
+class Listeners {
  public:
-  using Listener = std::function<void(T)>;
+  using Listener = std::function<void(T...)>;
 
  private:
   unsigned m_NextID;
@@ -19,7 +19,7 @@ class ListenersManager {
  public:
   unsigned addListener(Listener const& listener);
   void removeListener(unsigned listenerID);
-  void notifyListeners(T& value) const;
+  void notifyListeners(T... values) const;
 };
 
 }  // namespace util
