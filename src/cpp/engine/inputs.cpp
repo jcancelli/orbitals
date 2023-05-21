@@ -11,16 +11,12 @@ EM_BOOL Inputs::keyboard_event_callback(int type, const EmscriptenKeyboardEvent*
   Inputs* inputs = (Inputs*)userData;
   Inputs::Event event = {.type = (Inputs::Event::Type)type, .keyboard = *emEvent};
 
-  char key[32];
-  strcpy(key, emEvent->key);
-  boost::algorithm::to_upper(key);
-
   switch (event.type) {
     case Inputs::Event::Type::KeyDown:
-      inputs->m_Keyboard.press(key);
+      inputs->m_Keyboard.press(browserStringToKey(emEvent->key));
       break;
     case Inputs::Event::Type::KeyUp:
-      inputs->m_Keyboard.release(key);
+      inputs->m_Keyboard.release(browserStringToKey(emEvent->key));
       break;
     default:
       // do nothing
