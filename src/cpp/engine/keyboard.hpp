@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "../imgui/imgui.h"
+
 namespace orbitals {
 
 namespace engine {
@@ -11,7 +13,7 @@ namespace engine {
 enum Key {
   Ctrl,
   Shift,
-  BlockMaiusc,
+  CapsLock,
   Tab,
   Alt,
   Space,
@@ -74,6 +76,7 @@ enum Key {
 };
 
 Key browserStringToKey(std::string key);
+ImGuiKey keyToImGuiKey(Key key);
 
 class Keyboard {
  protected:
