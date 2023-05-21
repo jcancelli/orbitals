@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 add_library(engine
+	application.cpp
 	camera.cpp
 	camera_movement.cpp
 	clock.cpp
