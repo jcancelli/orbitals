@@ -28,6 +28,14 @@ void Viewport::setHeight(float height) {
   glCall(glViewport(0, 0, m_Width, m_Height));
 }
 
+unsigned Viewport::addResizeListener(util::Listeners<float, float>::Listener const &listener) {
+  return m_ResizeListeners.add(listener);
+}
+
+void Viewport::removeResizeListener(unsigned listenerID) {
+  m_ResizeListeners.remove(listenerID);
+}
+
 float Viewport::aspectRatio() const {
   return m_Width / m_Height;
 }
