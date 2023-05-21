@@ -97,9 +97,9 @@ static std::unordered_map<Key, ImGuiKey> keyToImGuiKeyMap{
     {F7, ImGuiKey_F7},                  //
     {F8, ImGuiKey_F8},                  //
     {F9, ImGuiKey_F9},                  //
-    {F10, ImGuiKey_10},                 //
-    {F11, ImGuiKey_11},                 //
-    {F12, ImGuiKey_12},                 //
+    {F10, ImGuiKey_F10},                //
+    {F11, ImGuiKey_F11},                //
+    {F12, ImGuiKey_F12},                //
     {Num0, ImGuiKey_0},                 //
     {Num1, ImGuiKey_1},                 //
     {Num2, ImGuiKey_2},                 //
