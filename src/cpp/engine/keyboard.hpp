@@ -73,7 +73,7 @@ enum Key {
   Unmapped
 };
 
-Key browserStringToKey(std::string const& key);
+Key browserStringToKey(std::string key);
 
 class Keyboard {
  protected:
