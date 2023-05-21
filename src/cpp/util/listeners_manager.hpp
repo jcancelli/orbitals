@@ -17,9 +17,9 @@ class Listeners {
   std::map<unsigned, Listener> m_Listeners;
 
  public:
-  unsigned addListener(Listener const& listener);
-  void removeListener(unsigned listenerID);
-  void notifyListeners(T... values) const;
+  unsigned add(Listener const& listener);
+  void remove(unsigned listenerID);
+  void notify(T... values) const;
 };
 
 }  // namespace util
