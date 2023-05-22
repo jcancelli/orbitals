@@ -22,7 +22,7 @@ jobs:
       - name: Setup emsdk
         uses: mymindstorm/setup-emsdk@v11
         with:
-          version: ${{ emscripten_version }}
+          version: ${{ env.emscripten_version }}
           actions-cache-folder: 'emsdk-cache'
       - name: Install dependencies
         run: npm ci
@@ -32,8 +32,8 @@ jobs:
         id: cache-boost
         uses: actions/cache@v3
         with:
-          path: ${{ boost_version_underscore }}
-          key: ${{ boost_version_underscore }}
+          path: ${{ env.boost_version_underscore }}
+          key: ${{ env.boost_version_underscore }}
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != true
         run: |
