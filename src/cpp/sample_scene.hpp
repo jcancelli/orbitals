@@ -26,8 +26,8 @@ struct SampleMaterial : public Material {
   float shinyness;
 
   SampleMaterial(std::string const& shaderName, float r, float g, float b, float shinyness)
-      : Material::Material(util::fetch_string(std::string("shaders/") + shaderName + ".vert"),
-                           util::fetch_string(std::string("shaders/") + shaderName + ".frag")),
+      : Material::Material(util::fetch_string(std::string("./shaders/") + shaderName + ".vert"),
+                           util::fetch_string(std::string("./shaders/") + shaderName + ".frag")),
         color(r, g, b),
         shinyness(shinyness) {
   }
