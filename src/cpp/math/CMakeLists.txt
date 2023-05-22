@@ -7,11 +7,3 @@ add_library(math
 	trigonometry.cpp
 	wave_function.cpp
 )
-
-target_precompile_headers(math INTERFACE
-	bohr.hpp
-	matrix.hpp
-	vector.hpp
-	projection_matrix.hpp
-	quaternion.hpp
-)
