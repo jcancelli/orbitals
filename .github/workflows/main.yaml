@@ -11,9 +11,9 @@ permissions:
 jobs:
   build-and-deploy:
     env:
-      emscripten-version: 3.1.39
-      boost-version: 1.81.0
-      boost-version-underscore: 1_81_0
+      emscripten_version: 3.1.39
+      boost_version: 1.81.0
+      boost_version_underscore: 1_81_0
     concurrency: ci-${{ github.ref }}
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: Setup emsdk
         uses: mymindstorm/setup-emsdk@v11
         with:
-          version: ${emscripten-version}
+          version: ${{ emscripten_version }}
           actions-cache-folder: 'emsdk-cache'
       - name: Install dependencies
         run: npm ci
@@ -32,15 +32,15 @@ jobs:
         id: cache-boost
         uses: actions/cache@v3
         with:
-          path: ${boost-version-underscore}
-          key: ${boost-version-underscore}
+          path: ${{ boost_version_underscore }}
+          key: ${{ boost_version_underscore }}
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != true
         run: |
-          wget https://boostorg.jfrog.io/artifactory/main/release/${boost-version}/source/boost_${boost-version-underscore}.tar.gz 
-          && tar -xvf boost_${boost-version-underscore}.tar.gz 
-          && rm boost_${boost-version-underscore}.tar.gz
-          && export BOOST_ROOT=$(readlink -f boost_${boost-version-underscore})
+          wget https://boostorg.jfrog.io/artifactory/main/release/${boost_version}/source/boost_${boost_version_underscore}.tar.gz 
+          && tar -xvf boost_${boost_version_underscore}.tar.gz 
+          && rm boost_${boost_version_underscore}.tar.gz
+          && export BOOST_ROOT=$(readlink -f boost_${boost_version_underscore})
       - name: Setup CMake
         run: npm run cmake-setup
       - name: Build
