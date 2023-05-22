@@ -9,8 +9,9 @@ find_package(Boost 1.81.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 if(DEBUG_MODE)
-	message("Building in debug mode")
 	add_definitions(-DDEBUG_MODE)
+else()
+	add_compile_options(-O2)
 endif()
 
 include(CTest)
