@@ -25,7 +25,7 @@ jobs:
       - name: Set CXX
         run: export CXX="$(which em++)"
       - name: Install Boost
-        run: MarkusJx/install-boost@v2.4.1
+        uses: MarkusJx/install-boost@v2.4.1
         with:
           boost_version: 1.82.0
           boost_install_dir: /boost_1_82_0
