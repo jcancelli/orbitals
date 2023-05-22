@@ -37,7 +37,7 @@ jobs:
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != true
         run: |
-          curl https://boostorg.jfrog.io/artifactory/main/release/${boost_version}/source/boost_${boost_version_underscore}.tar.gz -o nul \
+          curl https://boostorg.jfrog.io/artifactory/main/release/${boost_version}/source/boost_${boost_version_underscore}.tar.gz -o boost_${boost_version_underscore}.tar.gz \
           && tar -xvf boost_${boost_version_underscore}.tar.gz \
           && rm boost_${boost_version_underscore}.tar.gz \
           && export BOOST_ROOT=$(readlink -f boost_${boost_version_underscore})
