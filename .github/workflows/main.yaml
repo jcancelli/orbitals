@@ -32,15 +32,15 @@ jobs:
         id: cache-boost
         uses: actions/cache@v3
         with:
-          path: $boost-version-underscore
-          key: $boost-version-underscore
+          path: ${boost-version-underscore}
+          key: ${boost-version-underscore}
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != true
         run: |
-          wget https://boostorg.jfrog.io/artifactory/main/release/$boost-version/source/boost_$boost-version-underscore.tar.gz 
-          && tar -xvf boost_$boost-version-underscore.tar.gz 
-          && rm boost_$boost-version-underscore.tar.gz
-          && export BOOST_ROOT=$(readlink -f boost_$boost-version-underscore)
+          wget https://boostorg.jfrog.io/artifactory/main/release/${boost-version}/source/boost_${boost-version-underscore}.tar.gz 
+          && tar -xvf boost_${boost-version-underscore}.tar.gz 
+          && rm boost_${boost-version-underscore}.tar.gz
+          && export BOOST_ROOT=$(readlink -f boost_${boost-version-underscore})
       - name: Setup CMake
         run: npm run cmake-setup
       - name: Build
