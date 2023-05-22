@@ -19,7 +19,7 @@ const config = {
 		files: {
 			lib: "src/frontend/lib",
 			routes: "src/frontend/routes",
-			appTemplate: "src/frontend/app.html"
+			appTemplate: "src/frontend/index.html"
 		},
 		paths: {
 			base: dev ? "" : "/orbitals" // for github pages
