@@ -38,7 +38,7 @@ jobs:
         if: steps.cache-boost.outputs.cache-hit != true
         run: |
           wget -q https://boostorg.jfrog.io/artifactory/main/release/${boost_version}/source/boost_${boost_version_underscore}.tar.gz \
-          && tar -xvf boost_${boost_version_underscore}.tar.gz \
+          && tar -xf boost_${boost_version_underscore}.tar.gz \
           && rm boost_${boost_version_underscore}.tar.gz \
           && export BOOST_ROOT=$(readlink -f boost_${boost_version_underscore})
       - name: Setup CMake
