@@ -27,8 +27,8 @@ jobs:
       - name: Install Boost
         uses: MarkusJx/install-boost@v2.4.1
         with:
-          boost_version: 1.82.0
-          boost_install_dir: /boost_1_82_0
+          boost_version: 1.81.0
+          boost_install_dir: /boost_1_81_0
       - name: Setup CMake
         run: npm run cmake-setup
       - name: Build
