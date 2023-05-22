@@ -40,8 +40,7 @@ jobs:
           wget -q https://boostorg.jfrog.io/artifactory/main/release/${boost_version}/source/boost_${boost_version_underscore}.tar.gz \
           && tar -xf boost_${boost_version_underscore}.tar.gz \
           && rm boost_${boost_version_underscore}.tar.gz \
-          && export BOOST_ROOT=$(readlink -f boost_${boost_version_underscore}) \
-          && echo $BOOST_ROOT
+          && echo "BOOST_ROOT=$(readlink -f boost_${boost_version_underscore})" >> "$GITHUB_ENV" \
       - name: Setup CMake
         run: npm run cmake-setup
       - name: Build
