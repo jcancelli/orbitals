@@ -52,6 +52,10 @@ Application::Application(std::string const& canvasID) {
       [](Mouse::Button button) { ImGui::GetIO().AddMouseButtonEvent(button, false); });
   m_Inputs->addMouseMoveListener([](float x, float y) { ImGui::GetIO().AddMousePosEvent(x, y); });
   m_Inputs->addWheelListener([](float scroll) { ImGui::GetIO().AddMouseWheelEvent(0, scroll); });
+
+  m_Clock = std::shared_ptr<Clock>(new Clock);
+  m_Clock->addOnTickListener(
+      [](Clock const& clock) { ImGui::GetIO().DeltaTime = clock.delta() / 1000; });
 }
 
 Application::~Application() {
