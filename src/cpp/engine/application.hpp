@@ -14,7 +14,7 @@ namespace orbitals {
 namespace engine {
 
 class Application {
- private:
+ protected:
   EMSCRIPTEN_WEBGL_CONTEXT_HANDLE m_WebGLContext;
   EM_BOOL m_IsRunning;
   std::shared_ptr<Viewport> m_Viewport;
@@ -24,19 +24,16 @@ class Application {
 
  public:
   Application(std::string const& canvasID);
+  ~Application();
   void start();
   void stop();
   void setScene(std::shared_ptr<Scene> scene);
   std::shared_ptr<Viewport const> getViewport() const;
   std::shared_ptr<Clock const> getClock() const;
   std::shared_ptr<Inputs> getInputs();
-  virtual void onInit();
   virtual void onUpdate();
-  virtual void onShutdown();
 
  private:
-  void init(std::string const& canvasID);
-  void shutdown();
   EM_BOOL cycle(double elapsed);
   static EM_BOOL cycleWrapper(double elapsed, void* userData);
 };
