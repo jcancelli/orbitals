@@ -22,7 +22,7 @@ jobs:
       - name: Setup emsdk
         uses: mymindstorm/setup-emsdk@v11
         with:
-          version: $emscripten-version
+          version: ${emscripten-version}
           actions-cache-folder: 'emsdk-cache'
       - name: Install dependencies
         run: npm ci
