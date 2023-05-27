@@ -14,7 +14,7 @@ struct FetchedBuffer {
   ~FetchedBuffer();
 };
 
-FetchedBuffer* fetch_bytes(const std::string& url);
+FetchedBuffer fetch_bytes(const std::string& url);
 
 }  // namespace util
 
