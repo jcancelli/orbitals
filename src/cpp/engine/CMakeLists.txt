@@ -20,4 +20,5 @@ add_library(engine
 	vertex.cpp
 	viewport.cpp
 	primitives/gl_object.cpp
+	primitives/texture.cpp
 )
