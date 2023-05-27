@@ -135,10 +135,6 @@ void Shader::unbind() const {
   glCall(glUseProgram(0));
 }
 
-GLuint Shader::id() const {
-  return m_Id;
-}
-
 GLuint Shader::getUniformLocation(std::string const& key) {
   auto search = m_UniformLocationCache.find(key);
   if (search != m_UniformLocationCache.end()) {

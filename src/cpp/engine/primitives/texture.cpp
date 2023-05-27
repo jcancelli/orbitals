@@ -1,7 +1,5 @@
 #include "texture.hpp"
 
-#include "../debug.hpp"
-
 namespace orbitals {
 
 namespace engine {

@@ -5,16 +5,16 @@
 #include <string>
 #include <unordered_map>
 
-#include "../math/matrix.hpp"
+#include "../../math/matrix.hpp"
+#include "gl_object.hpp"
 #include "uniform_buffer.hpp"
 
 namespace orbitals {
 
 namespace engine {
 
-class Shader {
+class Shader : public GLObject {
  private:
-  GLuint m_Id;
   GLuint m_VertId;
   GLuint m_FragId;
   std::unordered_map<std::string, GLuint> m_UniformLocationCache;
@@ -33,7 +33,6 @@ class Shader {
   void bindUniformBlock(std::string const& blockKey, GLuint bindingPoint);
   void bind() const;
   void unbind() const;
-  GLuint id() const;
 
  private:
   GLuint getUniformLocation(std::string const& key);

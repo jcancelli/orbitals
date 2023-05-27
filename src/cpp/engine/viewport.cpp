@@ -4,7 +4,7 @@
 #include <emscripten/emscripten.h>
 #include <emscripten/html5.h>
 
-#include "debug.hpp"
+#include "primitives/debug.hpp"
 
 namespace orbitals {
 

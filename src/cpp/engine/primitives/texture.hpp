@@ -3,6 +3,7 @@
 #include <cassert>
 #include <vector>
 
+#include "debug.hpp"
 #include "gl_object.hpp"
 
 namespace orbitals {

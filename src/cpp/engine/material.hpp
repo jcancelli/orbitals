@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "shader.hpp"
+#include "primitives/shader.hpp"
 
 namespace orbitals {
 

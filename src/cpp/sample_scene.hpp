@@ -7,8 +7,8 @@
 
 #include "engine/camera_movement.hpp"
 #include "engine/keyboard.hpp"
+#include "engine/primitives/vertex.hpp"
 #include "engine/scene.hpp"
-#include "engine/vertex.hpp"
 #include "math/bohr.hpp"
 #include "math/coordinates.hpp"
 #include "math/trigonometry.hpp"
@@ -131,7 +131,7 @@ struct SampleScene : public Scene {
   SampleScene()
       : Scene::Scene(std::shared_ptr<Camera>(new Camera(0, 0, -15))),
         cameraMovement(m_Camera, vec3(0)) {
-    int instances = 3000;
+    int instances = 20000;
     Sphere sphere(20, 20, instances);
     SampleMaterial* spheresMaterial = (SampleMaterial*)sphere.material.get();
     spheresMaterial->color = vec3(2. / 255., 70. / 255., 196. / 255.);
@@ -141,9 +141,9 @@ struct SampleScene : public Scene {
     std::default_random_engine eng;
     std::normal_distribution<float> dist;
     for (int i = 0; i < instances; i++) {
-      float x = dist(eng) * 12;
-      float y = dist(eng) * 12;
-      float z = dist(eng) * 12;
+      float x = dist(eng) * 25;
+      float y = dist(eng) * 25;
+      float z = dist(eng) * 25;
       sphere.mesh->setTransform(Transform().translate(x, y, z), i);
     }
 

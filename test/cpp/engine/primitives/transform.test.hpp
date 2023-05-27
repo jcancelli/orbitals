@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../doctest.h"
-#include "../test_util.hpp"
-#include "engine/transform.hpp"
+#include "../../doctest.h"
+#include "../../test_util.hpp"
+#include "engine/primitives/transform.hpp"
 
 using orbitals::engine::Transform;
 using orbitals::math::mat4;

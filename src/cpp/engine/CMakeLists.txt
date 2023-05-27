@@ -5,20 +5,20 @@ add_library(engine
 	camera.cpp
 	camera_movement.cpp
 	clock.cpp
-	debug.cpp
-	index_buffer.cpp
 	inputs.cpp
 	keyboard.cpp
 	material.cpp
 	mesh.cpp
 	mouse.cpp
 	scene.cpp
-	shader.cpp
-	transform.cpp
-	vertex_array.cpp
-	vertex_layout.cpp
-	vertex.cpp
 	viewport.cpp
+	primitives/debug.cpp
 	primitives/gl_object.cpp
+	primitives/index_buffer.cpp
+	primitives/shader.cpp
 	primitives/texture.cpp
+	primitives/transform.cpp
+	primitives/vertex_array.cpp
+	primitives/vertex_layout.cpp
+	primitives/vertex.cpp
 )

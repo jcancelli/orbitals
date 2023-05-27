@@ -56,11 +56,6 @@ T Buffer<T>::read(unsigned from) const {
 }
 
 template <class T>
-GLuint Buffer<T>::id() const {
-  return m_Id;
-}
-
-template <class T>
 GLenum Buffer<T>::target() const {
   return m_Target;
 }

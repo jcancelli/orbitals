@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../math/matrix.hpp"
-#include "../math/quaternion.hpp"
-#include "../math/vector.hpp"
+#include "../../math/matrix.hpp"
+#include "../../math/quaternion.hpp"
+#include "../../math/vector.hpp"
 #include "vertex_layout.hpp"
 
 namespace orbitals {

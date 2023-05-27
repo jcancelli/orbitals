@@ -2,16 +2,14 @@
 
 #include <GLES3/gl3.h>
 
+#include "gl_object.hpp"
 #include "vertex_buffer.hpp"
 
 namespace orbitals {
 
 namespace engine {
 
-class VertexArray {
- private:
-  GLuint m_Id;
-
+class VertexArray : public GLObject {
  public:
   template <class... T>
   VertexArray(VertexBuffer<T> const*... vbos) {

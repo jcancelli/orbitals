@@ -5,15 +5,15 @@
 #include <vector>
 
 #include "debug.hpp"
+#include "gl_object.hpp"
 
 namespace orbitals {
 
 namespace engine {
 
 template <class T>
-class Buffer {
+class Buffer : public GLObject {
  private:
-  GLuint m_Id;
   GLenum m_Target;
   std::vector<T> m_Data;  // CPU side copy of data
 
@@ -25,7 +25,6 @@ class Buffer {
   void write(std::vector<T> const& data, unsigned to = 0);
   void write(T const& data, unsigned to = 0);
   T read(unsigned from) const;
-  GLuint id() const;
   GLenum target() const;
   GLsizei size() const;
   std::size_t count() const;

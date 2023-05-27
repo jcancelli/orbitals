@@ -7,7 +7,7 @@
 
 #include "../imgui/imgui.h"
 #include "../imgui/imgui_impl_opengl3.h"
-#include "debug.hpp"
+#include "primitives/debug.hpp"
 
 namespace orbitals {
 

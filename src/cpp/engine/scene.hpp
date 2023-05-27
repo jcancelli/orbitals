@@ -1,6 +1,5 @@
 #pragma once
 
-#include <algorithm>
 #include <memory>
 #include <vector>
 
@@ -8,7 +7,6 @@
 #include "inputs.hpp"
 #include "keyboard.hpp"
 #include "mesh.hpp"
-#include "uniform_buffer.hpp"
 #include "viewport.hpp"
 
 namespace orbitals {
