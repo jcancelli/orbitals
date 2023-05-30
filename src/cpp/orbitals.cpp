@@ -12,6 +12,14 @@ class Orbitals : public engine::Application {
   Orbitals(std::string const& canvasID) : Application::Application(canvasID) {
     setScene(std::shared_ptr<SampleScene>(new SampleScene));
   }
+  void onUpdate() override {
+    ImGui::SetNextWindowPos(ImVec2(0, 0));
+    ImGui::SetNextWindowBgAlpha(0.5f);
+    ImGui::Begin("#", (bool*)__null, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+    ImGui::Text((std::string("FPS: ") + std::to_string(ImGui::GetIO().Framerate)).c_str());
+    ImGui::Text((std::string("Delta: ") + std::to_string(getClock()->delta())).c_str());
+    ImGui::End();
+  }
 };
 
 EMSCRIPTEN_BINDINGS(orbitals) {
