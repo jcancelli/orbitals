@@ -14,7 +14,7 @@ vite.config.ts.timestamp-*
 /cmake-build
 /src/frontend/lib/wasm/wasm.mjs
 /static/wasm.wasm
-/static/shaders
+/static/wasm.data
 
 # VS Code
 /.vscode

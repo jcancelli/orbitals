@@ -8,6 +8,7 @@ add_link_options(
 	-sALLOW_MEMORY_GROWTH=1
 	-sENVIRONMENT=web
 	-lembind
+	--preload-file ../../../src/cpp/shaders/@/shaders/
 )
 
 add_subdirectory(math)
@@ -33,6 +34,7 @@ install(
 	PERMISSIONS OWNER_READ OWNER_WRITE
 )
 install(
-	DIRECTORY shaders/
-	DESTINATION static/shaders/
+	FILES ${CMAKE_CURRENT_BINARY_DIR}/wasm.data
+	DESTINATION static/
+	PERMISSIONS OWNER_READ OWNER_WRITE
 )
