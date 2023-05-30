@@ -13,8 +13,10 @@ add_library(engine
 	scene.cpp
 	viewport.cpp
 	primitives/debug.cpp
+	primitives/frame_buffer.cpp
 	primitives/gl_object.cpp
 	primitives/index_buffer.cpp
+	primitives/render_buffer.cpp
 	primitives/shader.cpp
 	primitives/texture.cpp
 	primitives/transform.cpp
