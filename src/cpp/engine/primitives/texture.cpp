@@ -22,6 +22,23 @@ Texture::~Texture() {
   glCall(glDeleteTextures(1, &m_Id));
 }
 
+Texture2D::Texture2D(GLsizei width, GLsizei height, GLenum format, GLint internalFormat,
+                     GLenum type, GLint minFilter = GL_LINEAR, GLint magFilter = GL_LINEAR,
+                     GLint wrapS = GL_CLAMP_TO_EDGE, GLint wrapR = GL_CLAMP_TO_EDGE,
+                     GLint wrapT = GL_CLAMP_TO_EDGE, bool genMipmap = false) {
+  bind();
+  glCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, nullptr));
+  glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter));
+  glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter));
+  glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapS));
+  glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, wrapR));
+  glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapT));
+  if (genMipmap) {
+    glCall(glGenerateMipmap(GL_TEXTURE_2D));
+  }
+  unbind();
+}
+
 void Texture2D::bind() const {
   glCall(glBindTexture(GL_TEXTURE_2D, m_Id));
 }

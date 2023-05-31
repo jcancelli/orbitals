@@ -44,6 +44,10 @@ class Texture2D : public Texture {
     }
     unbind();
   }
+  Texture2D(GLsizei width, GLsizei height, GLenum format, GLint internalFormat, GLenum type,
+            GLint minFilter = GL_LINEAR, GLint magFilter = GL_LINEAR,
+            GLint wrapS = GL_CLAMP_TO_EDGE, GLint wrapR = GL_CLAMP_TO_EDGE,
+            GLint wrapT = GL_CLAMP_TO_EDGE, bool genMipmap = false);
   void bind() const override;
   void unbind() const override;
 };
