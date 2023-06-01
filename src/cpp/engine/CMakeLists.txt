@@ -7,6 +7,7 @@ add_library(engine
 	clock.cpp
 	inputs.cpp
 	keyboard.cpp
+	light.cpp
 	material.cpp
 	mesh.cpp
 	mouse.cpp
