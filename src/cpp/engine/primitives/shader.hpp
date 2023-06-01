@@ -22,6 +22,7 @@ class Shader : public GLObject {
  public:
   Shader(std::string const& vertSrc, std::string const& fragSrc);
   ~Shader();
+  void setUniform1i(std::string const& key, GLint v0);
   void setUniform1f(std::string const& key, GLfloat v0);
   void setUniform2f(std::string const& key, GLfloat v0, GLfloat v1);
   void setUniform2f(std::string const& key, math::vec2 const& v);

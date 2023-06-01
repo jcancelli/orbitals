@@ -55,6 +55,14 @@ Shader::~Shader() {
   glCall(glDeleteProgram(m_Id));
 }
 
+void Shader::setUniform1i(std::string const& key, GLint v0) {
+  GLuint uniformLocation = getUniformLocation(key);
+  if (uniformLocation == -1) {
+    return;
+  }
+  glCall(glUniform1i(uniformLocation, v0));
+}
+
 void Shader::setUniform1f(std::string const& key, GLfloat v0) {
   GLuint uniformLocation = getUniformLocation(key);
   if (uniformLocation == -1) {
