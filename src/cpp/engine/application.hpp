@@ -6,6 +6,7 @@
 
 #include "clock.hpp"
 #include "inputs.hpp"
+#include "renderer.hpp"
 #include "scene.hpp"
 #include "viewport.hpp"
 
@@ -21,6 +22,7 @@ class Application {
   std::shared_ptr<Clock> m_Clock;
   std::shared_ptr<Inputs> m_Inputs;
   std::shared_ptr<Scene> m_Scene;
+  std::shared_ptr<Renderer> m_Renderer;
 
  public:
   Application(std::string const& canvasID);

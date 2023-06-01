@@ -45,9 +45,13 @@ class Mesh {
         m_Material(material) {
     assert(instancesCount > 0);
   }
-  void draw(std::shared_ptr<const Camera> camera, std::shared_ptr<const Viewport> viewport) const;
+  void bind() const;
+  void unbind() const;
+  unsigned getInstanceCount() const;
+  unsigned getVerticesCount() const;
+  bool isInstanced() const;
   void setMaterial(std::shared_ptr<Material> material);
-  std::shared_ptr<const Material> getMaterial() const;
+  std::shared_ptr<Material> getMaterial() const;
   void setTransform(Transform const& transform, std::size_t index = 0);
   void setTransforms(std::vector<Transform> const& transforms, std::size_t index = 0);
   Transform getTransform(std::size_t index = 0) const;

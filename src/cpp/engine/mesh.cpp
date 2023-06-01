@@ -9,34 +9,33 @@ namespace orbitals {
 
 namespace engine {
 
-void Mesh::draw(std::shared_ptr<const Camera> camera,
-                std::shared_ptr<const Viewport> viewport) const {
-  m_Material->bind();
+void Mesh::bind() const {
   m_VAO.bind();
   m_IBO.bind();
-  m_Material->getShader().setUniformMat4(                                               //
-      "uProjectionMatrix",                                                              //
-      math::perspective(camera->getFOV(), viewport->aspectRatio(), camera->getZNear(),  //
-                        camera->getZFar())                                              //
-  );                                                                                    //
-  m_Material->getShader().setUniformMat4("uViewMatrix", camera->viewMatrix());
-  m_Material->getShader().setUniform3f("uViewPosition", camera->getPosition());
-  if (m_InstancesCount > 1) {
-    glCall(
-        glDrawElementsInstanced(GL_TRIANGLES, m_IBO.count(), GL_UNSIGNED_INT, 0, m_InstancesCount));
-  } else {
-    glCall(glDrawElements(GL_TRIANGLES, m_IBO.count(), GL_UNSIGNED_INT, 0));
-  }
-  m_Material->unbind();
+}
+
+void Mesh::unbind() const {
   m_VAO.unbind();
   m_IBO.unbind();
+}
+
+unsigned Mesh::getInstanceCount() const {
+  return m_InstancesCount;
+}
+
+unsigned Mesh::getVerticesCount() const {
+  return m_IBO.count();
+}
+
+bool Mesh::isInstanced() const {
+  return m_InstancesCount > 1;
 }
 
 void Mesh::setMaterial(std::shared_ptr<Material> material) {
   m_Material = material;
 }
 
-std::shared_ptr<const Material> Mesh::getMaterial() const {
+std::shared_ptr<Material> Mesh::getMaterial() const {
   return m_Material;
 }
 

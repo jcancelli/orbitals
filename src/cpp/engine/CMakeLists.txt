@@ -11,6 +11,7 @@ add_library(engine
 	material.cpp
 	mesh.cpp
 	mouse.cpp
+	renderer.cpp
 	scene.cpp
 	viewport.cpp
 	primitives/debug.cpp

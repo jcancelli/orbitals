@@ -56,6 +56,9 @@ Application::Application(std::string const& canvasID) {
   m_Clock = std::shared_ptr<Clock>(new Clock);
   m_Clock->addOnTickListener(
       [](Clock const& clock) { ImGui::GetIO().DeltaTime = clock.delta() / 1000; });
+
+  // instantiate renderer
+  m_Renderer = std::shared_ptr<Renderer>(new Renderer(m_Viewport));
 }
 
 Application::~Application() {
@@ -100,7 +103,7 @@ EM_BOOL Application::cycle(double elapsed) {
   onUpdate();
   glCall(glClearColor(1, 1, 1, 1));
   glCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-  m_Scene->draw(m_Viewport);
+  m_Scene->draw(m_Renderer);
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
   m_Inputs->clear();
