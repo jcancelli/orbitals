@@ -23,9 +23,8 @@ Texture::~Texture() {
 }
 
 Texture2D::Texture2D(GLsizei width, GLsizei height, GLenum format, GLint internalFormat,
-                     GLenum type, GLint minFilter = GL_LINEAR, GLint magFilter = GL_LINEAR,
-                     GLint wrapS = GL_CLAMP_TO_EDGE, GLint wrapR = GL_CLAMP_TO_EDGE,
-                     GLint wrapT = GL_CLAMP_TO_EDGE, bool genMipmap = false) {
+                     GLenum type, GLint minFilter, GLint magFilter, GLint wrapS, GLint wrapR,
+                     GLint wrapT, bool genMipmap) {
   bind();
   glCall(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, nullptr));
   glCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter));
