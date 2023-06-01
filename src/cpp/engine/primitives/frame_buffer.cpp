@@ -25,8 +25,8 @@ void FrameBuffer::unbind(Target target) const {
   glCall(glBindFramebuffer(target, 0));
 }
 
-void FrameBuffer::checkIsComplete() const {
-  glCall(GLenum status = glCheckFramebufferStatus(m_Id));
+void FrameBuffer::checkIsComplete(Target target) const {
+  glCall(GLenum status = glCheckFramebufferStatus(target));
   switch (status) {
     case GL_FRAMEBUFFER_COMPLETE:
       return;

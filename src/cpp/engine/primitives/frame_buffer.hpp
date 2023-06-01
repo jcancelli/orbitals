@@ -17,7 +17,7 @@ class FrameBuffer : public GLObject {
   ~FrameBuffer();
   void bind(Target target = Default) const;
   void unbind(Target target = Default) const;
-  void checkIsComplete() const;
+  void checkIsComplete(Target target = Default) const;
   void setColorAttachment(RenderBuffer const& renderBuffer, unsigned index = 0,
                           Target target = Default) const;
   void setDepthAttachment(RenderBuffer const& renderBuffe, Target target = Default) const;
