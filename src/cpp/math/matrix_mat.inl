@@ -11,6 +11,15 @@ mat<tRows, tCols, T>::mat() {
 }
 
 template <std::size_t tRows, std::size_t tCols, class T>
+mat<tRows, tCols, T>::mat(std::array<std::array<T, tRows>, tCols> values) {
+  for (int i = 0; i < tCols; i++) {
+    for (int j = 0; j < tRows; j++) {
+      m_Value[i][j] = values[j][i];
+    }
+  }
+}
+
+template <std::size_t tRows, std::size_t tCols, class T>
 mat<tRows, tCols, T>::mat(mat<tRows, tCols, T> const& other) {
   for (int i = 0; i < tCols; i++) {
     for (int j = 0; j < tRows; j++) {

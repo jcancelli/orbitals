@@ -20,6 +20,7 @@ class mat {
 
  public:
   mat();
+  mat(std::array<std::array<T, tRows>, tCols> values);  // input is row major for better readability
   mat(mat<tRows, tCols, T> const& other);
 
   mat<tRows, tCols, T> operator+(mat<tRows, tCols, T> const& other) const;
@@ -70,6 +71,7 @@ class generic_square_mat : public mat<tSize, tSize, T> {
  public:
   generic_square_mat();
   generic_square_mat(T identityValue);
+  generic_square_mat(std::array<std::array<T, tSize>, tSize> values);
   generic_square_mat(mat<tSize, tSize, T> const& other);
 
   mat<tSize, tSize, T>& operator=(mat<tSize, tSize, T> const& other);
@@ -80,6 +82,7 @@ class generic_mat4 : public generic_square_mat<4, T> {
  public:
   generic_mat4();
   generic_mat4(T identityValue);
+  generic_mat4(std::array<std::array<T, 4>, 4> values);
   generic_mat4(mat<4, 4, T> const& other);
   generic_mat4(quat<T> const& quaternion);
 

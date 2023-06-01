@@ -16,6 +16,11 @@ generic_mat4<T>::generic_mat4(T identityValue)
 }
 
 template <class T>
+generic_mat4<T>::generic_mat4(std::array<std::array<T, 4>, 4> values)
+    : generic_square_mat<4, T>::generic_square_mat(values) {
+}
+
+template <class T>
 generic_mat4<T>::generic_mat4(mat<4, 4, T> const& other)
     : generic_square_mat<4, T>::generic_square_mat(other) {
 }
