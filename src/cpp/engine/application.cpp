@@ -4,9 +4,9 @@
 #include <emscripten.h>
 #include <emscripten/bind.h>
 #include <emscripten/html5.h>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_opengl3.h>
 
-#include "../imgui/imgui.h"
-#include "../imgui/imgui_impl_opengl3.h"
 #include "primitives/debug.hpp"
 
 namespace orbitals {

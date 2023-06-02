@@ -11,10 +11,12 @@ add_link_options(
 	--preload-file ../../../src/cpp/shaders/@/shaders/
 )
 
+include_directories(libraries)
+
 add_subdirectory(math)
 add_subdirectory(util)
 add_subdirectory(engine)
-add_subdirectory(imgui)
+add_subdirectory(libraries)
 
 add_executable(wasm.mjs orbitals.cpp)
 
