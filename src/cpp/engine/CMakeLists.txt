@@ -13,6 +13,7 @@ add_library(engine
 	mouse.cpp
 	renderer.cpp
 	scene.cpp
+	texture_test.cpp
 	viewport.cpp
 	primitives/debug.cpp
 	primitives/frame_buffer.cpp
