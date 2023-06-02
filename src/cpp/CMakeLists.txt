@@ -24,6 +24,7 @@ target_link_libraries(wasm.mjs math)
 target_link_libraries(wasm.mjs util)
 target_link_libraries(wasm.mjs engine)
 target_link_libraries(wasm.mjs imgui)
+target_link_libraries(wasm.mjs stb)
 
 install(
 	FILES ${CMAKE_CURRENT_BINARY_DIR}/wasm.mjs
