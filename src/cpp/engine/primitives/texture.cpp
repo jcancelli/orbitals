@@ -1,5 +1,7 @@
 #include "texture.hpp"
 
+#include <stb/stb_image.h>
+
 namespace orbitals {
 
 namespace engine {
@@ -44,6 +46,18 @@ void Texture2D::bind() const {
 
 void Texture2D::unbind() const {
   glCall(glBindTexture(GL_TEXTURE_2D, 0));
+}
+
+std::shared_ptr<Texture2D> load_texture2d_from_file(std::string const& path) {
+  int width, height, n;
+  stbi_set_flip_vertically_on_load(true);
+  unsigned char* data = stbi_load(path.c_str(), &width, &height, &n, 4);
+  std::vector<unsigned long> dataVector((unsigned long*)data,
+                                        (unsigned long*)(data) + width * height);
+  std::shared_ptr<Texture2D> texture(
+      new Texture2D(width, height, dataVector, GL_RGBA, GL_RGBA8, GL_UNSIGNED_BYTE));
+  stbi_image_free(data);
+  return texture;
 }
 
 }  // namespace engine

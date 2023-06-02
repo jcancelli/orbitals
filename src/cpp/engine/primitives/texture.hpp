@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <memory>
 #include <vector>
 
 #include "debug.hpp"
@@ -51,6 +52,8 @@ class Texture2D : public Texture {
   void bind() const override;
   void unbind() const override;
 };
+
+std::shared_ptr<Texture2D> load_texture2d_from_file(std::string const& path);
 
 }  // namespace engine
 
