@@ -21,12 +21,13 @@ class Scene {
   DirectionalLight m_Light;
 
  public:
-  Scene(std::shared_ptr<Camera> camera);
+  Scene();
   void draw(std::shared_ptr<Renderer> renderer) const;
   virtual void update(double deltaTime);
   virtual void handleInput(std::vector<Inputs::Event> events, Keyboard const& keyboard,
                            Mouse const& mouse);
-  std::shared_ptr<const Camera> getCamera() const;
+  void setCamera(std::shared_ptr<Camera> camera);
+  std::shared_ptr<Camera> getCamera() const;
 };
 
 }  // namespace engine

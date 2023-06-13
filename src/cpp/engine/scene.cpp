@@ -4,7 +4,7 @@ namespace orbitals {
 
 namespace engine {
 
-Scene::Scene(std::shared_ptr<Camera> camera) : m_Camera(camera) {
+Scene::Scene() {
 }
 
 void Scene::draw(std::shared_ptr<Renderer> renderer) const {
@@ -18,7 +18,11 @@ void Scene::handleInput(std::vector<Inputs::Event> events, Keyboard const& keybo
                         Mouse const& mouse) {
 }
 
-std::shared_ptr<const Camera> Scene::getCamera() const {
+void Scene::setCamera(std::shared_ptr<Camera> camera) {
+  m_Camera = camera;
+}
+
+std::shared_ptr<Camera> Scene::getCamera() const {
   return m_Camera;
 }
 
