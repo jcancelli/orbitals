@@ -15,9 +15,9 @@ class Orbitals : public engine::Application {
   void onUpdate() override {
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowBgAlpha(0.5f);
-    ImGui::Begin("#", (bool*)__null, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
-    ImGui::Text((std::string("FPS: ") + std::to_string(ImGui::GetIO().Framerate)).c_str());
-    ImGui::Text((std::string("Delta: ") + std::to_string(getClock()->delta())).c_str());
+    ImGui::Begin("#", (bool*)nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize);
+    ImGui::Text("FPS: %f", ImGui::GetIO().Framerate);
+    ImGui::Text("Delta: %f", getClock()->delta());
     ImGui::End();
   }
 };
