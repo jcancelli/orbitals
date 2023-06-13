@@ -9,7 +9,7 @@ namespace orbitals {
 namespace math {
 
 template <typename T>
-mat<4, 4, T> orthogonal(T left, T right, T bottom, T top, T zNear, T zFar) {
+mat<4, 4, T> orthografic(T left, T right, T bottom, T top, T zNear, T zFar) {
   generic_mat4<T> result(static_cast<T>(1));
   result[0][0] = static_cast<T>(2) / (right - left);
   result[1][1] = static_cast<T>(2) / (top - bottom);
