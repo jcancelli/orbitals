@@ -5,6 +5,8 @@
 #include <boost/algorithm/string.hpp>
 #include <cassert>
 
+#include "../event.hpp"
+
 namespace orbitals {
 
 namespace engine {
@@ -151,7 +153,26 @@ ImGuiKey keyToImGuiKey(Key key) {
   return keyToImGuiKeyMap[key];
 }
 
-bool Keyboard::keyIsDown(Key const& key) const {
+Keyboard::Keyboard() {
+  emscripten_set_keypress_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE,
+                                   Keyboard::keyPressedCallback);
+  emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE,
+                                  Keyboard::keyDownCallback);
+  emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE,
+                                Keyboard::keyUpCallback);
+}
+
+Keyboard::~Keyboard() {
+  emscripten_set_keypress_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE, nullptr);
+  emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE, nullptr);
+  emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE, nullptr);
+}
+
+Keyboard& Keyboard::getInstance() {
+  return s_Instance;
+}
+
+bool Keyboard::isDown(Key key) const {
   return m_State.find(key) != m_State.end() && m_State.at(key);
 }
 
@@ -165,11 +186,65 @@ std::vector<Key> Keyboard::getDownKeys() const {
   return downKeys;
 }
 
-void Keyboard::press(Key const& key) {
+unsigned Keyboard::addEventListener(util::Listeners<Event>::Listener const& listener) {
+  return m_EventListeners.add(listener);
+}
+
+void Keyboard::removeEventListener(unsigned listenerID) {
+  m_EventListeners.remove(listenerID);
+}
+
+unsigned Keyboard::addKeyDownListener(util::Listeners<Key>::Listener const& listener) {
+  return m_KeyDownListeners.add(listener);
+}
+
+void Keyboard::removeKeyDownListener(unsigned listenerID) {
+  m_KeyDownListeners.remove(listenerID);
+}
+
+unsigned Keyboard::addKeyUpListener(util::Listeners<Key>::Listener const& listener) {
+  return m_KeyUpListeners.add(listener);
+}
+
+void Keyboard::removeKeyUpListener(unsigned listenerID) {
+  m_KeyUpListeners.remove(listenerID);
+}
+
+EM_BOOL Keyboard::keyDownCallback(int eventType, const EmscriptenKeyboardEvent* emEvent,
+                                  void* userData) {
+  Keyboard& keyboard = Keyboard::getInstance();
+  Event event = {.type = (Event::Type)eventType, .keyboard = *emEvent};
+  Key key = browserStringToKey(emEvent->key);
+  keyboard.press(key);
+  keyboard.m_EventListeners.notify(event);
+  keyboard.m_KeyDownListeners.notify(key);
+  return EM_FALSE;
+}
+
+EM_BOOL Keyboard::keyUpCallback(int eventType, const EmscriptenKeyboardEvent* emEvent,
+                                void* userData) {
+  Keyboard& keyboard = Keyboard::getInstance();
+  Event event = {.type = (Event::Type)eventType, .keyboard = *emEvent};
+  Key key = browserStringToKey(emEvent->key);
+  keyboard.release(key);
+  keyboard.m_EventListeners.notify(event);
+  keyboard.m_KeyUpListeners.notify(key);
+  return EM_FALSE;
+}
+
+EM_BOOL Keyboard::keyPressedCallback(int eventType, const EmscriptenKeyboardEvent* emEvent,
+                                     void* userData) {
+  Keyboard& keyboard = Keyboard::getInstance();
+  Event event = {.type = (Event::Type)eventType, .keyboard = *emEvent};
+  keyboard.m_EventListeners.notify(event);
+  return EM_FALSE;
+}
+
+void Keyboard::press(Key key) {
   m_State[key] = true;
 }
 
-void Keyboard::release(Key const& key) {
+void Keyboard::release(Key key) {
   m_State[key] = false;
 }
 

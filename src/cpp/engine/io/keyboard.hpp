@@ -1,10 +1,13 @@
 #pragma once
 
+#include <emscripten/html5.h>
 #include <imgui/imgui.h>
 
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#include "../../util/listeners_manager.hpp"
 
 namespace orbitals {
 
@@ -79,14 +82,37 @@ Key browserStringToKey(std::string key);
 ImGuiKey keyToImGuiKey(Key key);
 
 class Keyboard {
- protected:
+ private:
+  static Keyboard s_Instance;
   std::unordered_map<Key, bool> m_State;
+  util::Listeners<Event> m_EventListeners;
+  util::Listeners<Key> m_KeyDownListeners;
+  util::Listeners<Key> m_KeyUpListeners;
+
+ private:
+  Keyboard();
+  ~Keyboard();
 
  public:
-  bool keyIsDown(Key const& key) const;
+  static Keyboard& getInstance();
+  bool isDown(Key key) const;
   std::vector<Key> getDownKeys() const;
-  void press(Key const& key);
-  void release(Key const& key);
+  unsigned addEventListener(util::Listeners<Event>::Listener const& listener);
+  void removeEventListener(unsigned listenerID);
+  unsigned addKeyDownListener(util::Listeners<Key>::Listener const& listener);
+  void removeKeyDownListener(unsigned listenerID);
+  unsigned addKeyUpListener(util::Listeners<Key>::Listener const& listener);
+  void removeKeyUpListener(unsigned listenerID);
+
+ private:
+  static EM_BOOL keyDownCallback(int eventType, const EmscriptenKeyboardEvent* keyEvent,
+                                 void* userData);
+  static EM_BOOL keyUpCallback(int eventType, const EmscriptenKeyboardEvent* keyEvent,
+                               void* userData);
+  static EM_BOOL keyPressedCallback(int eventType, const EmscriptenKeyboardEvent* keyEvent,
+                                    void* userData);
+  void press(Key key);
+  void release(Key key);
 };
 
 }  // namespace engine
