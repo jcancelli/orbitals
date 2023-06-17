@@ -195,7 +195,8 @@ float OrbitingCameraMovement::getMaxPhi() const {
 }
 
 void OrbitingCameraMovement::synchCamera() {
-  m_Camera->setPosition(math::cartesian(m_SpehericalPos) + m_Center).lookAt(m_Center);
+  m_Camera->setPosition(math::cartesian(m_SpehericalPos) + m_Center);
+  m_Camera->lookAt(m_Center);
 }
 
 }  // namespace engine
