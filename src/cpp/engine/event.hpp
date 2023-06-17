@@ -2,11 +2,13 @@
 
 #include <emscripten/html5.h>
 
-#include "viewport.hpp"
-
 namespace orbitals {
 
 namespace engine {
+
+struct ViewportEvent {
+  float width, height;
+};
 
 struct Event {
   enum class Type {
@@ -30,7 +32,7 @@ struct Event {
     EmscriptenKeyboardEvent keyboard;
     EmscriptenMouseEvent mouse;
     EmscriptenWheelEvent wheel;
-    Viewport::ResizeEvent viewport;
+    ViewportEvent viewport;
   };
 };
 
