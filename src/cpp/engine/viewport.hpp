@@ -9,17 +9,22 @@ namespace orbitals {
 namespace engine {
 
 class Viewport {
+ public:
+  struct ResizeEvent {
+    float width, height;
+  };
+
  private:
   float m_Width{0};
   float m_Height{0};
-  util::Listeners<float, float> m_ResizeListeners;
+  util::Listeners<ResizeEvent> m_ResizeListeners;
 
  public:
   float getWidth() const;
   float getHeight() const;
   void setWidth(float width);
   void setHeight(float height);
-  unsigned addResizeListener(util::Listeners<float, float>::Listener const& listener);
+  unsigned addResizeListener(util::Listeners<ResizeEvent>::Listener const& listener);
   void removeResizeListener(unsigned listenerID);
   float aspectRatio() const;
 };
