@@ -7,6 +7,24 @@ namespace orbitals {
 
 namespace engine {
 
+EM_JS(int, _getHTMLCanvasWidth, (), { return document.getElementById("viewport").width; });
+EM_JS(int, _getHTMLCanvasHeight, (), { return document.getElementById("viewport").height; });
+
+Viewport::Viewport() {
+  emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, nullptr, EM_FALSE,
+                                 Viewport::resizeCallback);
+  setWidth(_getHTMLCanvasWidth());
+  setHeight(_getHTMLCanvasHeight());
+}
+
+Viewport::~Viewport() {
+  emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE, nullptr);
+}
+
+Viewport &Viewport::getInstance() {
+  return s_Instance;
+}
+
 float Viewport::getWidth() const {
   return m_Width;
 }
@@ -15,17 +33,15 @@ float Viewport::getHeight() const {
   return m_Height;
 }
 
-void Viewport::setWidth(float width) {
-  m_Width = width;
-  m_ResizeListeners.notify({m_Width, m_Height});
+unsigned Viewport::addEventListener(util::Listeners<Event>::Listener const &listener) {
+  return m_EventListeners.add(listener);
 }
 
-void Viewport::setHeight(float height) {
-  m_Height = height;
-  m_ResizeListeners.notify({m_Width, m_Height});
+void Viewport::removeEventListener(unsigned listenerID) {
+  m_EventListeners.remove(listenerID);
 }
 
-unsigned Viewport::addResizeListener(util::Listeners<ResizeEvent>::Listener const &listener) {
+unsigned Viewport::addResizeListener(util::Listeners<float, float>::Listener const &listener) {
   return m_ResizeListeners.add(listener);
 }
 
@@ -37,30 +53,24 @@ float Viewport::aspectRatio() const {
   return m_Width / m_Height;
 }
 
-EM_JS(int, _getHTMLCanvasWidth, (char const *HTMLCanvasId),
-      { return document.getElementById(UTF8ToString(HTMLCanvasId)).width; });
-EM_JS(int, _getHTMLCanvasHeight, (char const *HTMLCanvasId),
-      { return document.getElementById(UTF8ToString(HTMLCanvasId)).height; });
-
-HTMLCanvasViewport::HTMLCanvasViewport(std::string const &canvasHTMLId)
-    : m_CanvasHTMLId(canvasHTMLId) {
-  emscripten_set_resize_callback(
-      EMSCRIPTEN_EVENT_TARGET_WINDOW, this, EM_FALSE,
-      [](int eventType, const EmscriptenUiEvent *uiEvent, void *userData) {
-        Viewport *vp = (Viewport *)userData;
-        vp->setHeight(uiEvent->windowInnerHeight);
-        vp->setWidth(uiEvent->windowInnerWidth);
-        return EM_FALSE;
-      });
-  setWidth(_getHTMLCanvasWidth(canvasHTMLId.c_str()));
-  setHeight(_getHTMLCanvasHeight(canvasHTMLId.c_str()));
-}
-HTMLCanvasViewport::~HTMLCanvasViewport() {
-  emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, this, EM_FALSE, nullptr);
+EM_BOOL Viewport::resizeCallback(int eventType, const EmscriptenUiEvent *uiEvent, void *userData) {
+  Viewport &viewport = Viewport::getInstance();
+  float width = uiEvent->windowInnerWidth;
+  float height = uiEvent->windowInnerHeight;
+  Event event = {.type = Event::Type::Viewport, .viewport = {width, height}};
+  viewport.setWidth(width);
+  viewport.setHeight(height);
+  viewport.m_EventListeners.notify(event);
+  viewport.m_ResizeListeners.notify(width, height);
+  return EM_FALSE;
 }
 
-std::string HTMLCanvasViewport::getCanvasHTMLId() const {
-  return m_CanvasHTMLId;
+void Viewport::setWidth(float width) {
+  m_Width = width;
+}
+
+void Viewport::setHeight(float height) {
+  m_Height = height;
 }
 
 }  // namespace engine
