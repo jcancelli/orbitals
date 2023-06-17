@@ -2,9 +2,9 @@
 
 #include <emscripten/html5.h>
 
-#include "../math/vector.hpp"
-#include "../util/listeners_manager.hpp"
-#include "event.hpp"
+#include "../../math/vector.hpp"
+#include "../../util/listeners_manager.hpp"
+#include "../event.hpp"
 
 namespace orbitals {
 

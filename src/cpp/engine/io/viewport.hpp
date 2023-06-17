@@ -2,8 +2,8 @@
 
 #include <string>
 
+#include "../../util/listeners_manager.hpp"
 #include "../event.hpp"
-#include "../util/listeners_manager.hpp"
 
 namespace orbitals {
 
