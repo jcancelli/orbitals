@@ -6,15 +6,15 @@ add_library(engine
 	camera_movement.cpp
 	clock.cpp
 	inputs.cpp
-	keyboard.cpp
 	light.cpp
 	material.cpp
 	mesh.cpp
-	mouse.cpp
 	renderer.cpp
 	scene.cpp
 	texture_test.cpp
-	viewport.cpp
+	io/keyboard.cpp
+	io/mouse.cpp
+	io/viewport.cpp
 	primitives/debug.cpp
 	primitives/frame_buffer.cpp
 	primitives/gl_object.cpp
