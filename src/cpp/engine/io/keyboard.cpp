@@ -153,6 +153,8 @@ ImGuiKey keyToImGuiKey(Key key) {
   return keyToImGuiKeyMap[key];
 }
 
+Keyboard Keyboard::s_Instance;
+
 Keyboard::Keyboard() {
   emscripten_set_keypress_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE,
                                    Keyboard::keyPressedCallback);

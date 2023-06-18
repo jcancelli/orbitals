@@ -10,6 +10,8 @@ namespace engine {
 EM_JS(int, _getHTMLCanvasWidth, (), { return document.getElementById("viewport").width; });
 EM_JS(int, _getHTMLCanvasHeight, (), { return document.getElementById("viewport").height; });
 
+Viewport Viewport::s_Instance;
+
 Viewport::Viewport() {
   emscripten_set_resize_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, nullptr, EM_FALSE,
                                  Viewport::resizeCallback);

@@ -6,6 +6,8 @@ namespace orbitals {
 
 namespace engine {
 
+Mouse Mouse::s_Instance;
+
 Mouse::Mouse() {
   emscripten_set_click_callback(EMSCRIPTEN_EVENT_TARGET_DOCUMENT, nullptr, EM_FALSE,
                                 Mouse::clickCallback);
