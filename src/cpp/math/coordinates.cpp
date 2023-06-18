@@ -25,7 +25,7 @@ static float inclination(float x, float y, float z) {
   return M_PI_2;
 }
 
-static float azimuth(float x, float y, float z) {
+static float azimuth(float x, float z) {
   if (z > 0) {
     return atan(x / z);
   }
@@ -46,7 +46,7 @@ vec3 spherical(float x, float y, float z) {
   return vec3(                      //
       sqrt(x * x + y * y + z * z),  // r
       inclination(x, y, z),         // inclination
-      azimuth(x, y, z)              // azimuth
+      azimuth(x, z)                 // azimuth
   );                                //
 }
 
