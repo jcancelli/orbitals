@@ -10,6 +10,7 @@ add_library(engine
 	mesh.cpp
 	renderer.cpp
 	scene.cpp
+	shapes.cpp
 	texture_test.cpp
 	io/keyboard.cpp
 	io/mouse.cpp
