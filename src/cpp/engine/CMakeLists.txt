@@ -5,7 +5,6 @@ add_library(engine
 	camera.cpp
 	camera_movement.cpp
 	clock.cpp
-	inputs.cpp
 	light.cpp
 	material.cpp
 	mesh.cpp
