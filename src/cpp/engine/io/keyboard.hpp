@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../../util/listeners_manager.hpp"
+#include "../event.hpp"
 
 namespace orbitals {
 
