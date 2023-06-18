@@ -9,5 +9,6 @@ in vec2 vTextCoords;
 out vec4 fragcolor;
 
 void main() {
-	fragcolor = texture(uTexture, vTextCoords);
+	float depthValue = texture(uTexture, vTextCoords).r;
+	fragcolor = vec4(vec3(depthValue), 1.0);
 }

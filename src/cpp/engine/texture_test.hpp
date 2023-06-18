@@ -2,13 +2,13 @@
 
 #include <memory>
 
+#include "io/viewport.hpp"
 #include "primitives/index_buffer.hpp"
 #include "primitives/shader.hpp"
 #include "primitives/texture.hpp"
 #include "primitives/vertex_array.hpp"
 #include "primitives/vertex_buffer.hpp"
 #include "primitives/vertex_layout.hpp"
-#include "viewport.hpp"
 
 namespace orbitals {
 
@@ -27,10 +27,10 @@ class Texture2DTest {
   IndexBuffer m_IBO;
   VertexArray m_VAO;
   Shader m_Shader;
-  std::shared_ptr<Viewport> m_Viewport;
+  Viewport& m_Viewport;
 
  public:
-  Texture2DTest(std::shared_ptr<Viewport> viewport);
+  Texture2DTest();
   void draw(Texture2D& texture);
 };
 

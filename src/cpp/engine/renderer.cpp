@@ -8,17 +8,23 @@ namespace orbitals {
 
 namespace engine {
 
-Renderer::Renderer(std::shared_ptr<Viewport> viewport)
+static const math::mat4 homogCoordsToTextureCoordsMatrix({
+    0.5, 0, 0, 0,      //
+    0, 0.5, 0, 0,      //
+    0, 0, 0.5, 0,      //
+    0.5, 0.5, 0.5, 1,  //
+});                    //
+
+Renderer::Renderer()
     : SHADOW_MAP_SIZE(1024),
-      m_Viewport(viewport),
       m_ShadowMapTexture(SHADOW_MAP_SIZE, SHADOW_MAP_SIZE, GL_DEPTH_COMPONENT,
                          GL_DEPTH_COMPONENT32F, GL_FLOAT),
       m_ShadowMapShader(util::read_string("shaders/shadow_map.vert"),
                         util::read_string("shaders/shadow_map.frag")) {
   m_ShadowMapFBO.setDepthAttachment(m_ShadowMapTexture);
   m_ShadowMapFBO.bind();
-  GLenum drawBuffer[1] = {GL_NONE};
-  glCall(glDrawBuffers(1, drawBuffer));
+  glCall(glDrawBuffers(0, nullptr));
+  glCall(glReadBuffer(GL_NONE));
   m_ShadowMapFBO.unbind();
 }
 
@@ -27,28 +33,22 @@ void Renderer::render(std::shared_ptr<const Camera> camera,
                       DirectionalLight const& light) {
   shadowPass(meshes, light);
   renderPass(camera, meshes, light);
+  //   textureTest.draw(m_ShadowMapTexture);
 }
 
-void Renderer::setViewport(std::shared_ptr<Viewport> viewport) {
-  m_Viewport = viewport;
-}
-
-std::shared_ptr<Viewport> Renderer::getViewport() const {
-  return m_Viewport;
+void Renderer::handleEvents(std::vector<Event> events) {
 }
 
 void Renderer::shadowPass(std::vector<std::shared_ptr<Mesh>> const& meshes,
                           DirectionalLight const& light) {
-  m_ShadowMapFBO.checkIsComplete();
   m_ShadowMapFBO.bind();
   m_ShadowMapShader.bind();
+  m_ShadowMapTexture.bind();
+  m_ShadowMapFBO.checkIsComplete();
   glCall(glViewport(0, 0, SHADOW_MAP_SIZE, SHADOW_MAP_SIZE));
-  m_ShadowMapShader.setUniformMat4(
-      "uLightViewProjMatrix",
-      math::orthogonal<float>(-25, 25, -25, 25, .1f, 2000.f) *
-          Camera(light.getInvertedDirection()).lookAt(0, 0, 0).viewMatrix());
+  glCall(glClear(GL_DEPTH_BUFFER_BIT));
+  m_ShadowMapShader.setUniformMat4("uLightSpaceMatrix", light.getCamera().getCameraMatrix());
   for (auto const& mesh : meshes) {
-    auto& shader = mesh->getMaterial()->getShader();
     mesh->bind();
     if (mesh->isInstanced()) {
       glCall(glDrawElementsInstanced(GL_TRIANGLES, mesh->getVerticesCount(), GL_UNSIGNED_INT, 0,
@@ -58,26 +58,35 @@ void Renderer::shadowPass(std::vector<std::shared_ptr<Mesh>> const& meshes,
     }
     mesh->unbind();
   }
-  m_ShadowMapFBO.unbind();
+  m_ShadowMapTexture.unbind();
   m_ShadowMapShader.unbind();
+  m_ShadowMapFBO.unbind();
 }
 
 void Renderer::renderPass(std::shared_ptr<const Camera> camera,
                           std::vector<std::shared_ptr<Mesh>> const& meshes,
                           DirectionalLight const& light) {
-  glCall(glViewport(0, 0, m_Viewport->getWidth(), m_Viewport->getHeight()));
+  Viewport& viewport = Viewport::getInstance();
+  glCall(glViewport(0, 0, viewport.getWidth(), viewport.getHeight()));
+  glCall(glClearColor(1, 1, 1, 1));
+  glCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
   for (auto const& mesh : meshes) {
     auto material = mesh->getMaterial();
     auto& shader = material->getShader();
     material->bind();
     mesh->bind();
-    shader.setUniformMat4(                                                                  //
-        "uProjectionMatrix",                                                                //
-        math::perspective(camera->getFOV(), m_Viewport->aspectRatio(), camera->getZNear(),  //
-                          camera->getZFar())                                                //
-    );                                                                                      //
-    shader.setUniformMat4("uViewMatrix", camera->viewMatrix());
+    shader.setUniformMat4("uViewProjMatrix", camera->getCameraMatrix());
+    // shader.setUniformMat4("uLightSpaceMatrix",
+    //                       //   homogCoordsToTextureCoordsMatrix *
+    //                       OrthograficCamera(0, 1, 0, -25, 25, -25, 25).getCameraMatrix());
+    shader.setUniformMat4("uLightSpaceMatrix",
+                          homogCoordsToTextureCoordsMatrix * light.getCamera().getCameraMatrix());
     shader.setUniform3f("uViewPosition", camera->getPosition());
+    m_ShadowMapTexture.bind();
+    m_ShadowMapTexture.setActive(GL_TEXTURE0);
+    shader.setUniform1i("uShadowMap", 0);
+    shader.setUniform3f("uLightColor", light.getColor());
+    shader.setUniform3f("uLightDirection", light.getInvertedDirection());
     if (mesh->isInstanced()) {
       glCall(glDrawElementsInstanced(GL_TRIANGLES, mesh->getVerticesCount(), GL_UNSIGNED_INT, 0,
                                      mesh->getInstanceCount()));
