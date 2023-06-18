@@ -2,6 +2,7 @@
 
 #include "../math/matrix.hpp"
 #include "../math/vector.hpp"
+#include "camera.hpp"
 
 namespace orbitals {
 
