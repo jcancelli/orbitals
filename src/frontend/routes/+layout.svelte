@@ -7,8 +7,6 @@
 	import type OrbitalsWasmModule from "$lib/wasm/OrbitalsWasmModule";
 	import type { Orbitals } from "$lib/wasm/OrbitalsWasmModule";
 
-	const viewportId = "viewport";
-
 	let viewportWidth: number;
 	let viewportHeight: number;
 
@@ -25,7 +23,7 @@
 			}
 		};
 		wasmModule = await loadWasmModule(moduleOverrides);
-		orbitals = await new wasmModule.Orbitals(viewportId);
+		orbitals = await new wasmModule.Orbitals();
 		orbitals.start();
 	});
 
@@ -41,7 +39,7 @@
 
 <div class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center">
 	<Viewport
-		id={viewportId}
+		id="viewport"
 		width={viewportWidth}
 		height={viewportHeight}
 	/>
