@@ -11,6 +11,7 @@
 #include "../math/trigonometry.hpp"
 #include "../util/fetch.hpp"
 #include "camera.hpp"
+#include "io/viewport.hpp"
 #include "material.hpp"
 #include "primitives/debug.hpp"
 #include "primitives/index_buffer.hpp"
@@ -18,7 +19,6 @@
 #include "primitives/uniform_buffer.hpp"
 #include "primitives/vertex_array.hpp"
 #include "primitives/vertex_buffer.hpp"
-#include "viewport.hpp"
 
 namespace orbitals {
 
