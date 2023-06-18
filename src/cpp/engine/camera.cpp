@@ -244,12 +244,12 @@ PerspectiveCamera::PerspectiveCamera() : m_FOV{defaultFOV}, m_AspectRatio{defaul
 }
 
 PerspectiveCamera::PerspectiveCamera(float x, float y, float z, float fov, float aspectRatio)
-    : Camera::Camera(x, y, z), m_FOV{defaultFOV}, m_AspectRatio{defaultAspectRatio} {
+    : Camera::Camera(x, y, z), m_FOV{fov}, m_AspectRatio{aspectRatio} {
   updateProjectionMatrix(true);
 }
 
 PerspectiveCamera::PerspectiveCamera(math::vec3 const& position, float fov, float aspectRatio)
-    : Camera::Camera(position), m_FOV{defaultFOV}, m_AspectRatio{defaultAspectRatio} {
+    : Camera::Camera(position), m_FOV{fov}, m_AspectRatio{aspectRatio} {
   updateProjectionMatrix(true);
 }
 
