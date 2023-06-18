@@ -6,7 +6,7 @@
 #include <unordered_set>
 
 #include "engine/camera_movement.hpp"
-#include "engine/keyboard.hpp"
+#include "engine/io/keyboard.hpp"
 #include "engine/primitives/vertex.hpp"
 #include "engine/scene.hpp"
 #include "math/bohr.hpp"
@@ -126,11 +126,16 @@ struct Cube {
 };
 
 struct SampleScene : public Scene {
-  OrbitingCameraMovement cameraMovement;
+  std::shared_ptr<OrbitingCameraMovement> cameraMovement;
 
-  SampleScene()
-      : Scene::Scene(std::shared_ptr<Camera>(new Camera(0, 0, -15))),
-        cameraMovement(m_Camera, vec3(0)) {
+  SampleScene() {
+    m_Camera = std::shared_ptr<Camera>(
+        new PerspectiveCamera(20, 0, 0, math::radians(45), Viewport::getInstance().aspectRatio()));
+    cameraMovement =
+        std::shared_ptr<OrbitingCameraMovement>(new OrbitingCameraMovement(m_Camera, vec3(0)));
+
+    m_Light.setEffectedVolume(-25, 25, -25, 25);
+
     int instances = 20000;
     Sphere sphere(20, 20, instances);
     SampleMaterial* spheresMaterial = (SampleMaterial*)sphere.material.get();
@@ -147,37 +152,54 @@ struct SampleScene : public Scene {
       sphere.mesh->setTransform(Transform().translate(x, y, z), i);
     }
 
-    cameraMovement.setPosition(100, M_PI_2, M_PI);
+    cameraMovement->setPosition(100, M_PI_2, M_PI);
   }
 
   void update(double deltaTime) override {
-    cameraMovement.update(deltaTime);
-  }
-
-  void handleInput(std::vector<Inputs::Event> events, Keyboard const& keyboard,
-                   Mouse const& mouse) override {
-    for (auto const& downKey : keyboard.getDownKeys()) {
+    for (auto const& downKey : Keyboard::getInstance().getDownKeys()) {
       switch (downKey) {
         case Key::ArrowUp:
-          cameraMovement.moveUp();
+          cameraMovement->moveUp();
           break;
         case Key::ArrowDown:
-          cameraMovement.moveDown();
+          cameraMovement->moveDown();
           break;
         case Key::ArrowLeft:
-          cameraMovement.moveLeft();
+          cameraMovement->moveLeft();
           break;
         case Key::ArrowRight:
-          cameraMovement.moveRight();
+          cameraMovement->moveRight();
           break;
         case Key::Shift:
-          cameraMovement.moveForward();
+          cameraMovement->moveForward();
           break;
         case Key::Ctrl:
-          cameraMovement.moveBack();
+          cameraMovement->moveBack();
           break;
         default:
           // do nothing
+          break;
+      }
+    }
+    cameraMovement->update(deltaTime);
+  }
+
+  void handleEvents(std::vector<Event> events) override {
+    for (Event const& event : events) {
+      switch (event.type) {
+        case Event::Type::Viewport:
+          std::static_pointer_cast<PerspectiveCamera>(m_Camera)->setAspectRatio(
+              event.viewport.width / event.viewport.height);
+          break;
+        case Event::Type::Wheel:
+          if (event.wheel.deltaY < 0) {
+            cameraMovement->moveForward();
+          } else {
+            cameraMovement->moveBack();
+          }
+          break;
+        default:
+          // noop
           break;
       }
     }
