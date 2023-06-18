@@ -21,9 +21,6 @@ class VertexBuffer : public Buffer<T> {
   VertexLayout const& getVertexLayout() const;
 };
 
-using VertexDataBuffer = VertexBuffer<Vertex>;
-using VertexTransformsBuffer = VertexBuffer<Transform>;
-
 }  // namespace engine
 
 }  // namespace orbitals

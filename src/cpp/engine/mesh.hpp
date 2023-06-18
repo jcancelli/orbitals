@@ -26,8 +26,8 @@ namespace engine {
 
 class Mesh {
  protected:
-  VertexDataBuffer m_GeometryVBO;
-  VertexTransformsBuffer m_TransformsVBO;
+  VertexBuffer<Vertex> m_GeometryVBO;
+  VertexBuffer<Transform> m_TransformsVBO;
   IndexBuffer m_IBO;
   VertexArray m_VAO;
   unsigned m_InstancesCount;
