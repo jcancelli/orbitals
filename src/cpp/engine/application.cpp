@@ -13,16 +13,13 @@ namespace orbitals {
 
 namespace engine {
 
-Application::Application(std::string const& canvasID) {
+Application::Application() {
   // Init WebGL context
-  using namespace std::string_literals;  // for ""s operator
   EmscriptenWebGLContextAttributes ctxAttributes;
   emscripten_webgl_init_context_attributes(&ctxAttributes);
-  std::string htmlSelector = "#"s + canvasID;
-  m_WebGLContext = emscripten_webgl_create_context(htmlSelector.c_str(), &ctxAttributes);
+  m_WebGLContext = emscripten_webgl_create_context("#viewport", &ctxAttributes);
   emscripten_webgl_make_context_current(m_WebGLContext);
-  std::cout << "--------------------------------------------------\n";
-  std::cout << glGetString(GL_VERSION) << "\n";
+  std::cout << "WebGl context created: " << glGetString(GL_VERSION) << "\n";
   glCall(glEnable(GL_DEPTH_TEST));
 
   // Setup Dear ImGui context
@@ -32,33 +29,38 @@ Application::Application(std::string const& canvasID) {
   ImGui_ImplOpenGL3_Init("#version 300 es");
 
   // Setup viewport
-  m_Viewport = std::shared_ptr<Viewport>(new HTMLCanvasViewport(canvasID));
-  m_Viewport->addResizeListener([](float width, float height) {
+  Viewport& viewport = Viewport::getInstance();
+  viewport.addResizeListener([](float width, float height) {
     ImGui::GetIO().DisplaySize.x = width;
     ImGui::GetIO().DisplaySize.y = height;
   });
-  ImGui::GetIO().DisplaySize.x = m_Viewport->getWidth();
-  ImGui::GetIO().DisplaySize.y = m_Viewport->getHeight();
+  ImGui::GetIO().DisplaySize.x = viewport.getWidth();
+  ImGui::GetIO().DisplaySize.y = viewport.getHeight();
+  viewport.addEventListener([this](Event event) { this->m_Events.push_back(event); });
 
-  // Setup inputs
-  m_Inputs = std::shared_ptr<Inputs>(new Inputs);
-  m_Inputs->addKeyDownListener(
+  // Setup keyboard
+  Keyboard& keyboard = Keyboard::getInstance();
+  keyboard.addKeyDownListener(
       [](Key key) { ImGui::GetIO().AddKeyEvent(keyToImGuiKey(key), true); });
-  m_Inputs->addKeyUpListener(
-      [](Key key) { ImGui::GetIO().AddKeyEvent(keyToImGuiKey(key), false); });
-  m_Inputs->addMouseDownListener(
+  keyboard.addKeyUpListener([](Key key) { ImGui::GetIO().AddKeyEvent(keyToImGuiKey(key), false); });
+  keyboard.addEventListener([this](Event event) { this->m_Events.push_back(event); });
+
+  // setup mouse
+  Mouse& mouse = Mouse::getInstance();
+  mouse.addOnButtonDownListener(
       [](Mouse::Button button) { ImGui::GetIO().AddMouseButtonEvent(button, true); });
-  m_Inputs->addMouseUpListener(
+  mouse.addOnButtonUpListener(
       [](Mouse::Button button) { ImGui::GetIO().AddMouseButtonEvent(button, false); });
-  m_Inputs->addMouseMoveListener([](float x, float y) { ImGui::GetIO().AddMousePosEvent(x, y); });
-  m_Inputs->addWheelListener([](float scroll) { ImGui::GetIO().AddMouseWheelEvent(0, scroll); });
+  mouse.addOnMoveListener([](float x, float y) { ImGui::GetIO().AddMousePosEvent(x, y); });
+  mouse.addOnWheelListener([](float scroll) { ImGui::GetIO().AddMouseWheelEvent(0, scroll); });
+  mouse.addEventListener([this](Event event) { this->m_Events.push_back(event); });
 
   m_Clock = std::shared_ptr<Clock>(new Clock);
   m_Clock->addOnTickListener(
       [](Clock const& clock) { ImGui::GetIO().DeltaTime = clock.delta() / 1000; });
 
   // instantiate renderer
-  m_Renderer = std::shared_ptr<Renderer>(new Renderer(m_Viewport));
+  m_Renderer = std::shared_ptr<Renderer>(new Renderer);
 }
 
 Application::~Application() {
@@ -79,16 +81,8 @@ void Application::setScene(std::shared_ptr<Scene> scene) {
   m_Scene = scene;
 }
 
-std::shared_ptr<Viewport const> Application::getViewport() const {
-  return m_Viewport;
-}
-
 std::shared_ptr<Clock const> Application::getClock() const {
   return m_Clock;
-}
-
-std::shared_ptr<Inputs> Application::getInputs() {
-  return m_Inputs;
 }
 
 void Application::onUpdate() {
@@ -98,15 +92,14 @@ EM_BOOL Application::cycle(double elapsed) {
   m_Clock->tick(elapsed);
   ImGui_ImplOpenGL3_NewFrame();
   ImGui::NewFrame();
-  m_Scene->handleInput(m_Inputs->getEvents(), m_Inputs->getKeyboard(), m_Inputs->getMouse());
+  m_Renderer->handleEvents(m_Events);
+  m_Scene->handleEvents(m_Events);
   m_Scene->update(m_Clock->delta());
   onUpdate();
-  glCall(glClearColor(1, 1, 1, 1));
-  glCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
   m_Scene->draw(m_Renderer);
   ImGui::Render();
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-  m_Inputs->clear();
+  m_Events.clear();
   return m_IsRunning;
 }
 
@@ -116,7 +109,7 @@ EM_BOOL Application::cycleWrapper(double elapsed, void* userData) {
 
 EMSCRIPTEN_BINDINGS(application) {
   emscripten::class_<Application>("Application")
-      .constructor<std::string>()
+      .constructor()
       .function("start", &Application::start)
       .function("stop", &Application::stop);
 }

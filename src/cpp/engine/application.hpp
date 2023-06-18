@@ -3,12 +3,14 @@
 #include <emscripten/html5.h>
 
 #include <memory>
+#include <vector>
 
 #include "clock.hpp"
-#include "inputs.hpp"
+#include "io/keyboard.hpp"
+#include "io/mouse.hpp"
+#include "io/viewport.hpp"
 #include "renderer.hpp"
 #include "scene.hpp"
-#include "viewport.hpp"
 
 namespace orbitals {
 
@@ -18,21 +20,18 @@ class Application {
  protected:
   EMSCRIPTEN_WEBGL_CONTEXT_HANDLE m_WebGLContext;
   EM_BOOL m_IsRunning;
-  std::shared_ptr<Viewport> m_Viewport;
+  std::vector<Event> m_Events;
   std::shared_ptr<Clock> m_Clock;
-  std::shared_ptr<Inputs> m_Inputs;
   std::shared_ptr<Scene> m_Scene;
   std::shared_ptr<Renderer> m_Renderer;
 
  public:
-  Application(std::string const& canvasID);
+  Application();
   ~Application();
   void start();
   void stop();
   void setScene(std::shared_ptr<Scene> scene);
-  std::shared_ptr<Viewport const> getViewport() const;
   std::shared_ptr<Clock const> getClock() const;
-  std::shared_ptr<Inputs> getInputs();
   virtual void onUpdate();
 
  private:
