@@ -14,6 +14,7 @@
 	let orbitals: Orbitals;
 
 	onMount(async () => {
+		console.log("#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#");
 		window.addEventListener("resize", resizeViewport);
 		resizeViewport();
 
@@ -23,7 +24,9 @@
 			}
 		};
 		wasmModule = await loadWasmModule(moduleOverrides);
+		console.log("WASM module loaded");
 		orbitals = await new wasmModule.Orbitals();
+		console.log("Orbitals object instantiated");
 		orbitals.start();
 	});
 
