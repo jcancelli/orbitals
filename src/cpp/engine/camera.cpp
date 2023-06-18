@@ -183,13 +183,13 @@ OrthograficCamera::OrthograficCamera() : m_Left{-1}, m_Right{1}, m_Bottom{-1}, m
 
 OrthograficCamera::OrthograficCamera(float x, float y, float z, float left, float right,
                                      float bottom, float top)
-    : Camera::Camera(x, y, z), m_Left{-1}, m_Right{1}, m_Bottom{-1}, m_Top{1} {
+    : Camera::Camera(x, y, z), m_Left{left}, m_Right{right}, m_Bottom{bottom}, m_Top{top} {
   updateProjectionMatrix(true);
 }
 
 OrthograficCamera::OrthograficCamera(math::vec3 const& position, float left, float right,
                                      float bottom, float top)
-    : Camera::Camera(position), m_Left{-1}, m_Right{1}, m_Bottom{-1}, m_Top{1} {
+    : Camera::Camera(position), m_Left{left}, m_Right{right}, m_Bottom{bottom}, m_Top{top} {
   updateProjectionMatrix(true);
 }
 
