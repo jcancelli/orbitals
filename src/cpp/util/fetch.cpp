@@ -11,15 +11,15 @@ namespace orbitals {
 namespace util {
 
 std::string fetch_string(const std::string& url) {
-  char** buffer = nullptr;
+  char* buffer = nullptr;
   int size, error;
-  emscripten_wget_data(url.c_str(), (void**)buffer, &size, &error);
+  emscripten_wget_data(url.c_str(), (void**)&buffer, &size, &error);
   if (error != 0) {
     std::cout << "Error while fetching string from " << url << "\n";
     assert(false);
   }
-  std::string data(*buffer, size);
-  free(*buffer);
+  std::string data(buffer, size);
+  free(buffer);
   return data;
 }
 
