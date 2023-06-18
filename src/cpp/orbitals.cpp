@@ -9,9 +9,10 @@ namespace orbitals {
 
 class Orbitals : public engine::Application {
  public:
-  Orbitals(std::string const& canvasID) : Application::Application(canvasID) {
+  Orbitals() {
     setScene(std::shared_ptr<SampleScene>(new SampleScene));
   }
+
   void onUpdate() override {
     ImGui::SetNextWindowPos(ImVec2(0, 0));
     ImGui::SetNextWindowBgAlpha(0.5f);
@@ -23,8 +24,7 @@ class Orbitals : public engine::Application {
 };
 
 EMSCRIPTEN_BINDINGS(orbitals) {
-  emscripten::class_<Orbitals, emscripten::base<engine::Application>>("Orbitals")
-      .constructor<std::string>();
+  emscripten::class_<Orbitals, emscripten::base<engine::Application>>("Orbitals").constructor();
 }
 
 }  // namespace orbitals
