@@ -11,7 +11,7 @@ namespace orbitals {
 namespace util {
 
 std::string fetch_string(const std::string& url) {
-  char** buffer;
+  char** buffer = nullptr;
   int size, error;
   emscripten_wget_data(url.c_str(), (void**)buffer, &size, &error);
   if (error != 0) {
