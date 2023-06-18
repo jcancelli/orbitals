@@ -1,0 +1,1 @@
+import{S as o,i as n,s as a,L as c,h,E as e}from"../chunks/index.e1631e9e.js";function d(s){return{c(){this.h()},l(t){c("svelte-uhmndx",document.head).forEach(h),this.h()},h(){document.title="Orbitals"},m:e,p:e,i:e,o:e,d:e}}class l extends o{constructor(t){super(),n(this,t,null,d,a,{})}}export{l as component};
