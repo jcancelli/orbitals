@@ -6,3 +6,5 @@ Implemented using WebGL and WebAssembly (compiled from C++) and served by a Svel
 
 Idea taken from [A Better Way To Picture Atoms](https://www.youtube.com/watch?v=W2Xb2GFK2yc) Youtube video
 by [MinutePhysics](https://www.youtube.com/@MinutePhysics).
+
+Try it out at [https://jcancelli.github.io/orbitals](https://jcancelli.github.io/orbitals)
