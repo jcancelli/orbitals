@@ -22,28 +22,6 @@ namespace orbitals {
 using namespace orbitals::engine;
 using namespace orbitals::math;
 
-struct SampleMaterial : public Material {
-  vec3 color;
-  float shinyness;
-
-  SampleMaterial(std::string const& shaderName, float r, float g, float b, float shinyness)
-      : Material::Material(util::read_string(std::string("./shaders/") + shaderName + ".vert"),
-                           util::read_string(std::string("./shaders/") + shaderName + ".frag")),
-        color(r, g, b),
-        shinyness(shinyness) {
-  }
-
-  void bind() override {
-    m_Shader.bind();
-    m_Shader.setUniform3f("uDiffuseColor", color);
-    m_Shader.setUniform1f("uShinyness", shinyness);
-  }
-
-  void unbind() override {
-    m_Shader.unbind();
-  }
-};
-
 struct SampleScene : public Scene {
   std::shared_ptr<OrbitingCameraMovement> cameraMovement;
 
@@ -55,11 +33,9 @@ struct SampleScene : public Scene {
 
     m_Light.setEffectedVolume(-25, 25, -25, 25);
 
-    std::shared_ptr<Material> sphereMaterial(
-        new SampleMaterial("basic", 2. / 255., 70. / 255., 196. / 255., 2));
-
     int instances = 20000;
-    std::shared_ptr<Mesh> sphere = engine::sphere(sphereMaterial, instances);
+    std::shared_ptr<Mesh> sphere =
+        engine::sphere(std::shared_ptr<Material>(new BasicMaterial), instances);
 
     m_Meshes.push_back(sphere);
 
