@@ -31,7 +31,9 @@ class OrbitingCameraMovement : public CameraMovement {
  protected:
   float m_MinR, m_MaxR, m_MaxSpeedR, m_SpeedR;  // units-of-length and units-of-length/second
   float m_MinTheta, m_MaxTheta, m_MaxSpeedTheta, m_SpeedTheta;  // radians and radians/second
+  bool m_LimitTheta;
   float m_MinPhi, m_MaxPhi, m_MaxSpeedPhi, m_SpeedPhi;          // radians and radians/second
+  bool m_LimitPhi;
   math::vec3 m_Center;         // x, y, z - The point the camera is orbiting
   math::vec3 m_SpehericalPos;  // r, theta, phi - The position of the camera in spherical coords
 
@@ -58,12 +60,22 @@ class OrbitingCameraMovement : public CameraMovement {
   void setMaxR(float value);
   void setMaxTheta(float value);
   void setMaxPhi(float value);
+  void setMaxSpeedR(float speed);
+  void setMaxSpeedTheta(float speed);
+  void setMaxSpeedPhi(float speed);
+  void setLimitTheta(bool limit);
+  void setLimitPhi(bool limit);
   float getMinR() const;
   float getMinTheta() const;
   float getMinPhi() const;
   float getMaxR() const;
   float getMaxTheta() const;
   float getMaxPhi() const;
+  float getMaxSpeedR() const;
+  float getMaxSpeedTheta() const;
+  float getMaxSpeedPhi() const;
+  bool getLimitTheta() const;
+  bool getLimitPhi() const;
 
  protected:
   void synchCamera();

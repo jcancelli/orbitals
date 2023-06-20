@@ -23,12 +23,14 @@ OrbitingCameraMovement::OrbitingCameraMovement(std::shared_ptr<Camera> camera,
       m_SpeedR{0},
       m_MinTheta{0.000001},
       m_MaxTheta{M_PI - 0.000001},
-      m_MaxSpeedTheta{static_cast<float>(math::radians(70.f))},
+      m_MaxSpeedTheta{static_cast<float>(math::radians(100.f))},
       m_SpeedTheta{0},
+      m_LimitTheta{true},
       m_MinPhi{0},
       m_MaxPhi{2 * M_PI},
-      m_MaxSpeedPhi{static_cast<float>(math::radians(70.f))},
+      m_MaxSpeedPhi{static_cast<float>(math::radians(130.f))},
       m_SpeedPhi{0},
+      m_LimitPhi{true},
       m_Center(center) {
   m_SpehericalPos =
       math::vec3(m_MinR, (m_MaxTheta + m_MinTheta) / 2.f, (m_MaxPhi + m_MinPhi) / 2.f);
@@ -37,14 +39,36 @@ OrbitingCameraMovement::OrbitingCameraMovement(std::shared_ptr<Camera> camera,
 
 void OrbitingCameraMovement::update(double deltaTime) {
   const double deltaTimeSeconds = deltaTime / 1000.;
-  const float newR = m_SpehericalPos[0] + m_SpeedR * deltaTimeSeconds;
-  const float newTheta = m_SpehericalPos[1] + m_SpeedTheta * deltaTimeSeconds;
-  const float newPhi = m_SpehericalPos[2] + m_SpeedPhi * deltaTimeSeconds;
-  m_SpehericalPos = math::vec3(                              //
-      std::min(m_MaxR, std::max(m_MinR, newR)),              //
-      std::min(m_MaxTheta, std::max(m_MinTheta, newTheta)),  //
-      std::min(m_MaxPhi, std::max(m_MinPhi, newPhi))         //
-  );                                                         //
+  float newR = m_SpehericalPos[0] + m_SpeedR * deltaTimeSeconds;
+  float newTheta = m_SpehericalPos[1] + m_SpeedTheta * deltaTimeSeconds;
+  float newPhi = m_SpehericalPos[2] + m_SpeedPhi * deltaTimeSeconds;
+  if (m_LimitTheta) {
+    newTheta = std::min(m_MaxTheta, std::max(m_MinTheta, newTheta));
+  } else {
+    while (newTheta > M_PI) {
+      newTheta -= M_PI;
+      newPhi += M_PI;
+    }
+    while (newTheta < 0) {
+      newTheta += M_PI;
+      newPhi += M_PI;
+    }
+  }
+  if (m_LimitPhi) {
+    newPhi = std::min(m_MaxPhi, std::max(m_MinPhi, newPhi));
+  } else {
+    while (newPhi > M_PI * 2) {
+      newPhi -= M_PI * 2;
+    }
+    while (newPhi < 0) {
+      newPhi += M_PI * 2;
+    }
+  }
+  m_SpehericalPos = math::vec3(                  //
+      std::min(m_MaxR, std::max(m_MinR, newR)),  //
+      newTheta,                                  //
+      newPhi                                     //
+  );                                             //
   synchCamera();
   m_SpeedR = 0;
   m_SpeedTheta = 0;
@@ -89,8 +113,12 @@ void OrbitingCameraMovement::rotateZ() {
 
 void OrbitingCameraMovement::setPosition(math::vec3 const& position) {
   assert(position[0] >= m_MinR && position[0] <= m_MaxR);
-  assert(position[1] >= m_MinTheta && position[1] <= m_MaxTheta);
-  assert(position[2] >= m_MinPhi && position[2] <= m_MaxPhi);
+  if (m_LimitTheta) {
+    assert(position[1] >= m_MinTheta && position[1] <= m_MaxTheta);
+  }
+  if (m_LimitPhi) {
+    assert(position[2] >= m_MinPhi && position[2] <= m_MaxPhi);
+  }
   m_SpehericalPos = position;
   synchCamera();
 }
@@ -170,6 +198,35 @@ void OrbitingCameraMovement::setMaxPhi(float value) {
   }
 }
 
+void OrbitingCameraMovement::setMaxSpeedR(float speed) {
+  assert(speed >= 0);
+  m_MaxSpeedR = speed;
+}
+
+void OrbitingCameraMovement::setMaxSpeedTheta(float speed) {
+  assert(speed >= 0);
+  m_MaxSpeedTheta = speed;
+}
+
+void OrbitingCameraMovement::setMaxSpeedPhi(float speed) {
+  assert(speed >= 0);
+  m_MaxSpeedPhi = speed;
+}
+
+void OrbitingCameraMovement::setLimitTheta(bool limit) {
+  m_LimitTheta = limit;
+  if (limit) {
+    m_SpehericalPos[1] = std::min(m_MaxTheta, std::max(m_MinTheta, m_SpehericalPos[1]));
+  }
+}
+
+void OrbitingCameraMovement::setLimitPhi(bool limit) {
+  m_LimitPhi = limit;
+  if (limit) {
+    m_SpehericalPos[2] = std::min(m_MaxPhi, std::max(m_MinPhi, m_SpehericalPos[2]));
+  }
+}
+
 float OrbitingCameraMovement::getMinR() const {
   return m_MinR;
 }
@@ -192,6 +249,26 @@ float OrbitingCameraMovement::getMaxTheta() const {
 
 float OrbitingCameraMovement::getMaxPhi() const {
   return m_MaxPhi;
+}
+
+float OrbitingCameraMovement::getMaxSpeedR() const {
+  return m_MaxSpeedR;
+}
+
+float OrbitingCameraMovement::getMaxSpeedTheta() const {
+  return m_MaxSpeedTheta;
+}
+
+float OrbitingCameraMovement::getMaxSpeedPhi() const {
+  return m_MaxSpeedPhi;
+}
+
+bool OrbitingCameraMovement::getLimitTheta() const {
+  return m_LimitTheta;
+}
+
+bool OrbitingCameraMovement::getLimitPhi() const {
+  return m_LimitPhi;
 }
 
 void OrbitingCameraMovement::synchCamera() {
