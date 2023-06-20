@@ -26,6 +26,8 @@ Renderer::Renderer()
   glCall(glDrawBuffers(0, nullptr));
   glCall(glReadBuffer(GL_NONE));
   m_ShadowMapFBO.unbind();
+  glCall(glEnable(GL_CULL_FACE));
+  glCall(glCullFace(GL_BACK));
 }
 
 void Renderer::render(std::shared_ptr<const Camera> camera,
