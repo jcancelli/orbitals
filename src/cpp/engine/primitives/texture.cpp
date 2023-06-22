@@ -18,6 +18,7 @@ Texture::Texture() {
 void Texture::setActive(GLenum index) const {
   assert(index - GL_TEXTURE0 < MAX_TEXTURE_UNITS);
   glCall(glActiveTexture(index));
+  bind();
 }
 
 Texture::~Texture() {
