@@ -32,7 +32,7 @@ math::vec3 DirectionalLight::getInvertedDirection() const {
 }
 
 void DirectionalLight::setInvertedDirection(math::vec3 const& invertedDirection) {
-  m_InvertedDirection = invertedDirection;
+  m_InvertedDirection = invertedDirection.normalized();
   m_Camera.setPosition(m_InvertedDirection);
 }
 
