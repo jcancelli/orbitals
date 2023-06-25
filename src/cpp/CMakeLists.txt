@@ -8,7 +8,7 @@ add_link_options(
 	-sALLOW_MEMORY_GROWTH=1
 	-sENVIRONMENT=web
 	-lembind
-	--preload-file ../../../src/cpp/shaders/@/shaders/
+	--preload-file ${orbitals_SOURCE_DIR}/src/cpp/assets/@/
 )
 
 include_directories(libraries)
