@@ -6,10 +6,8 @@ namespace orbitals {
 
 namespace engine {
 
-std::shared_ptr<Mesh> sphere(std::shared_ptr<Material> material, unsigned instancesCount) {
-  const unsigned meridians = 20;
-  const unsigned parallels = 20;
-
+std::shared_ptr<Mesh> sphere(std::shared_ptr<Material> material, unsigned instancesCount,
+                             unsigned meridians, unsigned parallels) {
   std::vector<Vertex> vertices;
   std::vector<GLuint> indices;
 
