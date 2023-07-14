@@ -19,7 +19,7 @@ Application::Application() {
   emscripten_webgl_init_context_attributes(&ctxAttributes);
   m_WebGLContext = emscripten_webgl_create_context("#viewport", &ctxAttributes);
   emscripten_webgl_make_context_current(m_WebGLContext);
-  std::cout << "WebGl context created: " << glGetString(GL_VERSION) << "\n";
+  std::cout << "[webgl] - context created: " << glGetString(GL_VERSION) << "\n";
   glCall(glEnable(GL_DEPTH_TEST));
 
   // Setup Dear ImGui context
