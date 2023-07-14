@@ -42,7 +42,6 @@ static float azimuth(float x, float z) {
 }
 
 vec3 spherical(float x, float y, float z) {
-  assert(z != 0 || x != 0);
   return vec3(                      //
       sqrt(x * x + y * y + z * z),  // r
       inclination(x, y, z),         // inclination
