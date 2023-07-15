@@ -13,12 +13,12 @@ std::shared_ptr<Mesh> sphere(std::shared_ptr<Material> material, unsigned instan
 
   double r = 0.5;
   double phiStep = (M_PI * 2) / meridians;
-  double thetaStep = M_PI / parallels;
+  double thetaStep = M_PI / (parallels + 1);
 
   // set vertices
   vertices.push_back(Vertex(math::cartesian(r, 0, 0)));
-  for (double theta = thetaStep; theta < M_PI; theta += thetaStep) {
-    for (double phi = 0; phi < M_PI * 2; phi += phiStep) {
+  for (double theta = thetaStep; theta <= M_PI - thetaStep; theta += thetaStep) {
+    for (double phi = 0; phi <= M_PI * 2 - phiStep; phi += phiStep) {
       vertices.push_back(Vertex(math::cartesian(r, theta, phi)));
     }
   }
@@ -31,34 +31,43 @@ std::shared_ptr<Mesh> sphere(std::shared_ptr<Material> material, unsigned instan
     indices.push_back(i + 1);
   }
   indices.push_back(0);
-  indices.push_back(1);
   indices.push_back(meridians);
+  indices.push_back(1);
 
-  for (int parallel = 0; parallel < parallels - 2; parallel++) {
-    for (int meridian = 0; meridian < meridians; meridian++) {
-      indices.push_back(parallel * parallels + meridian);
-      indices.push_back(parallel * parallels + meridian + parallels);
-      indices.push_back(parallel * parallels + meridian + 1);
-      indices.push_back(parallel * parallels + meridian + 1);
-      indices.push_back(parallel * parallels + meridian + parallels);
-      indices.push_back(parallel * parallels + meridian + parallels + 1);
+  for (int parallel = 0; parallel < parallels - 1; parallel++) {
+    for (int meridian = 0; meridian < meridians - 1; meridian++) {
+      indices.push_back(1 + parallel * meridians + meridian);
+      indices.push_back(1 + parallel * meridians + meridian + meridians);
+      indices.push_back(1 + parallel * meridians + meridian + 1);
+
+      indices.push_back(1 + parallel * meridians + meridian + meridians);
+      indices.push_back(1 + parallel * meridians + meridian + meridians + 1);
+      indices.push_back(1 + parallel * meridians + meridian + 1);
     }
+    indices.push_back(1 + parallel * meridians + meridians - 1);
+    indices.push_back(1 + parallel * meridians + meridians - 1 + meridians);
+    indices.push_back(1 + parallel * meridians);
+
+    indices.push_back(1 + parallel * meridians + meridians - 1 + meridians);
+    indices.push_back(1 + parallel * meridians + meridians);
+    indices.push_back(1 + parallel * meridians);
   }
 
   const int lastIndex = vertices.size() - 1;
   for (int i = lastIndex - meridians; i < lastIndex - 1; i++) {
-    indices.push_back(i);
-    indices.push_back(i + 1);
     indices.push_back(lastIndex);
+    indices.push_back(i + 1);
+    indices.push_back(i);
   }
+  indices.push_back(lastIndex);
   indices.push_back(lastIndex - meridians);
   indices.push_back(lastIndex - 1);
-  indices.push_back(lastIndex);
 
   return std::shared_ptr<Mesh>(new Mesh(vertices, indices, material, instancesCount));
 }
 
 std::shared_ptr<Mesh> cube(std::shared_ptr<Material> material, unsigned instancesCount) {
+  // FIXME: Fix cube normals, 24 vertices needed
   std::vector<Vertex> vertices{
       Vertex(-0.5, -0.5, -0.5), Vertex(-0.5, 0.5, -0.5),  // left front 	0 1
       Vertex(0.5, -0.5, -0.5),  Vertex(0.5, 0.5, -0.5),   // right front  2 3
