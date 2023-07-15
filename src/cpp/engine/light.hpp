@@ -22,7 +22,7 @@ class DirectionalLight {
   math::vec3 getInvertedDirection() const;
   void setInvertedDirection(math::vec3 const& invertedDirection);
   OrthograficCamera const& getCamera() const;
-  void setEffectedVolume(float left, float right, float bottom, float top);
+  void setEffectedVolume(float left, float right, float bottom, float top, float zNear, float zFar);
 };
 
 }  // namespace engine

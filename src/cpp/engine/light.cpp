@@ -32,7 +32,7 @@ math::vec3 DirectionalLight::getInvertedDirection() const {
 }
 
 void DirectionalLight::setInvertedDirection(math::vec3 const& invertedDirection) {
-  m_InvertedDirection = invertedDirection.normalized();
+  m_InvertedDirection = invertedDirection;
   m_Camera.setPosition(m_InvertedDirection);
 }
 
@@ -40,11 +40,14 @@ OrthograficCamera const& DirectionalLight::getCamera() const {
   return m_Camera;
 }
 
-void DirectionalLight::setEffectedVolume(float left, float right, float bottom, float top) {
+void DirectionalLight::setEffectedVolume(float left, float right, float bottom, float top,
+                                         float zNear, float zFar) {
   m_Camera.setLeft(left);
   m_Camera.setRight(right);
   m_Camera.setBottom(bottom);
   m_Camera.setTop(top);
+  m_Camera.setZNear(zNear);
+  m_Camera.setZFar(zFar);
 }
 
 }  // namespace engine
