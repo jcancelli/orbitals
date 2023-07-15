@@ -15,6 +15,7 @@
 #include "math/trigonometry.hpp"
 #include "math/vector.hpp"
 #include "math/wave_function.hpp"
+#include "orbital.hpp"
 #include "util/fs.hpp"
 
 namespace orbitals {
@@ -24,31 +25,29 @@ using namespace orbitals::math;
 
 struct SampleScene : public Scene {
   std::shared_ptr<OrbitingCameraMovement> cameraMovement;
+  std::shared_ptr<Orbital> orbital;
 
   SampleScene() {
+    int n = 6, l = 2, m = 1;
+    // int n = 1, l = 0, m = 0;
+    double maxRadius = math::estimateOrbitalRadius(n) * 2.;
+
     m_Camera = std::shared_ptr<Camera>(
         new PerspectiveCamera(20, 0, 0, math::radians(45), Viewport::getInstance().aspectRatio()));
+    m_Camera->setZFar(100000);
+    // TODO: Set Z far to maxRadius * something
     cameraMovement =
         std::shared_ptr<OrbitingCameraMovement>(new OrbitingCameraMovement(m_Camera, vec3(0)));
+    cameraMovement->setLimitPhi(false);
+    cameraMovement->setMaxSpeedR(maxRadius / 3);
+    cameraMovement->setPosition(math::estimateOrbitalRadius(n) * 4.0, M_PI_2, M_PI + M_PI_2);
 
-    m_Light.setEffectedVolume(-25, 25, -25, 25);
+    m_Light.setInvertedDirection(math::vec3(0, 1, 0));
+    m_Light.setEffectedVolume(-maxRadius, maxRadius, -maxRadius, maxRadius, 0.1, 10000);
 
-    int instances = 20000;
-    std::shared_ptr<Mesh> sphere =
-        engine::sphere(std::shared_ptr<Material>(new BasicMaterial), instances);
+    orbital = std::shared_ptr<Orbital>(new Orbital(n, l, m));
 
-    m_Meshes.push_back(sphere);
-
-    std::default_random_engine eng;
-    std::normal_distribution<float> dist;
-    for (int i = 0; i < instances; i++) {
-      float x = dist(eng) * 25;
-      float y = dist(eng) * 25;
-      float z = dist(eng) * 25;
-      sphere->setTransform(Transform().translate(x, y, z), i);
-    }
-
-    cameraMovement->setPosition(100, M_PI_2, M_PI);
+    m_Meshes.push_back(orbital->getMesh());
   }
 
   void update(double deltaTime) override {
