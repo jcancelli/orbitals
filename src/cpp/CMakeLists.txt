@@ -19,7 +19,7 @@ add_subdirectory(engine)
 add_subdirectory(libraries)
 add_subdirectory(widget)
 
-add_executable(wasm.mjs orbitals.cpp)
+add_executable(wasm.mjs orbitals.cpp orbital.cpp)
 
 target_link_libraries(wasm.mjs math)
 target_link_libraries(wasm.mjs util)
