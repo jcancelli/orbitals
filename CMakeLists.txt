@@ -8,6 +8,8 @@ set(CMAKE_CXX_COMPILER em++)
 find_package(Boost 1.81.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
+add_compile_options(-Wall -Wextra)
+
 if(DEBUG_MODE)
 	add_definitions(-DDEBUG_MODE)
 else()
