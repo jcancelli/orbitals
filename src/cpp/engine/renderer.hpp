@@ -22,7 +22,8 @@ class Renderer {
   FrameBuffer m_ShadowMapFBO;
   Texture2D m_ShadowMapTexture;
   Shader m_ShadowMapShader;
-  Texture2DTest textureTest;
+  //   Texture2DTest textureTest;
+  //   std::shared_ptr<Texture2D> testTexture;
 
  public:
   Renderer();
